@@ -1,4 +1,6 @@
 /* 테일윈드 초기세팅 */
+/* reset */
 @tailwind base;
+
 @tailwind components;
 @tailwind utilities;
