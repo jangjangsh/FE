@@ -4,3 +4,11 @@
 
 @tailwind components;
 @tailwind utilities;
+
+html {
+  font-family: 'Pretendard';
+}
+
+body {
+  @apply bg-white text-black m-0 p-0;
+}
