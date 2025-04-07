@@ -1,120 +1,113 @@
-## 🛠 프로젝트 초기 세팅 방법
+# 🛠 SSPOID 프론트엔드 프로젝트 초기 세팅 가이드
 
-팀원이 동일한 개발 환경을 갖추기 위해 아래 순서를 그대로 따라주세요.
+이 문서는 SSPOID 프론트엔드 저장소를 처음 클론한 팀원이 동일한 개발 환경을 빠르게 구축할 수 있도록 도와줍니다. 아래 절차에 따라 세팅을 진행해주세요.
 
 ---
 
-### 1. 저장소 클론
+## 1. 저장소 클론
 
-```bash
+```
 git clone https://github.com/CAPSTONE-team-21/FE.git
 cd FE
 ```
 
 ---
 
-### 2. 패키지 설치
+## 2. 패키지 설치
 
-```bash
+```
 npm install
 ```
 
-> Tailwind, ESLint, Prettier 등 모든 개발 도구가 자동 설치됩니다.
+> Tailwind, ESLint, Prettier 등 개발 도구가 자동으로 설치됩니다.
 
 ---
 
-### 3. 개발 서버 실행
+## 3. 개발 서버 실행
 
-```bash
+```
 npm run dev
 ```
 
-> 기본 포트는 http://localhost:5173
+> 기본 포트는 http://localhost:5173 입니다.
 
 ---
 
-### 4. VSCode 확장 추천
-
-아래 확장 프로그램을 설치하면 저장 시 코드 자동 정리 및 오류 수정이 가능합니다.
+## 4. 추천 VSCode 확장 프로그램
 
 - ESLint
 - Prettier – Code formatter
 - Tailwind CSS IntelliSense
 
+> 이 확장 프로그램들은 저장 시 자동 포맷팅 및 오류 수정 기능을 제공합니다.
+
 ---
 
-### 5. VSCode 설정 (자동 저장 및 수정용)
+## 5. VSCode 설정 (.vscode/settings.json)
 
-`.vscode/settings.json` 파일에 아래 내용을 추가하거나, 전역 설정에서 적용해도 됩니다.
-
-```json
+```
 {
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  }
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
 ```
 
----
+> 저장 시 자동으로 ESLint 규칙을 따라 오류를 수정하고, Prettier로 코드 포맷팅을 적용해줍니다.
 
 ---
 
-### 6. Tailwind 커스텀 색상 시스템
+## 6. ESLint & Prettier 설정
 
-`tailwind.config.js`에 다음과 같이 커스텀 색상 시스템이 정의되어 있습니다.
+ESLint와 Prettier 설정은 저장소 내 `.eslintrc.js`와 `.prettierrc` 파일에 이미 포함되어 있으며, 다음과 같은 기능을 합니다:
 
-```js
-// tailwind.config.js 발췌
-colors: {
-  main: '#00B19F',
-  'main-95': 'rgba(0, 177, 159, 0.95)',
-  'main-90': 'rgba(0, 177, 159, 0.90)',
-  ...
-  'main-5':  'rgba(0, 177, 159, 0.05)',
+- **ESLint (`.eslintrc.js`)**
 
-  gray: '#E6E6E6',
-  'gray-95': 'rgba(230, 230, 230, 0.95)',
-  ...
-  'gray-5':  'rgba(230, 230, 230, 0.05)',
+  - React, React Hooks, Tailwind CSS 관련 권장 규칙 사용
+  - Prettier와 충돌 방지를 위해 `eslint-config-prettier` 포함
+  - JSX에서 `React import` 생략 허용 (`react/react-in-jsx-scope: off`)
 
-  before: '#D2D5D6',
-  'before-95': 'rgba(210, 213, 214, 0.95)',
-  ...
-  'before-5':  'rgba(210, 213, 214, 0.05)',
-}
+- **Prettier (`.prettierrc`)**
+  - 작은따옴표, 세미콜론 사용
+  - 탭 너비 2칸, 줄 길이 100자 제한 등 스타일 지정
+
+> 설정 파일은 직접 열어보고 팀 코드 스타일을 확인해보세요.
+
+---
+
+## 7. Tailwind CSS 커스텀 색상 시스템
+
+이 프로젝트는 팀 전용 색상 시스템을 사용합니다. `tailwind.config.js`의 `extend.colors`에 정의된 변수들은 다음과 같은 방식으로 사용할 수 있습니다.
+
+### 🎨 예시: 사용 방법
+
+```
+<!-- 버튼 배경에 메인 색상 적용 -->
+<button class="bg-main hover:bg-main-hover text-white">확인</button>
+
+<!-- 회색 테두리 스타일 적용 -->
+<div class="border border-gray-stroke30"></div>
 ```
 
-- 각각의 색상은 `불투명도 5% 단위`로 세분화되어 있습니다.
-- Tailwind 클래스처럼 `bg-main-60`, `text-gray-30` 등으로 바로 사용 가능해요.
+### 주요 색상 구조
 
-> ✅ 배경 투명도는 `bg-opacity-60` 방식도 지원됩니다.
+- `main`: 브랜드 메인 컬러 (청록 계열)
+- `gray`: 회색 계열 (투명도 다양한 테두리/배경)
+- `login`, `star`, `bubble`: 기능별 포인트 컬러
+
+> ✅ 예: `bg-main-hover`, `text-gray-stroke30`, `bg-opacity-60` 등으로 활용 가능
 
 ---
 
-### 💡 `experimental.classRegex` 사용 중
+## 8. 폴더 구조
 
-```js
-experimental: {
-  classRegex: [
-    ['className="([^"]+)"', 1],
-    ['className={`([^`]+)`', 1],
-  ],
-}
 ```
-
-이 설정은 JSX 내부의 동적 `className`을 Tailwind가 감지할 수 있도록 도와줍니다.
-복잡한 class 조합에서도 Tailwind가 정상적으로 CSS를 생성할 수 있어요.
-
----
-
-### 7. 프로젝트 폴더 구조
-
-```bash
 src/
 ├── components/       # 공통 컴포넌트 (Header 등)
 ├── pages/            # Index, Login, Signup 페이지 등
-├── utils/            # 유틸 함수
+├── utils/            # 유틸 함수 및 아이콘 export 파일
 ├── App.jsx           # 전체 앱 구조
 ├── main.jsx          # 앱 진입점
 └── index.css         # Tailwind 및 전역 스타일
@@ -122,8 +115,10 @@ src/
 
 ---
 
-### 8. 기타 참고
+## 9. 기타 참고 사항
 
-- `.gitkeep`으로 빈 폴더도 유지됩니다
-- `index.html`에 title, og:meta, Pretendard 폰트 적용 완료
-- ESLint, Prettier 설정 완료
+- `.gitkeep`을 사용해 빈 폴더도 버전에 포함됩니다
+- `index.html`에 meta 태그 및 Pretendard 폰트 적용 완료
+- ESLint + Prettier 설정 완료, Tailwind 동적 class 감지 설정도 적용됨 (`experimental.classRegex`)
+
+> 이 설정을 통해 동적 className도 Tailwind에서 인식되어 최종 빌드 시 누락되지 않습니다.
