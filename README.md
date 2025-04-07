@@ -6,7 +6,7 @@
 
 ## 1. 저장소 클론
 
-```
+```bash
 git clone https://github.com/CAPSTONE-team-21/FE.git
 cd FE
 ```
@@ -15,7 +15,7 @@ cd FE
 
 ## 2. 패키지 설치
 
-```
+```bash
 npm install
 ```
 
@@ -25,11 +25,11 @@ npm install
 
 ## 3. 개발 서버 실행
 
-```
+```bash
 npm run dev
 ```
 
-> 기본 포트는 http://localhost:5173 입니다.
+> [기본 포트는 여기](http://localhost:5173) 입니다.
 
 ---
 
@@ -45,7 +45,7 @@ npm run dev
 
 ## 5. VSCode 설정 (.vscode/settings.json)
 
-```
+```bash
 {
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
@@ -83,7 +83,7 @@ ESLint와 Prettier 설정은 저장소 내 `.eslintrc.js`와 `.prettierrc` 파�
 
 ### 🎨 예시: 사용 방법
 
-```
+```bash
 <!-- 버튼 배경에 메인 색상 적용 -->
 <button class="bg-main hover:bg-main-hover text-white">확인</button>
 
@@ -97,13 +97,13 @@ ESLint와 Prettier 설정은 저장소 내 `.eslintrc.js`와 `.prettierrc` 파�
 - `gray`: 회색 계열 (투명도 다양한 테두리/배경)
 - `login`, `star`, `bubble`: 기능별 포인트 컬러
 
-> ✅ 예: `bg-main-hover`, `text-gray-stroke30`, `bg-opacity-60` 등으로 활용 가능
+> ✅ 예: `bg-main-hover`, `text-gray-stroke30` 등으로 활용 가능
 
 ---
 
 ## 8. 폴더 구조
 
-```
+```bash
 src/
 ├── components/       # 공통 컴포넌트 (Header 등)
 ├── pages/            # Index, Login, Signup 페이지 등
