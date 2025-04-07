@@ -6,7 +6,7 @@
 
 ## 1. 저장소 클론
 
-```bash
+```
 git clone https://github.com/CAPSTONE-team-21/FE.git
 cd FE
 ```
@@ -15,7 +15,7 @@ cd FE
 
 ## 2. 패키지 설치
 
-```bash
+```
 npm install
 ```
 
@@ -25,7 +25,7 @@ npm install
 
 ## 3. 개발 서버 실행
 
-```bash
+```
 npm run dev
 ```
 
@@ -45,7 +45,7 @@ npm run dev
 
 ## 5. VSCode 설정 (.vscode/settings.json)
 
-```json
+```
 {
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
@@ -55,87 +55,55 @@ npm run dev
 }
 ```
 
+> 저장 시 자동으로 ESLint 규칙을 따라 오류를 수정하고, Prettier로 코드 포맷팅을 적용해줍니다.
+
 ---
 
-## 6. Prettier와 ESLint 충돌 방지 설정
+## 6. ESLint & Prettier 설정
 
-### 🔧 Prettier 설정과 충돌 방지를 위해 아래 패키지를 설치하세요.
+ESLint와 Prettier 설정은 저장소 내 `.eslintrc.js`와 `.prettierrc` 파일에 이미 포함되어 있으며, 다음과 같은 기능을 합니다:
 
-```bash
-npm install -D eslint-config-prettier
-```
+- **ESLint (`.eslintrc.js`)**
 
-### 🔧 `.eslintrc.js`에 아래 설정을 추가하세요.
+  - React, React Hooks, Tailwind CSS 관련 권장 규칙 사용
+  - Prettier와 충돌 방지를 위해 `eslint-config-prettier` 포함
+  - JSX에서 `React import` 생략 허용 (`react/react-in-jsx-scope: off`)
 
-```js
-extends: [
-  "eslint:recommended",
-  "plugin:react/recommended",
-  "prettier"
-]
-```
+- **Prettier (`.prettierrc`)**
+  - 작은따옴표, 세미콜론 사용
+  - 탭 너비 2칸, 줄 길이 100자 제한 등 스타일 지정
+
+> 설정 파일은 직접 열어보고 팀 코드 스타일을 확인해보세요.
 
 ---
 
 ## 7. Tailwind CSS 커스텀 색상 시스템
 
-`tailwind.config.js`는 아래와 같이 커스터마이징 되어 있습니다:
+이 프로젝트는 팀 전용 색상 시스템을 사용합니다. `tailwind.config.js`의 `extend.colors`에 정의된 변수들은 다음과 같은 방식으로 사용할 수 있습니다.
 
-```js
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{js,jsx}'],
-  theme: {
-    extend: {
-      fontFamily: {
-        pretendard: ['Pretendard'],
-      },
-      colors: {
-        main: {
-          DEFAULT: 'rgb(var(--color-main) / <alpha-value>)',
-          hover: 'rgb(var(--color-main-hover) / <alpha-value>)',
-          buttonStroke: 'rgba(59, 104, 239, 0.3)',
-          buttonFill: 'rgba(59, 104, 239, 0.05)',
-          typeStroke: 'rgba(59, 104, 239, 0.1)',
-          typeBackground: 'rgba(59, 104, 239, 0.04)',
-          newChatHover: 'rgba(59, 104, 239, 0.04)',
-        },
-        login: {
-          DEFAULT: 'rgb(var(--color-login) / <alpha-value>)',
-        },
-        star: {
-          DEFAULT: 'rgb(var(--color-star) / <alpha-value>)',
-        },
-        gray: {
-          DEFAULT: 'rgb(var(--color-star) / <alpha-value>)',
-          stroke03: 'rgba(0, 0, 0, 0.03)',
-          stroke07: 'rgba(0, 0, 0, 0.07)',
-          stroke30: 'rgba(0, 0, 0, 0.3)',
-          stroke70: 'rgba(0, 0, 0, 0.7)',
-        },
-        bubble: {
-          DEFAULT: 'rgb(var(--color-bubble) / <alpha-value>)',
-        },
-      },
-    },
-  },
-  plugins: [],
-  experimental: {
-    classRegex: [
-      ['className="([^"]+)"', 1],
-      ['className={`([^`]+)`', 1],
-    ],
-  },
-};
+### 🎨 예시: 사용 방법
+
+```
+<!-- 버튼 배경에 메인 색상 적용 -->
+<button class="bg-main hover:bg-main-hover text-white">확인</button>
+
+<!-- 회색 테두리 스타일 적용 -->
+<div class="border border-gray-stroke30"></div>
 ```
 
-> ✅ 색상은 불투명도와 상태별로 세분화되어 있으며, Tailwind 클래스처럼 `bg-main-hover`, `text-gray-stroke30` 등으로 사용 가능합니다.
+### 주요 색상 구조
+
+- `main`: 브랜드 메인 컬러 (청록 계열)
+- `gray`: 회색 계열 (투명도 다양한 테두리/배경)
+- `login`, `star`, `bubble`: 기능별 포인트 컬러
+
+> ✅ 예: `bg-main-hover`, `text-gray-stroke30`, `bg-opacity-60` 등으로 활용 가능
 
 ---
 
 ## 8. 폴더 구조
 
-```bash
+```
 src/
 ├── components/       # 공통 컴포넌트 (Header 등)
 ├── pages/            # Index, Login, Signup 페이지 등
@@ -152,3 +120,5 @@ src/
 - `.gitkeep`을 사용해 빈 폴더도 버전에 포함됩니다
 - `index.html`에 meta 태그 및 Pretendard 폰트 적용 완료
 - ESLint + Prettier 설정 완료, Tailwind 동적 class 감지 설정도 적용됨 (`experimental.classRegex`)
+
+> 이 설정을 통해 동적 className도 Tailwind에서 인식되어 최종 빌드 시 누락되지 않습니다.
