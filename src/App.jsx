@@ -1,10 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-import Index from './pages/Index';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
-import Main from './pages/Main';
+import ChatMainPage from './pages/ChatMainPage';
+import ChatDetailPage from './pages/ChatDetailPage';
 import MyPage from './pages/MyPage';
-import Notfound from './pages/Notfound';
+import NotFound from './pages/NotFound';
+// import IndexPage from './pages/IndexPage';
+// import LoginPage from './pages/LoginPage';
+// import SignUpPage from './pages/SignUpPage';
 
 function App() {
   return (

@@ -1,13 +1,13 @@
 import Header from '../components/Header';
 
-const SignUp = () => {
+const ChatMainPage = () => {
   return (
     <>
       <Header />
       <div className="text-center p-10">
-        <h1 className="text-2xl font-bold">SignUp Page</h1>
+        <h1 className="text-2xl font-bold">Main Page</h1>
       </div>
     </>
   );
 };
-export default SignUp;
+export default ChatMainPage;
