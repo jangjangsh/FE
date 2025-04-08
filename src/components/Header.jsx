@@ -13,10 +13,10 @@ const Header = () => {
       {/* 조건부렌더링 */}
       <div className="flex w-full mx-auto items-center justify-between px-[42px]">
         <ChatTitle />
-        <div className="flex ml-auto gap-[16px]">
+        {/* <div className="flex ml-auto gap-[16px]">
           <FilterButton />
           <SummaryButton />
-        </div>
+        </div> */}
       </div>
       {/* 여기까지 */}
       <div className="ml-auto pr-[26px]">
