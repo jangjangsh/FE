@@ -1,12 +1,13 @@
 import Header from '../components/Header';
+import Sidebar from '../components/SideBar/SideBar';
+import ChatDetailPage from '././ChatDetailPage';
 
 const ChatMainPage = () => {
   return (
     <>
       <Header />
-      <div className="text-center p-10">
-        <h1 className="text-2xl font-bold">Main Page</h1>
-      </div>
+      <Sidebar />
+      <ChatDetailPage />
     </>
   );
 };
