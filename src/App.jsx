@@ -11,9 +11,6 @@ function App() {
   return (
     <>
       <Routes>
-        {/* 0. 공통 레이아웃 */}
-        <Route element={<Layout />} />
-
         {/* 1. 메인 (대시보드 or 초기화면 - 챗봇 세션 목록) */}
         <Route path="/" element={<ChatMainPage />} />
 
