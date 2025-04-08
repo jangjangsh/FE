@@ -17,6 +17,9 @@ const ChatTitle = ({ isHeader = false }) => {
   // 현재 선택된 세션 찾아서 currentSession에 저장
   const currentSession = chatSessions.find((session) => session.id === currentSessionId);
 
+  // 타이틀 설정되어있는지 확인
+  const isPlaceholder = currentSession.title === '제목을 입력해주세요.';
+
   // 제목이 바뀌면 inputValue도 초기화
   useEffect(() => {
     setInputValue(currentSession.title);
@@ -56,7 +59,7 @@ const ChatTitle = ({ isHeader = false }) => {
   return (
     <div
       className={`
-    flex items-center gap-[10px] text-[16px] leading-[1] text-gray/80 font-medium
+    flex items-center gap-[10px] text-[16px] leading-[1] ${isPlaceholder ? 'text-gray/80' : 'text-gray'} font-medium
     px-[16px] py-[7px] rounded-[10px]
     max-w-[250px]
     cursor-pointer
@@ -79,7 +82,9 @@ const ChatTitle = ({ isHeader = false }) => {
           onKeyDown={handleKeyDown}
         />
       ) : (
-        <span className="text-[16px] leading-[1] text-gray/80 font-medium truncate">
+        <span
+          className={`text-[16px] leading-[1] ${isPlaceholder ? 'text-gray/80' : 'text-gray'} font-medium truncate`}
+        >
           {currentSession.title}
         </span>
       )}
