@@ -1,6 +1,6 @@
 import Header from '../components/Header';
 
-const Login = () => {
+const ChatDetailPage = () => {
   return (
     <>
       <Header />
@@ -10,4 +10,4 @@ const Login = () => {
     </>
   );
 };
-export default Login;
+export default ChatDetailPage;

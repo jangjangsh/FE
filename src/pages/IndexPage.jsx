@@ -1,6 +1,6 @@
 import Header from '../components/Header';
 
-const Index = () => {
+const IndexPage = () => {
   return (
     <>
       <Header />
@@ -11,4 +11,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default IndexPage;
