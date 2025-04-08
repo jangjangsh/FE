@@ -19,10 +19,9 @@ const Header = () => {
         </div> */}
       </div>
       {/* 여기까지 */}
-      <div className="ml-auto pr-[26px]">
-        {/* w-[32px] h-[32px] */}
+      {/* <div className="ml-auto pr-[26px]">
         <HeaderProfile />
-      </div>
+      </div> */}
     </div>
   );
 };
