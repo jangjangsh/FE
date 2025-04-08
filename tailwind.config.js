@@ -23,7 +23,7 @@ export default {
           DEFAULT: 'rgb(var(--color-star) / <alpha-value>)',
         },
         gray: {
-          DEFAULT: 'rgb(var(--color-star) / <alpha-value>)',
+          DEFAULT: 'rgb(var(--color-gray) / <alpha-value>)',
           stroke03: 'rgba(0, 0, 0, 0.03)',
           stroke07: 'rgba(0, 0, 0, 0.07)',
           stroke30: 'rgba(0, 0, 0, 0.3)',
