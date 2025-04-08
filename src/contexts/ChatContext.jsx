@@ -38,10 +38,10 @@ const initData = [
 ];
 export const ChatProvider = ({ children }) => {
   // 모든 대화 세션(채팅방)을 저장하는 배열
-  const [chatSessions, setChatSessions] = useState([initData[0].id]);
+  const [chatSessions, setChatSessions] = useState(initData);
 
   // 지금 사용자가 보고 있는 대화의 ID, 사이드바에서 대화를 클릭하면 이 값이 바뀜
-  const [currentSessionId, setCurrentSessionId] = useState(null);
+  const [currentSessionId, setCurrentSessionId] = useState(initData[0].id);
 
   // ❌ 사이드바/헤더에선 사용하지 않음
   // 챗봇 응답 기다리는 중인지 아닌지 판단
@@ -126,6 +126,7 @@ export const ChatProvider = ({ children }) => {
         createChatSession,
         setCurrentSessionId,
         toggleBookmark,
+        setChatSessions,
 
         // ❌ 사이드바/헤더에선 사용하지 않음
         // isLoading,
