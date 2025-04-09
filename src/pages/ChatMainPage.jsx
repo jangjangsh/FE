@@ -5,11 +5,11 @@ import ChatSection from '../components/ChatDetailPage/ChatSection';
 
 const ChatMainPage = () => {
   return (
-    <>
+    <div className="flex flex-col h-screen">
       <Header />
       <ChatSection></ChatSection>
       <ChatInputBox></ChatInputBox>
-    </>
+    </div>
   );
 };
 export default ChatMainPage;
