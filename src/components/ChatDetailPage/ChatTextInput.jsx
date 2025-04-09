@@ -2,7 +2,7 @@
 const ChatTextInput = () => {
   return (
     <div className="w-full main-color">
-      <input className="bg-black w-full all-unset" type="text" placeholder="무엇을 추출할까요?" />
+      <input className="appearance-none border-none outline-none bg-black text-white w-full p-2" />
     </div>
   );
 };

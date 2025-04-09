@@ -35,15 +35,7 @@ export default {
       },
     },
   },
-  plugins: [
-    function ({ addUtilities }) {
-      addUtilities({
-        '.all-unset': {
-          all: 'unset',
-        },
-      });
-    },
-  ],
+  plugins: [],
   experimental: {
     // Tailwind가 className 내부의 동적 표현식을 더 잘 감지하게 해주는 설정
     classRegex: [
