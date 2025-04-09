@@ -3,7 +3,8 @@
 import IconCancel from '../assets/icon-cancel.svg';
 import IconCheckActive from '../assets/icon-check-active.svg';
 import IconCheckInactive from '../assets/icon-check-inactive.svg';
-import IconCheckNoBg from '../assets/icon-check-nobackground.svg';
+import IconCheckNoBgInactive from '../assets/icon-check-nobackground-inactive.svg';
+import IconCheckNoBgActive from '../assets/icon-check-nobackground-active.svg';
 import IconDownArrow from '../assets/icon-downarrow.svg';
 import IconEdit from '../assets/icon-edit.svg';
 import IconEye from '../assets/icon-eye.svg';
@@ -17,12 +18,15 @@ import IconMoreHorizen from '../assets/icon-more-horizen.svg';
 import IconSmile from '../assets/icon-smile.svg';
 import IconSummaryBlack from '../assets/icon-summary-black.svg';
 import IconSummaryBlue from '../assets/icon-summary-blue.svg';
+import IconSendBefore from '../assets/icon-send-before.svg';
+import IconSendAfter from '../assets/icon-send-after.svg';
 
 export {
   IconCancel,
   IconCheckActive,
   IconCheckInactive,
-  IconCheckNoBg,
+  IconCheckNoBgActive,
+  IconCheckNoBgInactive,
   IconDownArrow,
   IconEdit,
   IconEye,
@@ -36,4 +40,6 @@ export {
   IconSmile,
   IconSummaryBlack,
   IconSummaryBlue,
+  IconSendBefore,
+  IconSendAfter,
 };
