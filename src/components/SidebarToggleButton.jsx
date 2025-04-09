@@ -1,4 +1,4 @@
-import { IconMenu } from '../../utils/icons';
+import { IconMenu } from '../utils/icons';
 const SidebarToggleButton = () => {
   return (
     <div>
