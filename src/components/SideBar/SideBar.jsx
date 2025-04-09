@@ -1,17 +1,15 @@
-import SidebarToggleButton from '.././Header/SidebarToggleButton';
+import SidebarToggleButton from '../SidebarToggleButton';
 import NewChatButton from './NewChatButton';
 import SearchChatTitle from './SearchChatTitle';
 
 const SideBar = () => {
   return (
     <>
-      <div className="fixed top-0 left-0 z-50 h-screen w-[260px] bg-white border-r border-gray/10">
+      <div className="fixed top-0 left-0 z-50 h-screen w-[260px] bg-gray/10 border-r border-gray/10">
         {/* 메뉴 */}
-        <div className="px-[10px] py-5 border-b border-gray/20">
-          {/* 왼쪽 버튼 */}
-          <div className="px-[20px]">
-            <SidebarToggleButton />
-          </div>
+        {/* 왼쪽 버튼 */}
+        <div className="flex items-center px-[20px] h-[60px]">
+          <SidebarToggleButton />
         </div>
 
         {/* 새채팅 */}
