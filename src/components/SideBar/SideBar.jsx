@@ -2,10 +2,36 @@ import SidebarToggleButton from '../SidebarToggleButton';
 import NewChatButton from './NewChatButton';
 import SearchChatTitle from './SearchChatTitle';
 
+import { useContext, useEffect, useRef } from 'react';
+import { ChatContext } from '../../contexts/ChatContext';
+
 const SideBar = () => {
+  const { isSidebarOpen, setSidebarOpen } = useContext(ChatContext);
+  const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
+        setSidebarOpen(false);
+      }
+    };
+
+    if (isSidebarOpen) {
+      window.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      window.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSidebarOpen]);
+
+  if (!isSidebarOpen) return null;
   return (
     <>
-      <div className="fixed top-0 left-0 z-50 h-screen w-[260px] bg-gray/10 border-r border-gray/10">
+      <div
+        ref={sidebarRef}
+        className="fixed top-0 left-0 z-50 h-screen w-[260px] bg-gray/10 border-r border-gray/10"
+      >
         {/* 메뉴 */}
         {/* 왼쪽 버튼 */}
         <div className="flex items-center px-[20px] h-[60px]">
