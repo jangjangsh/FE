@@ -6,7 +6,7 @@ import TypeSelectorBox from './TypeSelectorBox';
 // 채팅 입력창 컨테이너
 const ChatInputBox = () => {
   return (
-    <section className="w-full mt-6">
+    <section className="w-full  mt-6">
       <div
         className="
       flex flex-col w-full
