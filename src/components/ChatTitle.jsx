@@ -78,11 +78,11 @@ const ChatTitle = ({ isHeader = false }) => {
   return (
     <div
       className={`
-    flex items-center gap-[10px] text-[16px] leading-[1] ${isPlaceholder ? 'text-gray/80' : 'text-gray'} font-medium
-    px-[16px] py-[7px] rounded-[10px]
-    max-w-[1000px]
-    cursor-pointer
-    hover:bg-gray-stroke03
+    flex items-center gap-[8px] sm:gap-[10px] text-[14px] sm:text-[16px] leading-[1]
+    ${isPlaceholder ? 'text-gray/80' : 'text-gray'} font-medium
+    px-[12px] sm:px-[16px] py-[6px] sm:py-[7px] rounded-[10px]
+    max-w-full sm:max-w-[1000px]
+    cursor-pointer hover:bg-gray-stroke03
     transition-all duration-150 ease-in-out
   `}
       onDoubleClick={() => setIsEditing(true)}
