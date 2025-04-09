@@ -21,7 +21,7 @@ import IconSummaryBlue from '../assets/icon-summary-blue.svg';
 import IconSendBefore from '../assets/icon-send-before.svg';
 import IconSendAfter from '../assets/icon-send-after.svg';
 import IconPlus from '../assets/icon-plus.svg';
-
+import IconSearch from '../assets/icon-search.svg';
 export {
   IconCancel,
   IconCheckActive,
@@ -44,4 +44,5 @@ export {
   IconSendBefore,
   IconSendAfter,
   IconPlus,
+  IconSearch,
 };
