@@ -9,8 +9,11 @@ const TypeSelector = () => {
         flex
         px-[10px] py-[6px] rounded-[10px] gap-[6px]
         text-main font-medium text-[14px]
-        bg-main-typeBackground
-        border border-main-typeStroke"
+        bg-main-typeBackground hover:bg-white
+        border border-main-typeStroke hover:border-[rgba(59,104,239,0.2)]
+        transition duration-500
+        focus:bg-white border-[rgba(59,104,239,0.2)]
+        "
       >
         <img
           className="
