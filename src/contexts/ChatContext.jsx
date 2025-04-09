@@ -7,12 +7,41 @@ import { createContext, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'; // UUID 생성용 (npm install uuid) ✨
 
 export const ChatContext = createContext();
-
+const initData = [
+  {
+    id: uuidv4(),
+    title: '지성 피부용 선크림 추천',
+    mode: 'product_detail',
+    skin_type: '지성',
+    is_bookmark: true,
+    created_at: '2024-04-01T12:00:00Z',
+    messages: [],
+  },
+  {
+    id: uuidv4(),
+    title: '트러블 케어 제품 문의',
+    mode: 'product_detail',
+    skin_type: '복합성',
+    is_bookmark: false,
+    created_at: '2024-04-02T09:30:00Z',
+    messages: [],
+  },
+  {
+    id: uuidv4(),
+    title: '건성 피부 스킨 루틴',
+    mode: 'product_detail',
+    skin_type: '건성',
+    is_bookmark: false,
+    created_at: '2024-04-03T18:45:00Z',
+    messages: [],
+  },
+];
 export const ChatProvider = ({ children }) => {
   // 모든 대화 세션(채팅방)을 저장하는 배열
-  const [chatSessions, setChatSessions] = useState([]);
+  const [chatSessions, setChatSessions] = useState(initData);
+
   // 지금 사용자가 보고 있는 대화의 ID, 사이드바에서 대화를 클릭하면 이 값이 바뀜
-  const [currentSessionId, setCurrentSessionId] = useState(null);
+  const [currentSessionId, setCurrentSessionId] = useState(initData[0].id);
 
   // ❌ 사이드바/헤더에선 사용하지 않음
   // 챗봇 응답 기다리는 중인지 아닌지 판단
@@ -97,6 +126,7 @@ export const ChatProvider = ({ children }) => {
         createChatSession,
         setCurrentSessionId,
         toggleBookmark,
+        setChatSessions,
 
         // ❌ 사이드바/헤더에선 사용하지 않음
         // isLoading,
