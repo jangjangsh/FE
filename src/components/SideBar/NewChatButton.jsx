@@ -7,7 +7,7 @@ const NewChatButton = () => {
     rounded-[15px] gap-[12px] text-main
     hover:bg-main-newChatHover "
     >
-      <img src={IconPlus} alt="채팅추가버튼" />
+      <img className="w-[20px] h-[20px]" src={IconPlus} alt="채팅추가버튼" />
       <div className="font-bold">새 채팅</div>
     </div>
   );
