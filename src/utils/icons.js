@@ -20,6 +20,7 @@ import IconSummaryBlack from '../assets/icon-summary-black.svg';
 import IconSummaryBlue from '../assets/icon-summary-blue.svg';
 import IconSendBefore from '../assets/icon-send-before.svg';
 import IconSendAfter from '../assets/icon-send-after.svg';
+import IconPlus from '../assets/icon-plus.svg';
 
 export {
   IconCancel,
@@ -42,4 +43,5 @@ export {
   IconSummaryBlue,
   IconSendBefore,
   IconSendAfter,
+  IconPlus,
 };
