@@ -56,6 +56,25 @@ const ChatTitle = ({ isHeader = false }) => {
     }
   };
 
+  // 너비 계산 함수
+  const calculateInputWidth = (text) => {
+    let width = 0;
+    for (let char of text) {
+      if (/[ㄱ-ㅎㅏ-ㅣ가-힣]/.test(char)) {
+        width += 13; // 한글
+      } else if (/[A-Z]/.test(char)) {
+        width += 10; // 영어 대문자
+      } else if (/[a-z]/.test(char)) {
+        width += 8; // 영어 소문자
+      } else if (/\d/.test(char)) {
+        width += 9; // 숫자
+      } else {
+        width += 10; // 특수문자 등 기타
+      }
+    }
+    return Math.max(width + 20, 60); // 여유 패딩 + 최소 너비 보장
+  };
+
   return (
     <div
       className={`
@@ -77,7 +96,7 @@ const ChatTitle = ({ isHeader = false }) => {
           bg-transparent border-none outline-none
           focus:outline-none focus:ring-0
           text-[16px] leading-[1] text-gray/80 font-medium truncat"
-          style={{ width: `${Math.max(inputValue.length * 13 + 15, 60)}px` }} // 길이에 따라 유동
+          style={{ width: `${calculateInputWidth(inputValue)}px` }} //입력된 글자에 따라 길이 유동적으로
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onBlur={handleSave}
