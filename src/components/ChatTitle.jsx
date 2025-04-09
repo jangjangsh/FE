@@ -61,7 +61,7 @@ const ChatTitle = ({ isHeader = false }) => {
       className={`
     flex items-center gap-[10px] text-[16px] leading-[1] ${isPlaceholder ? 'text-gray/80' : 'text-gray'} font-medium
     px-[16px] py-[7px] rounded-[10px]
-    max-w-[250px]
+    max-w-[1000px]
     cursor-pointer
     hover:bg-gray-stroke03
     transition-all duration-150 ease-in-out
@@ -73,9 +73,11 @@ const ChatTitle = ({ isHeader = false }) => {
         <input
           ref={inputRef}
           type="text"
-          className="w-full max-w-[250px] bg-transparent border-none outline-none
+          className=" w-auto min-w-[30px] max-w-[1000px]
+          bg-transparent border-none outline-none
           focus:outline-none focus:ring-0
           text-[16px] leading-[1] text-gray/80 font-medium truncat"
+          style={{ width: `${Math.max(inputValue.length * 13 + 15, 60)}px` }} // 길이에 따라 유동
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onBlur={handleSave}
@@ -83,7 +85,7 @@ const ChatTitle = ({ isHeader = false }) => {
         />
       ) : (
         <span
-          className={`text-[16px] leading-[1] ${isPlaceholder ? 'text-gray/80' : 'text-gray'} font-medium truncate`}
+          className={`w-auto text-[16px] leading-[1] ${isPlaceholder ? 'text-gray/80' : 'text-gray'} font-medium truncate`}
         >
           {currentSession.title}
         </span>
