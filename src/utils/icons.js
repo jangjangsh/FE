@@ -17,6 +17,8 @@ import IconMoreHorizen from '../assets/icon-more-horizen.svg';
 import IconSmile from '../assets/icon-smile.svg';
 import IconSummaryBlack from '../assets/icon-summary-black.svg';
 import IconSummaryBlue from '../assets/icon-summary-blue.svg';
+import IconSendBefore from '../assets/icon-send-before.svg';
+import IconSendAfter from '../assets/icon-send-after.svg';
 
 export {
   IconCancel,
@@ -36,4 +38,6 @@ export {
   IconSmile,
   IconSummaryBlack,
   IconSummaryBlue,
+  IconSendBefore,
+  IconSendAfter,
 };
