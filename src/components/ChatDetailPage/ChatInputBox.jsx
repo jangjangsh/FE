@@ -1,12 +1,29 @@
 import ChatTextInput from './ChatTextInput';
+import SendButton from './SendButton';
+import TypeSelector from './TypeSelector';
+import TypeSelectorBox from './TypeSelectorBox';
+
 // 채팅 입력창 컨테이너
 const ChatInputBox = () => {
   return (
-    <div>
-      <div>
-        <ChatTextInput />
+    <section className="w-full mt-6">
+      <div
+        className="
+      flex flex-col w-full
+      rounded-[20px]
+      border border-gray-stroke07 focus-within:border-gray-stroke10
+      shadow-[0_2px_10px_rgba(0,0,0,0.03)] focus-within:shadow-[0_2px_10px_rgba(0,0,0,0.05)]
+    "
+      >
+        <div className="flex w-full items-center px-[12px] py-[10px] border-b border-gray-stroke07">
+          <ChatTextInput />
+          <SendButton />
+        </div>
+        <div className="flex w-full items-center p-[10px]">
+          <TypeSelectorBox />
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
