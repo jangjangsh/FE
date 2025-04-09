@@ -1,13 +1,14 @@
 import Header from '../components/Header';
 import Sidebar from '../components/SideBar/SideBar';
-import ChatDetailPage from '././ChatDetailPage';
+import ChatInputBox from '../components/ChatDetailPage/ChatInputBox';
+import ChatSection from '../components/ChatDetailPage/ChatSection';
 
 const ChatMainPage = () => {
   return (
     <>
       <Header />
-      <Sidebar />
-      <ChatDetailPage />
+      <ChatSection></ChatSection>
+      <ChatInputBox></ChatInputBox>
     </>
   );
 };
