@@ -29,7 +29,8 @@ const SideBar = () => {
     <>
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-40 z-40"
+          className="fixed inset-0 bg-gray-stroke04 z-40
+          transition-opacity duration-300 ease-in-out"
           onClick={() => setSidebarOpen(false)} // 클릭 시 사이드바 닫기
         />
       )}
