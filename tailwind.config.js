@@ -24,6 +24,7 @@ export default {
         },
         gray: {
           DEFAULT: 'rgb(var(--color-gray) / <alpha-value>)',
+          stroke01: 'rgba(0, 0, 0, 0.01)',
           stroke03: 'rgba(0, 0, 0, 0.03)',
           stroke05: 'rgba(0, 0, 0, 0.05)',
           stroke07: 'rgba(0, 0, 0, 0.07)',
