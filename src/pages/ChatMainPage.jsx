@@ -1,6 +1,6 @@
 import Header from '../components/Header';
 import Sidebar from '../components/SideBar/SideBar';
-import ChatInputBox from '../components/ChatDetailPage/ChatInputBox';
+import ChatInputBox from '../components/ChatPage/ChatInputBox';
 
 const ChatMainPage = () => {
   return (
