@@ -1,12 +1,24 @@
+// import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import { IconCheckNoBgInactive } from '../../utils/icons';
 import { IconCheckNoBgActive } from '../../utils/icons';
 // 드롭다운 목록 (건성, 지성 등)
-const TypeDropDown = () => {
+const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
+  const onClickTypes = (type) => {
+    setSelectedTypes((prev) =>
+      prev.includes(type) ? prev.filter((item) => item !== type) : [...prev, type]
+    );
+  };
+
+  useEffect(() => {
+    console.log(selectedTypes);
+  }, [selectedTypes]); // 의존성 배열 추가
+
   return (
     <div>
       <ul
-        className="absolute bottom-full left-0 mb-1.5 // 피부 타입 선택 위 고정
-         bg-white w-[100px]
+        className="
+         bg-white w-full
         border border-gray-stroke03
         rounded-[10px]
       
@@ -14,6 +26,7 @@ const TypeDropDown = () => {
         p-[4px] z-10"
       >
         <li
+          onClick={() => onClickTypes('DRY')}
           className="
         flex gap-[10px] px-[10px] py-[5px] text-[14px] 
         text-gray-stroke30 hover:text-gray-stroke70 font-normal
@@ -26,6 +39,7 @@ const TypeDropDown = () => {
           건성
         </li>
         <li
+          onClick={() => onClickTypes('OILY')}
           className="
         flex gap-[10px] px-[10px] py-[5px] text-[14px] 
         text-gray-stroke30 hover:text-gray-stroke70 font-normal
@@ -38,6 +52,7 @@ const TypeDropDown = () => {
           지성
         </li>
         <li
+          onClick={() => onClickTypes('SENSITIVE')}
           className="
         flex gap-[10px] px-[10px] py-[5px] text-[14px] 
         text-gray-stroke30 hover:text-gray-stroke70 font-normal
@@ -50,6 +65,7 @@ const TypeDropDown = () => {
           민감성
         </li>
         <li
+          onClick={() => onClickTypes('COMBINATION')}
           className="
         flex gap-[10px] px-[10px] py-[5px] text-[14px] 
         text-gray-stroke30 hover:text-gray-stroke70 font-normal
