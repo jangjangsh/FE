@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ChatTextInput from './ChatTextInput';
 import SendButton from './SendButton';
 import TypeSelector from './TypeSelector';
@@ -28,8 +28,7 @@ const ChatInputBox = () => {
 
   // 피부 타입 선택 모달창 open, close
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  // const nav = useNavigate();
+  const nav = useNavigate();
 
   // 채팅 메세지 전송
   const handleSend = () => {
@@ -46,7 +45,7 @@ const ChatInputBox = () => {
 
     // 기존 메시지 + 새 메시지
     setChatMessages((prev) => [...prev, newMessage]);
-    // nav(`/chat/${sessionId}`);
+    nav(`/chat/${sessionId}`);
 
     // 입력창 초기화
     setInput('');
