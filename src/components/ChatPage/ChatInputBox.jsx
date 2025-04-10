@@ -1,10 +1,49 @@
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ChatTextInput from './ChatTextInput';
 import SendButton from './SendButton';
 import TypeSelector from './TypeSelector';
 import TypeSelectorBox from './TypeSelectorBox';
 
+const mockData = [
+  {
+    id: 1,
+    skinTypes: 'SENSITIVE',
+    message: '1번 메세지',
+  },
+  {
+    id: 2,
+    skinTypes: 'SENSITIVE',
+    message: '2번 메세지',
+  },
+];
+
 // 채팅 입력창 컨테이너
 const ChatInputBox = () => {
+  const [input, setInput] = useState('');
+  const [chatMessages, setChatMessages] = useState(mockData);
+  const idRef = useRef(3);
+  const nav = useNavigate();
+
+  const handleSend = () => {
+    if (!input.trim()) return;
+
+    const sessionId = idRef.current++;
+
+    const newMessage = {
+      id: sessionId,
+      skinTypes: 'DRY', // 지금은 임의로 고정값
+      message: input,
+    };
+
+    // 기존 메시지 + 새 메시지
+    setChatMessages((prev) => [...prev, newMessage]);
+    // nav(`/chat/${sessionId}`);
+
+    // 입력창 초기화
+    setInput('');
+  };
+
   return (
     <section className="w-full pb-3">
       <div
@@ -17,8 +56,8 @@ const ChatInputBox = () => {
     "
       >
         <div className="flex w-full px-[12px] py-[10px] border-b border-gray-stroke07">
-          <ChatTextInput />
-          <SendButton />
+          <ChatTextInput input={input} setInput={setInput} />
+          <SendButton onClick={handleSend} />
         </div>
         <div className="flex w-full items-center p-[10px]">
           <TypeSelectorBox />
