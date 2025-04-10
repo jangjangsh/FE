@@ -1,3 +1,4 @@
+// import { useRef, useEffect } from 'react';
 import { IconCheckNoBgInactive } from '../../utils/icons';
 import { IconCheckNoBgActive } from '../../utils/icons';
 // 드롭다운 목록 (건성, 지성 등)

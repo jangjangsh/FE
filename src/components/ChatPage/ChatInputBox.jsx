@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import ChatTextInput from './ChatTextInput';
 import SendButton from './SendButton';
 import TypeSelector from './TypeSelector';
@@ -26,6 +26,7 @@ const ChatInputBox = () => {
   const [chatMessages, setChatMessages] = useState(mockData);
   // 채팅 id 혹시 몰라 작성
   const idRef = useRef(3);
+
   // 피부 타입 선택 모달창 open, close
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -49,10 +50,6 @@ const ChatInputBox = () => {
 
     // 입력창 초기화
     setInput('');
-  };
-
-  const handleTypeClick = () => {
-    setIsDropdownOpen(false);
   };
 
   return (
