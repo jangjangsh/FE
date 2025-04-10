@@ -7,6 +7,7 @@ const TypeSelectorBox = ({
   setIsDropdownOpen,
   selectedTypes,
   setSelectedTypes,
+  chatMessages,
 }) => {
   const ref = useRef(null);
 
@@ -40,9 +41,8 @@ const TypeSelectorBox = ({
           setSelectedTypes={setSelectedTypes}
         />
       </div>
-      <div className="flex gap-2">
-        <TypeFilterList />
-        <TypeFilterList />
+      <div className="flex">
+        <TypeFilterList selectedTypes={selectedTypes} chatMessages={chatMessages} />
       </div>
     </div>
   );

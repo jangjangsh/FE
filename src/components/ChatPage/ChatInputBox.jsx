@@ -68,6 +68,7 @@ const ChatInputBox = () => {
         </div>
         <div className="flex w-full items-center p-[10px]">
           <TypeSelectorBox
+            chatMessages={chatMessages}
             isDropdownOpen={isDropdownOpen}
             setIsDropdownOpen={setIsDropdownOpen}
             selectedTypes={selectedTypes}
