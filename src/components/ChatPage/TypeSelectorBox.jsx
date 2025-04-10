@@ -1,7 +1,12 @@
 import { useRef, useEffect } from 'react';
 import TypeSelector from './TypeSelector';
 
-const TypeSelectorBox = ({ isDropdownOpen, setIsDropdownOpen }) => {
+const TypeSelectorBox = ({
+  isDropdownOpen,
+  setIsDropdownOpen,
+  selectedTypes,
+  setSelectedTypes,
+}) => {
   const ref = useRef(null);
 
   const onClick = () => {
@@ -26,7 +31,12 @@ const TypeSelectorBox = ({ isDropdownOpen, setIsDropdownOpen }) => {
 
   return (
     <div ref={ref}>
-      <TypeSelector onClick={onClick} isDropdownOpen={isDropdownOpen} />
+      <TypeSelector
+        onClick={onClick}
+        isDropdownOpen={isDropdownOpen}
+        selectedTypes={selectedTypes}
+        setSelectedTypes={setSelectedTypes}
+      />
     </div>
   );
 };

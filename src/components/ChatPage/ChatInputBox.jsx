@@ -8,22 +8,21 @@ import TypeSelectorBox from './TypeSelectorBox';
 const mockData = [
   {
     id: 1,
-    skinTypes: 'SENSITIVE',
+    skinTypes: ['SENSITIVE', 'DRY'],
     message: '1번 메세지',
   },
   {
     id: 2,
-    skinTypes: 'SENSITIVE',
+    skinTypes: ['SENSITIVE'],
     message: '2번 메세지',
   },
 ];
 
 // 채팅 입력창 컨테이너
 const ChatInputBox = () => {
-  // 채팅 입력 작성
-  const [input, setInput] = useState('');
-  // 메세지, 피부 타입 선택 저장
-  const [chatMessages, setChatMessages] = useState(mockData);
+  const [input, setInput] = useState(''); // 채팅 입력 작성
+  const [selectedTypes, setSelectedTypes] = useState([]); // 피부 타입 선택
+  const [chatMessages, setChatMessages] = useState(mockData); // 메세지, 피부 타입 선택 저장
   // 채팅 id 혹시 몰라 작성
   const idRef = useRef(3);
 
@@ -40,7 +39,8 @@ const ChatInputBox = () => {
 
     const newMessage = {
       id: sessionId,
-      skinTypes: 'DRY', // 지금은 임의로 고정값
+      skinTypes:
+        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'], // 기본값 설정
       message: input,
     };
 
@@ -68,7 +68,12 @@ const ChatInputBox = () => {
           <SendButton onClick={handleSend} />
         </div>
         <div className="flex w-full items-center p-[10px]">
-          <TypeSelectorBox isDropdownOpen={isDropdownOpen} setIsDropdownOpen={setIsDropdownOpen} />
+          <TypeSelectorBox
+            isDropdownOpen={isDropdownOpen}
+            setIsDropdownOpen={setIsDropdownOpen}
+            selectedTypes={selectedTypes}
+            setSelectedTypes={setSelectedTypes}
+          />
         </div>
       </div>
     </section>

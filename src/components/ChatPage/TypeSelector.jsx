@@ -1,7 +1,7 @@
 import { IconSmile } from '../../utils/icons';
 import TypeDropDown from './TypeDropdown';
 
-const TypeSelector = ({ onClick, isDropdownOpen }) => {
+const TypeSelector = ({ onClick, isDropdownOpen, selectedTypes, setSelectedTypes }) => {
   return (
     <div className="relative inline-block w-full">
       <button
@@ -18,7 +18,7 @@ const TypeSelector = ({ onClick, isDropdownOpen }) => {
       </button>
       {isDropdownOpen && (
         <div className="absolute top-full left-0 mt-1.5 w-full z-10">
-          <TypeDropDown />
+          <TypeDropDown selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} />
         </div>
       )}
     </div>
