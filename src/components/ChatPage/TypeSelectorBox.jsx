@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import TypeSelector from './TypeSelector';
+import TypeFilterList from './TypeFilterList';
 
 const TypeSelectorBox = ({
   isDropdownOpen,
@@ -30,13 +31,19 @@ const TypeSelectorBox = ({
   console.log('현재 상태: ' + isDropdownOpen);
 
   return (
-    <div ref={ref}>
-      <TypeSelector
-        onClick={onClick}
-        isDropdownOpen={isDropdownOpen}
-        selectedTypes={selectedTypes}
-        setSelectedTypes={setSelectedTypes}
-      />
+    <div className="flex gap-3">
+      <div ref={ref}>
+        <TypeSelector
+          onClick={onClick}
+          isDropdownOpen={isDropdownOpen}
+          selectedTypes={selectedTypes}
+          setSelectedTypes={setSelectedTypes}
+        />
+      </div>
+      <div className="flex gap-2">
+        <TypeFilterList />
+        <TypeFilterList />
+      </div>
     </div>
   );
 };

@@ -56,8 +56,7 @@ const ChatInputBox = () => {
     <section className="w-full pb-3">
       <div
         className="
-        fixed
-        flex flex-col w-[760px]
+      fixed flex flex-col w-[760px]
       rounded-[20px]
       border border-gray-stroke07 focus-within:border-gray-stroke10
       shadow-[0_2px_10px_rgba(0,0,0,0.03)] focus-within:shadow-[0_2px_10px_rgba(0,0,0,0.05)]

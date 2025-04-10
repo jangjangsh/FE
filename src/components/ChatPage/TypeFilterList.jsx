@@ -1,4 +1,9 @@
+import TypeFilterItem from './TypeFilterItem';
 const TypeFilterList = () => {
-  return <div>TypeFilterList 입니다!</div>;
+  return (
+    <div className="flex">
+      <TypeFilterItem />
+    </div>
+  );
 };
 export default TypeFilterList;
