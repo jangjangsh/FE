@@ -43,6 +43,9 @@ export const ChatProvider = ({ children }) => {
   // 지금 사용자가 보고 있는 대화의 ID, 사이드바에서 대화를 클릭하면 이 값이 바뀜
   const [currentSessionId, setCurrentSessionId] = useState(initData[0].id);
 
+  // 사이드바 오픈상태
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
   // ❌ 사이드바/헤더에선 사용하지 않음
   // 챗봇 응답 기다리는 중인지 아닌지 판단
   // const [isLoading, setIsLoading] = useState(false);
@@ -123,8 +126,10 @@ export const ChatProvider = ({ children }) => {
       value={{
         chatSessions,
         currentSessionId,
+        isSidebarOpen,
         createChatSession,
         setCurrentSessionId,
+        setSidebarOpen,
         toggleBookmark,
         setChatSessions,
 
