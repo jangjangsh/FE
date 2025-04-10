@@ -20,11 +20,18 @@ const mockData = [
 
 // 채팅 입력창 컨테이너
 const ChatInputBox = () => {
+  // 채팅 입력 작성
   const [input, setInput] = useState('');
+  // 메세지, 피부 타입 선택 저장
   const [chatMessages, setChatMessages] = useState(mockData);
+  // 채팅 id 혹시 몰라 작성
   const idRef = useRef(3);
-  const nav = useNavigate();
+  // 피부 타입 선택 모달창 open, close
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  // const nav = useNavigate();
+
+  // 채팅 메세지 전송
   const handleSend = () => {
     if (!input.trim()) return;
 
@@ -44,6 +51,10 @@ const ChatInputBox = () => {
     setInput('');
   };
 
+  const handleTypeClick = () => {
+    setIsDropdownOpen(false);
+  };
+
   return (
     <section className="w-full pb-3">
       <div
@@ -60,7 +71,7 @@ const ChatInputBox = () => {
           <SendButton onClick={handleSend} />
         </div>
         <div className="flex w-full items-center p-[10px]">
-          <TypeSelectorBox />
+          <TypeSelectorBox isDropdownOpen={isDropdownOpen} setIsDropdownOpen={setIsDropdownOpen} />
         </div>
       </div>
     </section>

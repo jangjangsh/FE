@@ -5,8 +5,8 @@ const TypeDropDown = () => {
   return (
     <div>
       <ul
-        className="absolute bottom-full left-0 mb-1.5 // 피부 타입 선택 위 고정
-         bg-white w-[100px]
+        className="
+         bg-white w-full
         border border-gray-stroke03
         rounded-[10px]
       

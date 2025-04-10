@@ -2,12 +2,13 @@ import { IconSmile } from '../../utils/icons';
 import TypeDropDown from './TypeDropdown';
 
 // 피부 타입 선택 버튼
-const TypeSelector = () => {
+const TypeSelector = ({ onClick, isDropdownOpen }) => {
   return (
-    <>
+    <div className="relative inline-block w-full">
       <button
+        onClick={onClick}
         className="
-        relative flex
+        flex w-full
         px-[10px] py-[6px] rounded-[10px] gap-[6px]
         text-main font-medium text-[14px]
         bg-main-typeBackground hover:bg-white
@@ -18,9 +19,13 @@ const TypeSelector = () => {
       >
         <img className="w-[16px]" src={IconSmile} alt="피부" />
         피부 타입
-        <TypeDropDown />
       </button>
-    </>
+      {isDropdownOpen && (
+        <div className="absolute bottom-full left-0 mb-1.5 w-full z-10">
+          <TypeDropDown />
+        </div>
+      )}
+    </div>
   );
 };
 
