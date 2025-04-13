@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import ChatMainPage from './pages/ChatMainPage';
 import ChatDetailPage from './pages/ChatDetailPage';
 import MyPage from './pages/MyPage';
-import NotFound from './pages/NotFound';
+// import NotFound from './pages/NotFound';
 // import IndexPage from './pages/IndexPage';
 // import LoginPage from './pages/LoginPage';
 // import SignUpPage from './pages/SignUpPage';
