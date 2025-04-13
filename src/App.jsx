@@ -24,7 +24,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
 
         {/* 4. 404 Not Found */}
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
 
         {/* 5. 인증
        <Route path="/login" element={<LoginPage />} />
