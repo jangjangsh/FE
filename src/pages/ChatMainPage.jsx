@@ -9,6 +9,7 @@ import { createChatSession } from '../utils/chat';
 
 const ChatMainPage = () => {
   // const navigate = useNavigate();
+  // 추후에 지울 것
   const handleTestPost = async () => {
     try {
       const session = await createChatSession();

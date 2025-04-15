@@ -3,7 +3,7 @@ import ChatTextInput from './ChatTextInput';
 import SendButton from './SendButton';
 import TypeSelectorBox from './TypeSelectorBox';
 import { useLocation } from 'react-router-dom';
-import { createChatSession, sendChatMessages } from '../utils/chat';
+import { createChatSession, sendChatMessages } from '../../utils/chat';
 import { useNavigate } from 'react-router-dom';
 
 // 채팅 입력창 컨테이너
