@@ -7,9 +7,11 @@ const TypeSelectorBox = ({
   setIsDropdownOpen,
   selectedTypes,
   setSelectedTypes,
-  chatMessages,
+  sessionMessages,
+  direction = 'up',
 }) => {
   const ref = useRef(null);
+  const dropdownPositionClass = direction === 'up' ? 'bottom-full mb-2' : 'top-full mt-2'; // 아래 방향은 top 기준!
 
   const onClick = () => {
     setIsDropdownOpen(true);
@@ -29,8 +31,6 @@ const TypeSelectorBox = ({
     };
   }, [ref, setIsDropdownOpen]);
 
-  console.log('현재 상태: ' + isDropdownOpen);
-
   return (
     <div className="flex gap-3">
       <div ref={ref}>
@@ -39,10 +39,12 @@ const TypeSelectorBox = ({
           isDropdownOpen={isDropdownOpen}
           selectedTypes={selectedTypes}
           setSelectedTypes={setSelectedTypes}
+          dropdownPositionClass={dropdownPositionClass}
+          direction={direction}
         />
       </div>
       <div className="flex">
-        <TypeFilterList selectedTypes={selectedTypes} chatMessages={chatMessages} />
+        <TypeFilterList selectedTypes={selectedTypes} sessionMessages={sessionMessages} />
       </div>
     </div>
   );

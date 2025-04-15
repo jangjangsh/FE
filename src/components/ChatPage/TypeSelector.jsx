@@ -1,7 +1,13 @@
 import { IconSmile } from '../../utils/icons';
 import TypeDropDown from './TypeDropdown';
 
-const TypeSelector = ({ onClick, isDropdownOpen, selectedTypes, setSelectedTypes }) => {
+const TypeSelector = ({
+  onClick,
+  isDropdownOpen,
+  selectedTypes,
+  setSelectedTypes,
+  dropdownPositionClass,
+}) => {
   return (
     <div className="relative inline-block w-full">
       <button
@@ -17,7 +23,7 @@ const TypeSelector = ({ onClick, isDropdownOpen, selectedTypes, setSelectedTypes
         피부 타입
       </button>
       {isDropdownOpen && (
-        <div className="absolute top-full left-0 mt-1.5 w-full z-10">
+        <div className={`absolute ${dropdownPositionClass} left-0 w-full z-10`}>
           <TypeDropDown selectedTypes={selectedTypes} setSelectedTypes={setSelectedTypes} />
         </div>
       )}
