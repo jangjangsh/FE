@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://43.203.173.135',
+  baseURL: 'https://api.sspoid.site',
   withCredentials: true,
 });
 
