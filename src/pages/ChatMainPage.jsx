@@ -10,14 +10,14 @@ import { createChatSession } from '../utils/chat';
 const ChatMainPage = () => {
   // const navigate = useNavigate();
   // 추후에 지울 것
-  const handleTestPost = async () => {
-    try {
-      const session = await createChatSession();
-      console.log('✅ 세션 생성 성공:', session); // 응답 확인!
-    } catch (error) {
-      console.error('❌ 세션 생성 실패:', error);
-    }
-  };
+  // const handleTestPost = async () => {
+  //   try {
+  //     const session = await createChatSession();
+  //     console.log('✅ 세션 생성 성공:', session); // 응답 확인!
+  //   } catch (error) {
+  //     console.error('❌ 세션 생성 실패:', error);
+  //   }
+  // };
 
   return (
     <ChatProvider>
@@ -31,7 +31,7 @@ const ChatMainPage = () => {
             <span className="text-main">스포이드</span>로 추출하세요.
           </div>
 
-          <ChatInputBox handleTestPost={handleTestPost} />
+          <ChatInputBox />
         </div>
       </div>
     </ChatProvider>

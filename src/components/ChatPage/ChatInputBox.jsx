@@ -33,10 +33,12 @@ const ChatInputBox = () => {
   const handleTestPost = async () => {
     if (!input.trim()) return;
 
+    const skinTypesToSend =
+      selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'];
+
     const userMessage = {
       sender: 'USER',
-      skinTypes:
-        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
+      skinTypes: skinTypesToSend,
       message: input,
     };
 
@@ -44,23 +46,26 @@ const ChatInputBox = () => {
     setInput('');
 
     try {
-      const session = await createChatSession(); // 🔹 새로운 세션 생성
+      const session = await createChatSession();
       const newSessionId = session.sessionId;
 
-      // 🔹 백엔드에 메시지 전송
-      const botResponse = await sendChatMessages(
+      // 🔹 메시지 전송
+      const botResponses = await sendChatMessages(
         newSessionId,
         userMessage.message,
         userMessage.skinTypes
       );
 
-      const botMessage = {
-        sender: 'BOT',
-        message: botResponse.message,
-      };
-      setSessionMessages((prev) => [...prev, botMessage]);
+      // 🔹 여러 개의 BOT 응답 처리
+      const botMessages = botResponses.map((res) => ({
+        sender: res.sender,
+        message: res.message,
+        skinType: res.skinType,
+      }));
 
-      // 🔹 DetailPage로 이동
+      setSessionMessages((prev) => [...prev, ...botMessages]);
+
+      // 🔹 페이지 이동은 마지막에!
       navigate(`/chat/${newSessionId}`);
     } catch (error) {
       console.error('❌ 세션 생성 또는 메시지 전송 실패:', error);
