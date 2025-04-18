@@ -45,6 +45,11 @@ const ChatInputBox = () => {
     setSessionMessages((prev) => [...prev, userMessage]);
     setInput('');
 
+    console.log('👉 전송 데이터:', {
+      message: userMessage.message,
+      skinTypes: userMessage.skinTypes,
+    });
+
     try {
       const session = await createChatSession();
       const newSessionId = session.sessionId;
