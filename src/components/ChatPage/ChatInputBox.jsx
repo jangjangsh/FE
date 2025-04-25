@@ -25,52 +25,36 @@ const ChatInputBox = () => {
   const isDetailPage = location.pathname.includes('/chat/');
   const navigate = useNavigate();
 
-  // const onSend = () => {
-  //   handleSend();
-  //   // nav('/chat/1'); // 예시: sessionId를 1번으로 가정
-  // };
-
+  // 새로운 세션 생성 후 메세지 전송, 세션 이동
   const handleTestPost = async () => {
     if (!input.trim()) return;
-
-    const skinTypesToSend =
-      selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'];
-
-    const userMessage = {
-      sender: 'USER',
-      skinTypes: skinTypesToSend,
+    // user 메세지 전체 body
+    const body = {
       message: input,
+      skinTypes:
+        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
     };
 
-    setSessionMessages((prev) => [...prev, userMessage]);
-    setInput('');
-
-    console.log('👉 전송 데이터:', {
-      message: userMessage.message,
-      skinTypes: userMessage.skinTypes,
-    });
+    console.log('👉 전송 데이터:', body);
 
     try {
-      const session = await createChatSession();
+      // 세션 생성
+      const session = await createChatSession(); // 백엔드에 새 세션 만들고 받아온 응답 데이터 (createChatSession 호출해서 요청이 간 결과값)
       const newSessionId = session.sessionId;
 
-      // 🔹 메시지 전송
-      const botResponses = await sendChatMessages(
-        newSessionId,
-        userMessage.message,
-        userMessage.skinTypes
-      );
+      // 메시지 전송 후
+      const botResponses = await sendChatMessages(newSessionId, body.message, body.skinTypes);
 
-      // 🔹 여러 개의 BOT 응답 처리
       const botMessages = botResponses.map((res) => ({
         sender: res.sender,
         message: res.message,
-        skinType: res.skinType,
+        skinTypes: res.skinType,
       }));
+      // 🔹 사용자 메시지 + 봇 메시지 합치기
+      setSessionMessages((prev) => [...prev, body, ...botMessages]);
+      setInput(''); // 입력창 비우기
 
-      setSessionMessages((prev) => [...prev, ...botMessages]);
-
-      // 🔹 페이지 이동은 마지막에!
+      // 🔹 페이지 이동
       navigate(`/chat/${newSessionId}`);
     } catch (error) {
       console.error('❌ 세션 생성 또는 메시지 전송 실패:', error);

@@ -2,10 +2,10 @@ import api from './api'; // axios 인스턴스
 
 // 🟢 세션 생성
 export const createChatSession = async () => {
-  // 메세지 보내고 세션 생성
+  // 세션을 먼저 받을 것
   try {
     const { data } = await api.post('/api/chat/sessions');
-    return data;
+    return data; // sessionId가 담겨져서 옴
   } catch (error) {
     console.error('실패', error);
     throw error;
@@ -24,9 +24,9 @@ export const getChatSessionList = async () => {
 };
 
 // 🔵 메시지 전송
-export const sendChatMessages = async (sessionId, message, skinTypes) => {
+export const sendChatMessages = async (sessionId, body) => {
   try {
-    const { data } = await api.post(`/api/chat/${sessionId}/messages`, { message, skinTypes });
+    const { data } = await api.post(`/api/chat/${sessionId}/messages`, body);
     return data;
   } catch (error) {
     console.error('메시지 전송 실패:', error);
