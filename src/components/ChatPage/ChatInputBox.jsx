@@ -43,7 +43,7 @@ const ChatInputBox = () => {
       const newSessionId = session.sessionId;
 
       // 메시지 전송 후
-      const botResponses = await sendChatMessages(newSessionId, body.message, body.skinTypes);
+      const botResponses = await sendChatMessages(newSessionId, body);
 
       const botMessages = botResponses.map((res) => ({
         sender: res.sender,
