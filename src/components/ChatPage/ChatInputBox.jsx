@@ -29,10 +29,15 @@ const ChatInputBox = () => {
   const handleTestPost = async () => {
     if (!input.trim()) return;
     // user 메세지 전체 body
+    // const body = {
+    //   message: input,
+    //   skinTypes:
+    //     selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
+    // };
+
     const body = {
-      message: input,
-      skinTypes:
-        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
+      message: '이번 제품의 주요 성분과 효능에 대해 설명해 주세요.',
+      skinTypes: ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
     };
 
     console.log('👉 전송 데이터:', body);
