@@ -5,7 +5,7 @@ import ChatMessageList from './ChatMessageList';
 
 import { useChat } from '../../contexts/ChatContextsh';
 
-const ChatSection = () => {
+const ChatSection = ({ handleSendMessage }) => {
   const {
     // input,
     // setInput,
@@ -27,7 +27,7 @@ const ChatSection = () => {
 
       {/* 입력창 - 고정 */}
       <div className="fixed bottom-0 w-full flex justify-center bg-white z-10 pb-3">
-        <ChatInputBox />
+        <ChatInputBox handleSendMessage={handleSendMessage} />
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import ChatInputBox from '../components/ChatPage/ChatInputBox';
 import SideBar from '../components/SideBar/SideBar';
 import { ChatProvider } from '../contexts/ChatContextsh';
 // import { useChat } from '../contexts/ChatContextsh';
-import { createChatSession } from '../utils/chat';
+// import { createChatSession } from '../utils/chat';
 // import { useNavigate } from 'react-router-dom';
 // import api from '../utils/api'; // 다행
 
