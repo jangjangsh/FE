@@ -3,24 +3,23 @@ import Header from '../components/Header';
 import SideBar from '../components/SideBar/SideBar';
 import ChatSection from '../components/ChatPage/ChatSection';
 import { useParams } from 'react-router-dom';
-import { sendChatMessages } from '../utils/chat';
 import { useChat } from '../contexts/ChatContextsh';
-
 import ChatInputBox from '../components/ChatPage/ChatInputBox';
-
-const {
-  input,
-  // setInput,
-  selectedTypes,
-  // setSelectedTypes,
-  // isDropdownOpen,
-  // setIsDropdownOpen,
-  // handleSend,
-  // sessionMessages,
-  // setSessionMessages,
-} = useChat();
+import api from '../utils/api'; // axios 인스턴스
 
 const ChatDetailPage = () => {
+  const {
+    input,
+    // setInput,
+    selectedTypes,
+    // setSelectedTypes,
+    // isDropdownOpen,
+    // setIsDropdownOpen,
+    // handleSend,
+    // sessionMessages,
+    // setSessionMessages,
+  } = useChat();
+
   const { sessionId } = useParams(); // ✅ 여기서 현재 세션 ID 받아옴
 
   const handleSendMessage = async () => {
@@ -39,7 +38,7 @@ const ChatDetailPage = () => {
   };
 
   return (
-    <ChatProvider>
+    <>
       <Header />
       {/* 헤더: 고정 높이 */}
       {/* 본문 영역: Header 제외하고 나머지 전체 사용 */}
@@ -52,7 +51,7 @@ const ChatDetailPage = () => {
         </div>
       </div>
       <SideBar />
-    </ChatProvider>
+    </>
   );
 };
 export default ChatDetailPage;
