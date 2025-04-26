@@ -5,7 +5,7 @@ export const ChatContextsh = createContext();
 export const ChatProvider = ({ children }) => {
   const [sessionMessages, setSessionMessages] = useState([]); // 채팅방 별 메세지 (봇, 유저 구분)
   const [input, setInput] = useState('');
-  const [selectedTypes, setSelectedTypes] = useState([]);
+  const [selectedTypes, setSelectedTypes] = useState(['DRY', 'OILY', 'SENSITIVE', 'COMBINED']);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const idRef = useRef(0);
 
