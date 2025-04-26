@@ -14,6 +14,9 @@ export default {
           buttonFill: 'rgba(59, 104, 239, 0.05)', // 버튼 fill 고정값
           typeStroke: 'rgba(59, 104, 239, 0.1)', // TypeStroke 고정값
           typeBackground: 'rgba(59, 104, 239, 0.04)', // TypeStroke 고정값
+          chatFilter: 'rgba(249, 250, 255)', // TypeStroke 고정값
+          chatFilterStroke: 'rgba(59, 104, 239, 0.07)', // TypeStroke 고정값
+          chatFilterHover: 'rgba(59, 104, 239, 0.8)', // TypeStroke 고정값
           newChatHover: 'rgba(59, 104, 239, 0.04)',
         },
         login: {
