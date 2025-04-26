@@ -5,8 +5,12 @@ import { IconCheckNoBgActive } from '../../utils/icons';
 // 드롭다운 목록 (건성, 지성 등)
 const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
   const onClickTypes = (type) => {
-    setSelectedTypes((prev) =>
-      prev.includes(type) ? prev.filter((item) => item !== type) : [...prev, type]
+    setSelectedTypes(
+      (prev) =>
+        // prev: 지금까지 선택된 타입들의 배열
+        prev.includes(type)
+          ? prev.filter((item) => item !== type) // item: prev 배열 안에 있는 각각의 타입을 하나하나 비교해서, 눌린 type이랑 같은 건 빼버림
+          : [...prev, type] // type: 이번에 새로 클릭한 타입, prev 배열에 추가함
     );
   };
 
@@ -26,59 +30,66 @@ const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
       >
         <li
           onClick={() => onClickTypes('DRY')}
-          className="
-        flex gap-[10px] px-[10px] py-[5px] text-[14px] 
-        text-gray-stroke30 hover:text-gray-stroke70 font-normal
-        text-gray-800
-         hover:bg-gray-stroke02 rounded-md 
-         transition duration-300
-         
-         cursor-pointer"
+          className={`
+          flex gap-[10px] px-[10px] py-[5px] text-[14px] font-normal
+          ${selectedTypes.includes('DRY') ? 'text-gray-stroke70' : 'text-gray-stroke30'}
+           hover:bg-gray-stroke02 rounded-md
+          transition duration-300 cursor-pointer
+  `}
         >
-          <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
+          {selectedTypes.includes('DRY') ? (
+            <img className="w-[10px]" src={IconCheckNoBgActive} alt="" />
+          ) : (
+            <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
+          )}
           건성
         </li>
         <li
           onClick={() => onClickTypes('OILY')}
-          className="
-        flex gap-[10px] px-[10px] py-[5px] text-[14px] 
-        text-gray-stroke30 hover:text-gray-stroke70 font-normal
-        text-gray-800
-         hover:bg-gray-stroke02 rounded-md 
-         transition duration-300
-         cursor-pointer"
+          className={`
+          flex gap-[10px] px-[10px] py-[5px] text-[14px] font-normal
+          ${selectedTypes.includes('OILY') ? 'text-gray-stroke70' : 'text-gray-stroke30'}
+          hover:bg-gray-stroke02 rounded-md
+          transition duration-300 cursor-pointer
+  `}
         >
-          <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
+          {selectedTypes.includes('OILY') ? (
+            <img className="w-[10px]" src={IconCheckNoBgActive} alt="" />
+          ) : (
+            <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
+          )}
           지성
         </li>
         <li
           onClick={() => onClickTypes('SENSITIVE')}
-          className="
-        flex gap-[10px] px-[10px] py-[5px] text-[14px] 
-        text-gray-stroke30 hover:text-gray-stroke70 font-normal
-        text-gray-800
-         hover:bg-gray-stroke02 rounded-md
-         transition duration-300
-         cursor-pointer"
+          className={`
+          flex gap-[10px] px-[10px] py-[5px] text-[14px] font-normal
+          ${selectedTypes.includes('SENSITIVE') ? 'text-gray-stroke70' : 'text-gray-stroke30'}
+           hover:bg-gray-stroke02 rounded-md
+          transition duration-300 cursor-pointer
+  `}
         >
-          <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
+          {selectedTypes.includes('SENSITIVE') ? (
+            <img className="w-[10px]" src={IconCheckNoBgActive} alt="" />
+          ) : (
+            <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
+          )}
           민감성
         </li>
         <li
           onClick={() => onClickTypes('COMBINED')}
-          className="
-        flex gap-[10px] px-[10px] py-[5px] text-[14px] 
-        text-gray-stroke30 hover:text-gray-stroke70 font-normal
-        text-gray-800
-         hover:bg-gray-stroke02 rounded-md 
-         transition duration-300
-         cursor-pointer"
+          className={`
+          flex gap-[10px] px-[10px] py-[5px] text-[14px] font-normal
+          ${selectedTypes.includes('COMBINED') ? 'text-gray-stroke70' : 'text-gray-stroke30'}
+          hover:bg-gray-stroke02 rounded-md
+          transition duration-300 cursor-pointer
+  `}
         >
-          <img
-            className="w-[10px] hover:text-gray-stroke70 font-normal transition duration-300"
-            src={IconCheckNoBgInactive}
-            alt=""
-          />
+          {selectedTypes.includes('COMBINED') ? (
+            <img className="w-[10px]" src={IconCheckNoBgActive} alt="" />
+          ) : (
+            <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
+          )}
           복합성
         </li>
 
