@@ -65,7 +65,7 @@ const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
           민감성
         </li>
         <li
-          onClick={() => onClickTypes('COMBINATION')}
+          onClick={() => onClickTypes('COMBINED')}
           className="
         flex gap-[10px] px-[10px] py-[5px] text-[14px] 
         text-gray-stroke30 hover:text-gray-stroke70 font-normal

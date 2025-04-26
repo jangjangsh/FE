@@ -5,7 +5,7 @@ const TypeFilterList = ({ selectedTypes }) => {
     SENSITIVE: '민감성',
     DRY: '건성',
     OILY: '지성',
-    COMBINATION: '복합성',
+    COMBINED: '복합성',
   };
 
   return (

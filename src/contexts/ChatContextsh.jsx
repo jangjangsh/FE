@@ -18,7 +18,7 @@ export const ChatProvider = ({ children }) => {
       id: idRef.current++,
       sender: 'USER',
       skinTypes:
-        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'], // 기본값 설정
+        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINED'], // 기본값 설정
       message: input,
     };
 
