@@ -38,7 +38,7 @@ const ChatDetailPage = () => {
         <SideBar />
 
         {/* 채팅영역 */}
-        <div className="flex-1 overflow-y-auto flex justify-center">
+        <div className="flex-1 overflow-y-auto flex justify-center pl-[16px]">
           <div className="w-[760px]">
             <ChatSection
               sessionId={sessionId}
