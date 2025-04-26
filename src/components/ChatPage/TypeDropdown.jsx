@@ -21,7 +21,6 @@ const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
          bg-white w-full
         border border-gray-stroke03
         rounded-[10px]
-      
         shadow-[0_0_10px_rgba(0,0,0,0.05)]
         p-[4px] z-10"
       >
@@ -33,9 +32,10 @@ const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
         text-gray-800
          hover:bg-gray-stroke02 rounded-md 
          transition duration-300
+         
          cursor-pointer"
         >
-          <img className="w-[12px]" src={IconCheckNoBgInactive} alt="" />
+          <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
           건성
         </li>
         <li
@@ -48,7 +48,7 @@ const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
          transition duration-300
          cursor-pointer"
         >
-          <img className="w-[12px]" src={IconCheckNoBgInactive} alt="" />
+          <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
           지성
         </li>
         <li
@@ -61,7 +61,7 @@ const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
          transition duration-300
          cursor-pointer"
         >
-          <img className="w-[12px]" src={IconCheckNoBgInactive} alt="" />
+          <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
           민감성
         </li>
         <li
@@ -75,7 +75,7 @@ const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
          cursor-pointer"
         >
           <img
-            className="w-[12px] hover:text-gray-stroke70 font-normal transition duration-300"
+            className="w-[10px] hover:text-gray-stroke70 font-normal transition duration-300"
             src={IconCheckNoBgInactive}
             alt=""
           />
