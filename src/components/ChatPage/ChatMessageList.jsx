@@ -1,17 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import BotChat from './BotChat';
 import UserChat from './UserChat';
+
 // import BotChatContainer from './BotChatContainer';
 
 const ChatMessageList = ({ allChatMessages }) => {
   const bottomRef = useRef(null);
 
+  // 스크롤 내리기
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [allChatMessages]);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       {allChatMessages.map((item, idx) => {
         return item.sender !== 'BOT' ? (
           <>
