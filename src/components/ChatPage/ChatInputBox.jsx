@@ -7,7 +7,7 @@ import { createChatSession, sendChatMessages } from '../../utils/chat';
 import { useNavigate } from 'react-router-dom';
 
 // 채팅 입력창 컨테이너
-const ChatInputBox = ({ sessionId }) => {
+const ChatInputBox = ({ sessionId, fetchMessagesAgain }) => {
   const {
     input,
     setInput,
@@ -16,7 +16,6 @@ const ChatInputBox = ({ sessionId }) => {
     isDropdownOpen,
     setIsDropdownOpen,
     sessionMessages,
-    setSessionMessages,
   } = useChat();
 
   // dropdown 위로 열지 아래로 열지 판단
@@ -49,16 +48,10 @@ const ChatInputBox = ({ sessionId }) => {
       }
 
       // 기존 sessionId 있으면 디테일 페이지에선 메세지만 전송
-      const botResponses = await sendChatMessages(currentSessionId, body);
+      await sendChatMessages(currentSessionId, body);
 
-      const botMessages = botResponses.map((res) => ({
-        sender: res.sender,
-        message: res.message,
-        skinTypes: res.skinType,
-      }));
-      // 사용자 메시지 + 봇 메시지 합치기
-      setSessionMessages((prev) => [...prev, body, ...botMessages]);
       setInput(''); // 입력창 비우기
+      fetchMessagesAgain();
     } catch (error) {
       console.error('❌ 세션 생성 또는 메시지 전송 실패:', error);
     }

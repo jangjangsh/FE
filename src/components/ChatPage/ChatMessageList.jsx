@@ -1,36 +1,35 @@
 import { useEffect, useRef } from 'react';
 import BotChat from './BotChat';
 import UserChat from './UserChat';
-import BotChatContainer from './BotChatContainer';
+// import BotChatContainer from './BotChatContainer';
 
-const ChatMessageList = ({ sessionMessages }) => {
+const ChatMessageList = ({ allChatMessages }) => {
   const bottomRef = useRef(null);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [sessionMessages]);
+  }, [allChatMessages]);
 
   return (
     <div className="flex flex-col">
-      {sessionMessages.map((item, idx) => {
-        return item.sender === 'USER' ? (
+      {allChatMessages.map((item, idx) => {
+        return item.sender !== 'BOT' ? (
           <>
+            {/* 만약 보낸 사람이 BOT이 아니면 */}
             <div>
               <UserChat key={idx} message={item.message} />
             </div>
             <div className="border-t border-gray-stroke05"></div>
-            <div className="my-6">
-              <BotChatContainer
-                sessionMessages={sessionMessages}
-                key={idx}
-                message={item.message}
-              />
-              {/* 확인용 코드 추후 삭제 예정 */}
-            </div>
           </>
         ) : (
-          <div>
-            <BotChat sessionMessages={sessionMessages} key={idx} message={item.message} />
+          <div className="my-6">
+            <BotChat key={idx} message={item.message} />
+            {/* <BotChatContainer
+              sessionMessages={sessionMessages}
+              key={idx}
+              message={item.message}
+              sessionId={sessionId}
+            /> */}
             {/* 확인용 코드 추후 삭제 예정 */}
           </div>
         );
