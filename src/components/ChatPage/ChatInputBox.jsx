@@ -7,7 +7,7 @@ import { createChatSession, sendChatMessages } from '../../utils/chat';
 import { useNavigate } from 'react-router-dom';
 
 // 채팅 입력창 컨테이너
-const ChatInputBox = () => {
+const ChatInputBox = ({ sessionId }) => {
   const {
     input,
     setInput,
@@ -15,11 +15,10 @@ const ChatInputBox = () => {
     setSelectedTypes,
     isDropdownOpen,
     setIsDropdownOpen,
-    // handleSend,
     sessionMessages,
     setSessionMessages,
   } = useChat();
-  // const nav = useNavigate();
+
   // dropdown 위로 열지 아래로 열지 판단
   const location = useLocation();
   const isDetailPage = location.pathname.includes('/chat/');
@@ -28,36 +27,38 @@ const ChatInputBox = () => {
   // 새로운 세션 생성 후 메세지 전송, 세션 이동
   const handleTestPost = async () => {
     if (!input.trim()) return;
+
     // user 메세지 전체 body
     const body = {
       message: input,
       skinTypes:
-        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
+        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINED'],
     };
-
-    console.log('✅ 보내는 JSON:', JSON.stringify(body));
 
     console.log('👉 전송 데이터:', body);
 
     try {
-      // 세션 생성
-      const session = await createChatSession(); // 백엔드에 새 세션 만들고 받아온 응답 데이터 (createChatSession 호출해서 요청이 간 결과값)
-      const newSessionId = session.sessionId;
+      let currentSessionId = sessionId;
+      // 만약 현재 sessionId가 없으면,
+      if (!currentSessionId) {
+        // 세션 생성 api로 값 전달받음 (세션 생성 완료)
+        const session = await createChatSession();
+        // 전달받은 session의 sessionId 값을 저장하기
+        currentSessionId = session.sessionId;
+        navigate(`/chat/${currentSessionId}`);
+      }
 
-      // 메시지 전송 후
-      const botResponses = await sendChatMessages(newSessionId, body);
+      // 기존 sessionId 있으면 디테일 페이지에선 메세지만 전송
+      const botResponses = await sendChatMessages(currentSessionId, body);
 
       const botMessages = botResponses.map((res) => ({
         sender: res.sender,
         message: res.message,
         skinTypes: res.skinType,
       }));
-      // 🔹 사용자 메시지 + 봇 메시지 합치기
+      // 사용자 메시지 + 봇 메시지 합치기
       setSessionMessages((prev) => [...prev, body, ...botMessages]);
       setInput(''); // 입력창 비우기
-
-      // 🔹 페이지 이동
-      navigate(`/chat/${newSessionId}`);
     } catch (error) {
       console.error('❌ 세션 생성 또는 메시지 전송 실패:', error);
     }

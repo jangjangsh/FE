@@ -29,7 +29,8 @@ const ChatMainPage = () => {
           <span className="text-main">스포이드</span>로 추출하세요.
         </div>
 
-        <ChatInputBox />
+        {/* 메인 페이지는 sessionId 없기 때문에 Null */}
+        <ChatInputBox sessionId={null} />
       </div>
     </div>
   );

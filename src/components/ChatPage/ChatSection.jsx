@@ -5,17 +5,8 @@ import ChatMessageList from './ChatMessageList';
 
 import { useChat } from '../../contexts/ChatContextsh';
 
-const ChatSection = ({ handleSendMessage }) => {
-  const {
-    // input,
-    // setInput,
-    // selectedTypes,
-    // setSelectedTypes,
-    // isDropdownOpen,
-    // setIsDropdownOpen,
-    // handleSend,
-    sessionMessages,
-  } = useChat();
+const ChatSection = ({ sessionId }) => {
+  const { sessionMessages } = useChat();
 
   return (
     <div className="flex-col w-[760px] h-full bg-white">
@@ -27,7 +18,7 @@ const ChatSection = ({ handleSendMessage }) => {
 
       {/* 입력창 - 고정 */}
       <div className="fixed bottom-0 w-full flex justify-center bg-white z-10 pb-3">
-        <ChatInputBox handleSendMessage={handleSendMessage} />
+        <ChatInputBox sessionId={sessionId} />
       </div>
     </div>
   );
