@@ -2,22 +2,7 @@ import Header from '../components/Header';
 import ChatInputBox from '../components/ChatPage/ChatInputBox';
 import SideBar from '../components/SideBar/SideBar';
 
-// import { createChatSession } from '../utils/chat';
-// import { useNavigate } from 'react-router-dom';
-// import api from '../utils/api'; // 다행
-
 const ChatMainPage = () => {
-  // const navigate = useNavigate();
-  // 추후에 지울 것
-  // const handleTestPost = async () => {
-  //   try {
-  //     const session = await createChatSession();
-  //     console.log('✅ 세션 생성 성공:', session); // 응답 확인!
-  //   } catch (error) {
-  //     console.error('❌ 세션 생성 실패:', error);
-  //   }
-  // };
-
   return (
     <div className="flex flex-col h-screen w-screen items-center">
       <Header />
