@@ -22,17 +22,17 @@ const BotChatContainer = ({ botMessages }) => {
   return (
     <div className="flex flex-col">
       {/* 선택 버튼 */}
-      <div className="flex gap-3 bg-main-buttonFill p-[4px] rounded-t-[10px] border border-main-buttonFill">
+      <div className="flex gap-3 bg-main-chatFilter p-[4px] rounded-t-[10px] border border-main-buttonFill">
         {botMessages.map((msg, idx) => (
           <button
             key={idx}
             onClick={() => handleFilterSelect(msg.skinType)}
             className={`
-              ${activeType === msg.skinType ? 'bg-white text-main border border-main-chatFilterStroke' : 'text-main-buttonStroke border border-main-chatFilter'}
+              ${activeType === msg.skinType ? 'bg-white text-main border border-main-chatFilterStroke' : 'text-main-buttonStroke border border-main-chatFilter hover:bg-main-typeBackground hover:text-main-chatFilterHover duration-200 hover:border-main-chatFilter'}
               basis-1/4 flex items-center justify-center
               py-[5px] rounded-[8px]
               text-[14px]
-              hover:bg-main-typeBackground hover:text-main-chatFilterHover duration-200 hover:border-main-chatFilter
+              
             `}
           >
             {SkinTypeLabel[msg.skinType]}

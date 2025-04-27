@@ -1,6 +1,8 @@
 import { IconCancel } from '../../utils/icons';
+import { useState } from 'react';
 
 const TypeFilterItem = ({ type }) => {
+  const onDelete = (target) => {};
   return (
     <>
       <div
