@@ -16,6 +16,7 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain }) => {
     isDropdownOpen,
     setIsDropdownOpen,
     sessionMessages,
+    skinTypes,
   } = useChat();
 
   // dropdown 위로 열지 아래로 열지 판단
@@ -45,6 +46,9 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain }) => {
 
         // ✅ 먼저 메세지를 보내고
         await sendChatMessages(currentSessionId, body);
+        if (selectedTypes.length === 0) {
+          setSelectedTypes(skinTypes); // ✅ 여기서 전체 선택해주기
+        }
 
         // ✅ 메세지 보내기가 성공하면 이동!
         navigate(`/chat/${currentSessionId}`);
@@ -52,6 +56,9 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain }) => {
         // ❌ fetchMessagesAgain 여기선 하지 마.
       } else {
         await sendChatMessages(currentSessionId, body);
+        if (selectedTypes.length === 0) {
+          setSelectedTypes(skinTypes); // ✅ 여기서 전체 선택해주기
+        }
         fetchMessagesAgain(); // 기존 세션일 때만 즉시 다시 불러오기
       }
 

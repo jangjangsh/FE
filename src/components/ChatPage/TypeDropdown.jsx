@@ -1,9 +1,12 @@
 // import { useRef, useEffect } from 'react';
+
 import { useEffect } from 'react';
+import { useChat } from '../../contexts/ChatContextsh';
 import { IconCheckNoBgInactive } from '../../utils/icons';
 import { IconCheckNoBgActive } from '../../utils/icons';
 // 드롭다운 목록 (건성, 지성 등)
 const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
+  const { skinTypes } = useChat();
   const onClickTypes = (type) => {
     setSelectedTypes(
       (prev) =>
@@ -15,8 +18,8 @@ const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
   };
 
   useEffect(() => {
-    console.log(selectedTypes);
-  }, [selectedTypes]); // 의존성 배열 추가
+    console.log('✅ 현재 skinTypes:', skinTypes);
+  }, [skinTypes]); // 🔥 skinTypes가 변할 때마다 실행
 
   return (
     <div>

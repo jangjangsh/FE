@@ -3,6 +3,7 @@ import TypeSelector from './TypeSelector';
 import TypeFilterList from './TypeFilterList';
 
 const TypeSelectorBox = ({
+  skinTypes,
   isDropdownOpen,
   setIsDropdownOpen,
   selectedTypes,
@@ -41,10 +42,15 @@ const TypeSelectorBox = ({
           setSelectedTypes={setSelectedTypes}
           dropdownPositionClass={dropdownPositionClass}
           direction={direction}
+          skinTypes={skinTypes}
         />
       </div>
       <div className="flex">
-        <TypeFilterList selectedTypes={selectedTypes} sessionMessages={sessionMessages} />
+        <TypeFilterList
+          selectedTypes={selectedTypes}
+          skinTypes={skinTypes}
+          sessionMessages={sessionMessages}
+        />
       </div>
     </div>
   );
