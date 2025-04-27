@@ -3,7 +3,7 @@ import SideBar from '../components/SideBar/SideBar';
 import ChatSection from '../components/ChatPage/ChatSection';
 import ChatInputBox from '../components/ChatPage/ChatInputBox';
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { getChatMessages } from '../utils/chat';
 
 const ChatDetailPage = () => {
@@ -11,7 +11,8 @@ const ChatDetailPage = () => {
 
   const [allChatMessages, setAllChatMessages] = useState([]);
 
-  const getBotChat = async () => {
+  // ✅ fetchMessagesAgain으로 넘겨줄 getBotChat은 useCallback으로 만들기
+  const getBotChat = useCallback(async () => {
     try {
       const response = await getChatMessages(sessionId);
       console.log('서버 응답:', response);
@@ -19,13 +20,14 @@ const ChatDetailPage = () => {
     } catch (error) {
       console.error('요청 실패', error);
     }
-  };
+  }, [sessionId]); // ← 의존성에 sessionId만 넣기!
 
+  // ✅ useEffect 안에서는 이 getBotChat() 호출만 하면 돼
   useEffect(() => {
     if (sessionId) {
-      getBotChat(); // ✅ 여기서 함수 호출해줘야 함!!
+      getBotChat();
     }
-  }, [sessionId]);
+  }, [sessionId, getBotChat]);
 
   return (
     <div className="relative h-screen overflow-hidden">

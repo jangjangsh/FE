@@ -40,18 +40,24 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain }) => {
       let currentSessionId = sessionId;
       // 만약 현재 sessionId가 없으면,
       if (!currentSessionId) {
-        // 세션 생성 api로 값 전달받음 (세션 생성 완료)
         const session = await createChatSession();
-        // 전달받은 session의 sessionId 값을 저장하기
         currentSessionId = session.sessionId;
+
+        // ✅ 먼저 메세지를 보내고
+        await sendChatMessages(currentSessionId, body);
+
+        // ✅ 메세지 보내기가 성공하면 이동!
         navigate(`/chat/${currentSessionId}`);
+
+        // ❌ fetchMessagesAgain 여기선 하지 마.
+      } else {
+        await sendChatMessages(currentSessionId, body);
+        fetchMessagesAgain(); // 기존 세션일 때만 즉시 다시 불러오기
       }
 
-      // 기존 sessionId 있으면 디테일 페이지에선 메세지만 전송
-      await sendChatMessages(currentSessionId, body);
+      setInput('');
 
       setInput(''); // 입력창 비우기
-      fetchMessagesAgain();
     } catch (error) {
       console.error('❌ 세션 생성 또는 메시지 전송 실패:', error);
     }
