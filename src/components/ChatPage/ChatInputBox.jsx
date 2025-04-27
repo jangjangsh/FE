@@ -70,6 +70,11 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain }) => {
     }
   };
 
+  const onChangeInput = (e) => {
+    setInput(e.target.value);
+    console.log(input);
+  };
+
   return (
     <section className="w-full pb-3">
       <div
@@ -81,8 +86,8 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain }) => {
     "
       >
         <div className="flex w-full px-[12px] py-[10px] border-b border-gray-stroke07">
-          <ChatTextInput input={input} setInput={setInput} />
-          <SendButton onClick={handleTestPost} />
+          <ChatTextInput input={input} onChangeInput={onChangeInput} />
+          <SendButton onClick={handleTestPost} isInputFilled={input.length > 0} />
         </div>
         <div className="flex w-full items-center p-[12px]">
           <TypeSelectorBox

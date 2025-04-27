@@ -1,11 +1,6 @@
 import TextareaAutosize from 'react-textarea-autosize';
 
-const ChatTextInput = ({ input, setInput }) => {
-  const onChangeInput = (e) => {
-    setInput(e.target.value);
-    console.log(input);
-  };
-
+const ChatTextInput = ({ input, onChangeInput }) => {
   return (
     <div className="flex w-full items-center">
       <TextareaAutosize
