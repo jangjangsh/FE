@@ -3,7 +3,6 @@ import TypeDropDown from './TypeDropdown';
 
 const TypeSelector = ({
   onClick,
-
   isDropdownOpen,
   selectedTypes,
   setSelectedTypes,
