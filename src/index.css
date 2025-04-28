@@ -1,7 +1,6 @@
 /* 테일윈드 초기세팅 */
 /* reset */
 @tailwind base;
-
 @tailwind components;
 @tailwind utilities;
 
@@ -21,11 +20,6 @@ body {
   --color-gray: 0 0 0;
   --color-bubble: 250 250 250;
 }
-
-/* src/index.css 같은 곳에 */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @layer utilities {
   .scrollbar-custom {
@@ -62,5 +56,30 @@ body {
     &::-webkit-scrollbar-track {
       background-color: rgba(0, 0, 0, 0.01);
     }
+  }
+}
+@layer utilities {
+  @keyframes pulseBackground {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .text-glass {
+    background: linear-gradient(
+      150deg,
+      rgba(59, 104, 239, 1),
+      rgba(140, 82, 255, 0.7),
+      rgba(59, 104, 239, 1)
+    );
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: pulseBackground 7s ease-in-out infinite;
   }
 }

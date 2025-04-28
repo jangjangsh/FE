@@ -11,7 +11,7 @@ const ChatMainPage = () => {
       <div className="flex flex-col justify-center items-center h-full w-[740px]">
         <div className="text-[32px] mb-8 font-bold tracking-wide leading-snug text-center w-full">
           제품 반응 분석, <br />
-          <span className="text-main">스포이드</span>로 추출하세요.
+          <span className="text-main font-extrabold text-glass">스포이드</span>로 추출하세요.
         </div>
 
         {/* 메인 페이지는 sessionId 없기 때문에 Null */}
