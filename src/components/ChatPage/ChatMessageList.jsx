@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import BotChatContainer from './BotChatContainer';
 import UserChat from './UserChat';
 
+// allChatMessages: 백엔드에서 get으로 가져온 세션 전체 메세지
 const ChatMessageList = ({ allChatMessages }) => {
   const bottomRef = useRef(null);
   const seenMessages = new Set();
