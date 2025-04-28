@@ -35,7 +35,7 @@ const ChatDetailPage = () => {
       <Header />
 
       {/* 본문 전체: 헤더 제외 + InputBox 제외 */}
-      <div className="pt-[60px] pb-[90px] pl-2 h-[calc(100vh-60px)] flex overflow-hidden">
+      <div className="pt-[60px] pb-[80px] pl-2 h-[calc(100vh-60px)] flex overflow-hidden">
         <SideBar />
         {/* 사이드바 */}
 
