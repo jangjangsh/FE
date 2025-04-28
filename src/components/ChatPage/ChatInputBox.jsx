@@ -81,9 +81,10 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain }) => {
   };
 
   return (
-    <section className="w-full pb-3">
+    <section className="w-full pb-3 ">
       <div
         className="
+        bg-white
       flex flex-col w-[740px]
       rounded-[20px]
       border border-gray-stroke07 focus-within:border-gray-stroke10
