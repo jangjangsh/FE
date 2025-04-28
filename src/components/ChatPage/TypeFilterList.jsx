@@ -1,5 +1,6 @@
 import TypeFilterItem from './TypeFilterItem';
 
+// 스스로 코드를 짜볼 것...
 const TypeFilterList = ({ selectedTypes, onDelete }) => {
   const typeLabels = {
     SENSITIVE: '민감성',

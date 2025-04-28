@@ -4,6 +4,7 @@ import UserChat from './UserChat';
 
 const ChatMessageList = ({ allChatMessages }) => {
   const bottomRef = useRef(null);
+  const seenMessages = new Set();
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -18,11 +19,14 @@ const ChatMessageList = ({ allChatMessages }) => {
 
       if (msg.sender === 'USER') {
         // 1. User 메세지 렌더
-        rendered.push(
-          <div key={`user-${i}`}>
-            <UserChat message={msg.message} />
-          </div>
-        );
+        if (!seenMessages.has(msg.message)) {
+          rendered.push(
+            <div key={`user-${i}`}>
+              <UserChat message={msg.message} />
+            </div>
+          );
+          seenMessages.add(msg.message);
+        }
 
         // 2. 이어지는 Bot 메세지들 모아주기
         const botMessages = [];
