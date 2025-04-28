@@ -95,7 +95,7 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain }) => {
           <ChatTextInput input={input} onChangeInput={onChangeInput} />
           <SendButton onClick={handleTestPost} isInputFilled={input.length > 0} />
         </div>
-        <div className="flex w-full items-center px-[12px] pb-[12px]">
+        <div className="flex w-full items-center px-[14px] pb-[14px]">
           <TypeSelectorBox
             sessionMessages={sessionMessages}
             isDropdownOpen={isDropdownOpen}
