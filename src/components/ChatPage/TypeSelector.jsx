@@ -12,7 +12,7 @@ const TypeSelector = ({
     <div className="relative inline-block w-full">
       <button
         onClick={onClick}
-        className="flex w-full px-[10px] py-[6px] rounded-[10px] gap-[6px]
+        className="flex w-full px-[12px] py-[6px] rounded-[10px] gap-[6px] 
                   text-main font-medium text-[14px]
                   bg-main-typeBackground hover:bg-white
                   border border-main-typeStroke hover:border-[rgba(59,104,239,0.2)]
