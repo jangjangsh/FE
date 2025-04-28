@@ -75,6 +75,11 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain }) => {
     console.log(input);
   };
 
+  const onDelete = (target) => {
+    const filteredSelectedTypes = selectedTypes.filter((type) => type !== target);
+    setSelectedTypes(filteredSelectedTypes);
+  };
+
   return (
     <section className="w-full pb-3">
       <div
@@ -97,6 +102,7 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain }) => {
             selectedTypes={selectedTypes}
             setSelectedTypes={setSelectedTypes}
             direction={isDetailPage ? 'up' : 'down'}
+            onDelete={onDelete}
           />
         </div>
       </div>
