@@ -40,7 +40,7 @@ const ChatDetailPage = () => {
         {/* 사이드바 */}
 
         {/* 채팅영역 */}
-        <div className="flex-1 overflow-y-auto flex justify-center from-main-chatFilter to-white">
+        <div className="flex-1 overflow-y-auto scrollbar-custom flex justify-center from-main-chatFilter to-white">
           <div className="w-[740px]">
             <ChatSection
               sessionId={sessionId}

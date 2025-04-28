@@ -11,7 +11,7 @@ const Header = () => {
   const { currentSessionId } = useContext(ChatContext);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-[60px] bg-white z-40 border-b border-gray-100">
+    <div className="fixed top-0 left-0 w-full h-[60px] z-40 border-gray-100">
       <div className=" mx-auto flex items-center justify-between h-full">
         {/* 왼쪽 버튼 */}
         <div className="px-[20px]">

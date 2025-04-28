@@ -12,7 +12,7 @@ const ChatTextInput = ({ input, onChangeInput }) => {
         className="
         inline m-[6px]
         appearance-none border-none outline-none resize-none
-        w-full h-full
+        w-full h-full scrollbar-custom
         placeholder-gray-stroke30 focus:placeholder-white  text-black
         bg-transparent
         "
