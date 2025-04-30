@@ -17,14 +17,14 @@ const ChatMainPage = () => {
               <span>제품 반응 분석,</span>
             </div>
 
-            <div className="flex whitespace-nowrap text-[32px] leading-[33px]">
+            <div className="flex whitespace-nowrap text-[32px] leading-[32px]">
               <div className="flex w-max">
                 <div className="flex pr-1 animate-typing overflow-hidden whitespace-nowrap border-r-4 border-r-main">
                   <span className="text-main font-extrabold text-glass">스포이드</span>
                 </div>
               </div>
               <div>
-                <span className="pl-1">로 추출하세요.</span>
+                <span className="pl-1.5">로 추출하세요.</span>
               </div>
             </div>
           </div>
