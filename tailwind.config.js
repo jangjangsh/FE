@@ -43,7 +43,30 @@ export default {
         },
       },
     },
+    keyframes: {
+      typing: {
+        '0%': {
+          width: '0%',
+          visibility: 'hidden',
+        },
+        '100%': {
+          width: '100%',
+        },
+      },
+      blink: {
+        '50%': {
+          borderColor: 'transparent',
+        },
+        '100%': {
+          borderColor: 'white',
+        },
+      },
+    },
+    animation: {
+      typing: 'typing 1.5s steps(16) alternate, blink .7s infinite',
+    },
   },
+
   plugins: [],
   experimental: {
     // Tailwind가 className 내부의 동적 표현식을 더 잘 감지하게 해주는 설정

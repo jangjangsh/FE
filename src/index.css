@@ -71,15 +71,15 @@ body {
 
   .text-glass {
     background: linear-gradient(
-      150deg,
+      130deg,
       rgba(59, 104, 239, 1),
-      rgba(140, 82, 255, 0.7),
+      rgba(140, 82, 255, 0.6),
       rgba(59, 104, 239, 1)
     );
-    background-size: 200% 200%;
+    background-size: 300% 200%;
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    animation: pulseBackground 7s ease-in-out infinite;
+    animation: pulseBackground 6s ease-in-out infinite;
   }
 }

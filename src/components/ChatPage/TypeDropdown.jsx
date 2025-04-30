@@ -25,6 +25,7 @@ const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
     <div>
       <ul
         className="
+        
          bg-white w-full
         border border-gray-stroke03
         rounded-[10px]
