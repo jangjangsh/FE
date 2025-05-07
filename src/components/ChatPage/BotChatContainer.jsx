@@ -73,7 +73,7 @@ const BotChatContainer = ({ botMessages }) => {
 
       <div className="group flex flex-col w-full">
         {/* 챗 답변 렌더링 구간 */}
-        <div className="bg-white font-normal text-gray-stroke70 px-[20px] py-[36px] max-w-[100%] whitespace-pre-line break-words leading-[1.4]">
+        <div className="bg-white font-normal text-gray-stroke70 px-[20px] py-[36px] max-w-[100%] whitespace-pre-line break-words leading-[1.6]">
           {botMessages
             .filter((msg) => msg.skinType === activeType)
             .map((msg, idx) => (

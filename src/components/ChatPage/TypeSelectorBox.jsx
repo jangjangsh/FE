@@ -16,7 +16,7 @@ const TypeSelectorBox = ({
   const dropdownPositionClass = direction === 'up' ? 'bottom-full mb-2' : 'top-full mt-2'; // 아래 방향은 top 기준!
 
   const onClick = () => {
-    setIsDropdownOpen(true);
+    setIsDropdownOpen((prev) => !prev);
   };
 
   // 바깥 클릭 감지 로직

@@ -16,7 +16,7 @@ const TypeSelector = ({
                   text-main font-semibold text-[14px]
                   bg-main-typeBackground hover:bg-white
                   border-[1px] border-main-typeStroke hover:border-[rgba(59,104,239,0.1)]
-                  focus:border-[rgba(59,104,239,0.1)] focus:bg-white
+                  
                   transition duration-300"
       >
         <img className="w-[14px]" src={IconSmile} alt="피부" />

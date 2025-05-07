@@ -4,6 +4,7 @@ import UserChat from './UserChat';
 
 const ChatMessageList = ({ allChatMessages }) => {
   const lastBotRef = useRef(null);
+  const seenMessage = new Set();
 
   useEffect(() => {
     if (lastBotRef.current) {
@@ -20,11 +21,14 @@ const ChatMessageList = ({ allChatMessages }) => {
       const msg = allChatMessages[i];
 
       if (msg.sender === 'USER') {
-        rendered.push(
-          <div key={`user-${i}`}>
-            <UserChat message={msg.message} />
-          </div>
-        );
+        if (!seenMessage.has(msg.message)) {
+          seenMessage.add(msg.message);
+          rendered.push(
+            <div key={`user-${i}`}>
+              <UserChat message={msg.message} />
+            </div>
+          );
+        }
 
         const botMessages = [];
         let j = i + 1;
@@ -45,6 +49,7 @@ const ChatMessageList = ({ allChatMessages }) => {
               <BotChatContainer botMessages={botMessages} />
             </div>
           );
+          seenMessage.clear();
         }
 
         i = j;

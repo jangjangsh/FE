@@ -96,8 +96,6 @@ const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
           )}
           복합성
         </li>
-
-        {/* ...나머지도 같은 형식 */}
       </ul>
     </div>
   );
