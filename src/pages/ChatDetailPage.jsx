@@ -35,13 +35,13 @@ const ChatDetailPage = () => {
       <Header />
 
       {/* 본문 전체: 헤더 제외 + InputBox 제외 */}
-      <div className="pt-[60px] pb-[80px] pl-2 h-[calc(100vh-60px)] flex overflow-hidden">
+      <div className="pt-[60px] pb-[90px] pl-1 h-[calc(100vh-60px)] flex overflow-hidden">
         <SideBar />
         {/* 사이드바 */}
 
         {/* 채팅영역 */}
-        <div className="flex-1 overflow-y-auto scrollbar-custom flex justify-center from-main-chatFilter to-white">
-          <div className="w-[740px]">
+        <div className="flex-1 overflow-y-auto scrollbar-custom flex justify-center">
+          <div className="w-[760px]">
             <ChatSection
               sessionId={sessionId}
               allChatMessages={allChatMessages}
@@ -52,8 +52,8 @@ const ChatDetailPage = () => {
       </div>
 
       {/* 고정된 InputBox */}
-      <div className="fixed bottom-3 w-full flex justify-center z-20 ">
-        <div className="w-[740px]">
+      <div className="fixed bottom-3 w-full flex justify-center bg-white z-20">
+        <div className="w-[760px]">
           <ChatInputBox sessionId={sessionId} fetchMessagesAgain={getBotChat} />
         </div>
       </div>

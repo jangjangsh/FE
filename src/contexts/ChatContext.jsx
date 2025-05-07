@@ -1,148 +1,132 @@
-// src/contexts/ChatContext.jsx
-// ✨ 백엔드 연결 시 수정필요한 부분은 해당 이모티콘 주석 ✨
-// 현재 ChatContext는 사이드바/헤더 구현을 위한 최소 상태만 포함되어 있습니다.
-// 메시지 전송, 로딩, 에러처리 등은 추후 챗봇 파트 구현 시 다시 주석 해제 or 수정해주세요.
-
-import { createContext, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid'; // UUID 생성용 (npm install uuid) ✨
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
+import {
+  fetchChatSessions as fetchChatSessionsAPI,
+  createChatSession as createChatSessionAPI,
+  updateChatTitle as updateChatTitleAPI,
+} from '../utils/chat'; // 위치는 상황에 따라 조정
 
 export const ChatContext = createContext();
-const initData = [
-  {
-    id: uuidv4(),
-    title: '지성 피부용 선크림 추천',
-    mode: 'product_detail',
-    skin_type: '지성',
-    is_bookmark: true,
-    created_at: '2024-04-01T12:00:00Z',
-    messages: [],
-  },
-  {
-    id: uuidv4(),
-    title: '트러블 케어 제품 문의',
-    mode: 'product_detail',
-    skin_type: '복합성',
-    is_bookmark: false,
-    created_at: '2024-04-02T09:30:00Z',
-    messages: [],
-  },
-  {
-    id: uuidv4(),
-    title: '건성 피부 스킨 루틴',
-    mode: 'product_detail',
-    skin_type: '건성',
-    is_bookmark: false,
-    created_at: '2024-04-03T18:45:00Z',
-    messages: [],
-  },
-];
+
 export const ChatProvider = ({ children }) => {
-  // 모든 대화 세션(채팅방)을 저장하는 배열
-  const [chatSessions, setChatSessions] = useState(initData);
+  // 서현
+  const [sessionMessages, setSessionMessages] = useState([]); // 채팅방 별 메세지 (봇, 유저 구분)
+  const [input, setInput] = useState('');
+  const [selectedTypes, setSelectedTypes] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [skinTypes, setSkinTypes] = useState([
+    'DRY',
+    'OILY',
+    'SENSITIVE',
+    'COMBINED', // ✅ 선택할 수 있는 전체 타입 목록
+  ]);
 
-  // 지금 사용자가 보고 있는 대화의 ID, 사이드바에서 대화를 클릭하면 이 값이 바뀜
-  const [currentSessionId, setCurrentSessionId] = useState(initData[0].id);
+  const idRef = useRef(0);
 
-  // 사이드바 오픈상태
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const handleSend = () => {
+    if (!input.trim()) return;
 
-  // ❌ 사이드바/헤더에선 사용하지 않음
-  // 챗봇 응답 기다리는 중인지 아닌지 판단
-  // const [isLoading, setIsLoading] = useState(false);
-  // 에러가 발생하면 이 상태에 메시지를 담아둠
-  // const [error, setError] = useState(null);
+    // const sessionId = idRef.current; // 이미 만들어진 세션 ID가 있다고 가정
 
-  // 새로운 대화 세션 생성
-  const createChatSession = ({ mode = 'product_detail', skin_type = null }) => {
-    // ✨ 여기부터 백엔드 연결 후 수정필요
-    const newId = uuidv4(); // 고유 ID 자동 생성 (✨백 연결 전 임시 생성 ID)
-    const newSession = {
-      id: newId,
-      title: '제목을 입력해주세요.', // 기본 제목
-      mode, // 대화 모드
-      skin_type, // 사용자 선택 피부타입
-      is_bookmark: false, // 즐겨찾기 여부 초기값
-      created_at: new Date().toISOString(), // 생성 시간
-      messages: [], // 빈 메시지 목록
+    const userMessage = {
+      id: idRef.current++,
+      sender: 'USER',
+      skinTypes:
+        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINED'], // 기본값 설정
+      message: input,
     };
-    // ✨여기까지
 
-    // 이걸 chatSessions 배열에 추가하고
-    // 새로 만든 대화를 현재 활성 대화로 지정
-    setChatSessions((prev) => [...prev, newSession]);
-    setCurrentSessionId(newId); // ✨ 나중에 res.data.id로 변경 필요
-    return newId;
+    // 메시지 합쳐서 저장
+    // 세션 - 백한테 코드 받고, 봇 메세지를 이 sessionMessages에 추가해줄 것 -> 필터링하여 보여줌
+    setSessionMessages((prev) => [...prev, userMessage]);
+    // 입력 초기화
+    setInput('');
   };
 
-  // ❌ 사이드바/헤더에선 사용하지 않음
-  // 메시지 추가
-  // const addMessage = (sessionId, { sender, message }) => {
-  //   setChatSessions((prev) =>
-  //     prev.map((session) =>
-  //       session.id === sessionId
-  //         ? {
-  //             ...session,
-  //             messages: [
-  //               ...session.messages,
-  //               {
-  //                 sender, // 'user' 또는 'bot'
-  //                 message, // 실제 메시지 내용
-  //                 created_at: new Date().toISOString(), // ✨ 실제 백엔드에서 주는 시간 created_at
-  //               },
-  //             ],
-  //             // 만약 이 대화의 제목이 "새 대화"라면?
-  //             // → 사용자가 처음 보낸 메시지 앞 20글자를 제목으로 자동 설정
-  //             // title:
-  //             //   session.title === '새 대화' && sender === 'user'
-  //             //     ? message.slice(0, 20)
-  //             //     : session.title,
-  //           }
-  //         : session
-  //     )
-  //   );
-  //   // ✨ 즐겨찾기 상태를 백엔드에 저장하려면 여기에 PATCH API 호출 추가!
-  // };
+  // 미경
+  const [chatSessions, setChatSessions] = useState([]);
+  const [currentSessionId, setCurrentSessionId] = useState(null);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
-  // 즐겨찾기 토글
-  // 해당 대화의 즐겨찾기 상태를 토글(toggle)
-  const toggleBookmark = (sessionId) => {
-    // chatSessions라는 상태를 업데이트(set)
+  const fetchChatSessions = async () => {
+    const data = await fetchChatSessionsAPI();
+    setChatSessions(data);
+  };
+
+  useEffect(() => {
+    fetchChatSessions();
+  }, []);
+
+  const createChatSession = async () => {
+    const result = await createChatSessionAPI();
+
+    let newSession, updatedSessions;
+
+    // result 안에 newSession, updatedSessions가 둘 다 있을 경우
+    if (result.newSession && result.updatedSessions) {
+      newSession = result.newSession;
+      updatedSessions = result.updatedSessions;
+    } else {
+      // 그냥 newSession 하나만 리턴된 경우
+      newSession = result;
+      // 새로 목록 요청
+      updatedSessions = await fetchChatSessions();
+    }
+
+    if (!newSession || !newSession.sessionId) {
+      console.error('세션 생성 실패: sessionId 없음');
+      throw new Error('세션 생성 실패');
+    }
+
+    setCurrentSessionId(newSession.sessionId);
+    setChatSessions(updatedSessions);
+
+    return newSession.sessionId;
+  };
+
+  const updateChatTitle = async (sessionId, newTitle) => {
+    const updated = await updateChatTitleAPI(sessionId, newTitle);
     setChatSessions((prev) =>
-      // 이전 배열(prev)의 각 session을 순회하며 새 배열을 만들어 리턴
-      prev.map((session) =>
-        // 만약 현재 순회 중인 session.id가 우리가 토글하려는 대상(sessionId)과 같다면 기존 is_bookmark 값이 true면 false로, false면 true로 바꿔줌
-        session.id === sessionId ? { ...session, is_bookmark: !session.is_bookmark } : session
-      )
+      prev.map((s) => (s.sessionId === sessionId ? { ...s, title: updated.title } : s))
     );
   };
 
-  // ❌ 사이드바/헤더에선 사용하지 않음
-  // 에러 핸들링
-  // 에러가 있을 때 null로 초기화
-  // const clearError = () => setError(null);
+  const toggleBookmark = (sessionId) => {
+    setChatSessions((prev) =>
+      prev.map((s) => (s.sessionId === sessionId ? { ...s, isBookmark: !s.isBookmark } : s))
+    );
+  };
 
   return (
     <ChatContext.Provider
       value={{
+        // 서현
+        input, // 사용자가 입력한 메세지
+        setInput,
+        selectedTypes, // 피부 타입 선택
+        setSelectedTypes,
+        isDropdownOpen, // 드롭다운 박스
+        setIsDropdownOpen,
+        sessionMessages, // 객체에 채팅 메세지가 배열로 저장됨
+        setSessionMessages,
+        handleSend, // 새로운 메세지 전송
+        skinTypes, // 모든 피부 스킨 타입
+        setSkinTypes,
+
+        // 미경
         chatSessions,
         currentSessionId,
         isSidebarOpen,
         createChatSession,
+        fetchChatSessions,
+        updateChatTitle,
         setCurrentSessionId,
         setSidebarOpen,
         toggleBookmark,
         setChatSessions,
-
-        // ❌ 사이드바/헤더에선 사용하지 않음
-        // isLoading,
-        // error,
-        // addMessage,
-        // setIsLoading,
-        // setError,
-        // clearError,
       }}
     >
       {children}
     </ChatContext.Provider>
   );
 };
+export const useChat = () => useContext(ChatContext);

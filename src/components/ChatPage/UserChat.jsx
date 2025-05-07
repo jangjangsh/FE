@@ -5,7 +5,7 @@ const UserChat = ({ message }) => {
   return (
     <div>
       <div className="flex justify-end">
-        <div className="bg-gray-stroke03 font-normal text-gray-stroke70 px-[16px] py-[10px] rounded-[20px] max-w-[70%] whitespace-pre-line break-words my-6">
+        <div className="bg-gray-stroke03 font-normal text-gray-stroke70 px-[16px] py-[10px] rounded-[20px] max-w-[70%] whitespace-pre-line break-words mt-6">
           {message}
         </div>
       </div>

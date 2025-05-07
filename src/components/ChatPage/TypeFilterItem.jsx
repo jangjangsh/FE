@@ -5,15 +5,16 @@ const TypeFilterItem = ({ label, type, onDelete }) => {
   return (
     <>
       <div
-        className="flex w-fit px-[14px] py-[6px] rounded-[10px] gap-[10px]
+        className="flex w-fit px-[15px] py-[2px] rounded-[20px] gap-[10px]
       justify-center items-center
       font-normal text-[14px]
-      text-gray-stroke60 hover:text-gray-stroke70
-      bg-gray-stroke03 hover:bg-gray-stroke05
+      text-gray-stroke50 hover:text-gray-stroke70
+      bg-gray-stroke02 hover:bg-gray-stroke05
+      border border-gray-stroke04
       transition duration-300"
         style={{ textShadow: '0 0 1px rgb(255,255,255)' }}
       >
-        <span>{label}</span>
+        <span className="">{label}</span>
         <img
           className="w-[8px] cursor-pointer"
           src={IconCancel}

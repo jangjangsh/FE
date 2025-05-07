@@ -1,24 +1,38 @@
 import api from './api'; // axios 인스턴스
 
-// 1. 세션 생성
-export const createChatSession = async () => {
-  // 세션을 먼저 받을 것
-  try {
-    const { data } = await api.post('/api/chat/sessions');
-    return data; // sessionId가 담겨져서 옴
-  } catch (error) {
-    console.error('실패', error);
-    throw error;
-  }
-};
-
-// 2. 세션 목록 조회
-export const getChatSessionList = async () => {
+// 세션 목록 조회
+export const fetchChatSessions = async () => {
   try {
     const { data } = await api.get('/api/chat/sessions');
     return data;
   } catch (error) {
-    console.error('실패', error);
+    console.error('세션 목록 불러오기 실패:', error);
+    throw error;
+  }
+};
+
+// 세션 생성 (생성 후 목록 자동 새로고침)
+export const createChatSession = async () => {
+  try {
+    const { data: newSession } = await api.post('/api/chat/sessions', {
+      title: '제목을 입력해주세요.',
+    });
+    // 생성 후 목록 새로고침
+    const updatedSessions = await fetchChatSessions();
+    return { newSession, updatedSessions };
+  } catch (error) {
+    console.error('세션 생성 실패:', error);
+    throw error;
+  }
+};
+
+// 제목 수정
+export const updateChatTitle = async (sessionId, newTitle) => {
+  try {
+    const { data } = await api.patch(`/api/chat/sessions/${sessionId}/title`, { title: newTitle });
+    return data;
+  } catch (error) {
+    console.error('제목 수정 실패:', error);
     throw error;
   }
 };

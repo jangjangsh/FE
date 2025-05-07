@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   theme: {
@@ -10,6 +11,10 @@ export default {
         main: {
           DEFAULT: 'rgb(var(--color-main) / <alpha-value>)',
           hover: 'rgb(var(--color-main-hover) / <alpha-value>)',
+          purple: 'rgb(139, 91, 254, 1)',
+          2: 'rgba(59, 104, 239, 0.02)',
+          7: 'rgba(59, 104, 239, 0.07)',
+          20: 'rgba(59, 104, 239, 0.20)',
           buttonStroke: 'rgba(59, 104, 239, 0.3)', // 버튼 테두리 고정값
           buttonFill: 'rgba(59, 104, 239, 0.05)', // 버튼 fill 고정값
           typeStroke: 'rgba(59, 104, 239, 0.1)', // TypeStroke 고정값
@@ -35,6 +40,7 @@ export default {
           stroke07: 'rgba(0, 0, 0, 0.07)',
           stroke10: 'rgba(0, 0, 0, 0.1)',
           stroke30: 'rgba(0, 0, 0, 0.3)',
+          stroke50: 'rgba(0, 0, 0, 0.5)',
           stroke60: 'rgba(0, 0, 0, 0.6)',
           stroke70: 'rgba(0, 0, 0, 0.7)',
         },
@@ -67,7 +73,6 @@ export default {
     },
   },
 
-  plugins: [],
   experimental: {
     // Tailwind가 className 내부의 동적 표현식을 더 잘 감지하게 해주는 설정
     classRegex: [

@@ -3,7 +3,7 @@ import ChatMainPage from './pages/ChatMainPage';
 import ChatDetailPage from './pages/ChatDetailPage';
 import MyPage from './pages/MyPage';
 import NotFound from './pages/Notfound';
-import { ChatProvider } from './contexts/ChatContextsh';
+import { ChatProvider } from './contexts/ChatContext';
 // import IndexPage from './pages/IndexPage';
 // import LoginPage from './pages/LoginPage';
 // import SignUpPage from './pages/SignUpPage';
