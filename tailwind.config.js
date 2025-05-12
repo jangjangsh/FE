@@ -69,7 +69,7 @@ export default {
       },
     },
     animation: {
-      typing: 'typing 1.5s steps(16) alternate, blink .7s infinite',
+      typing: 'typing 1s steps(16) alternate, blink .7s infinite',
     },
   },
 
