@@ -61,3 +61,14 @@ export const getChatMessages = async (sessionId) => {
     throw error;
   }
 };
+
+// 세션 삭제
+export const deleteChatSession = async (sessionId) => {
+  try {
+    await api.delete(`/api/chat/sessions/${sessionId}`);
+    return { success: true };
+  } catch (error) {
+    const message = error.response?.data?.message || '세션 삭제 중 오류 발생';
+    return { success: false, error: message };
+  }
+};

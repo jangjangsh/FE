@@ -46,9 +46,10 @@ const SideBar = () => {
       )}
       <div
         ref={sidebarRef}
-        className={`fixed top-0 left-0 z-50 h-screen w-[260px]
+        className={`fixed top-0 left-0 z-50 h-full w-[261px]
          bg-white border-r border-gray/10 px-[20px]
          transition-all duration-500 ease-in-out transform -translate-x-full
+         overflow-y-auto chat-scrollbar-custom overflow-x-hidden
       ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="w-[220px]">

@@ -27,14 +27,17 @@ import IconStarG from '../assets/icon-starG.svg';
 import IconLogo from '../assets/icon-logo.svg';
 import IconUser from '../assets/icon-user.svg';
 import IconTail from '../assets/icon-tail.svg';
+import IconAccount from '../assets/icon-account.svg';
 
 import IconProfile from '../assets/icon-profile.svg';
 import Logo from '../assets/logo-SSPOID.svg';
 import KakaoLogin from '../assets/kakao_login_medium_wide.png';
 import KakaoLoginL from '../assets/kakao_login_large_wide.png';
+import IconCancelRed from '../assets/icon-cancelred.svg';
 
 export {
   IconCancel,
+  IconCancelRed,
   IconCheckActive,
   IconCheckInactive,
   IconCheckNoBgActive,
@@ -62,6 +65,7 @@ export {
   IconUser,
   IconTail,
   IconProfile,
+  IconAccount,
   Logo,
   KakaoLogin,
   KakaoLoginL,

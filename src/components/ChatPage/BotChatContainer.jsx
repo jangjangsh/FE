@@ -47,7 +47,7 @@ const BotChatContainer = ({ botMessages, onAnswerComplete }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowAlternate(true);
-    }, 0); // 5초 후 true로 변경
+    }, 5000); // 5초 후 true로 변경
 
     return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 제거
   }, []);

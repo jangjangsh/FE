@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 import plugin from 'tailwindcss/plugin';
 
 export default {
@@ -64,8 +65,9 @@ export default {
         gd: 'linear-gradient(to right, rgb(var(--color-main)), rgb(139, 91, 254))',
       },
       boxShadow: {
-        custom: '0px 1px 4px 0px rgba(0,0,0,0.1)',
         modal: '0px 30px 80px 0px rgba(0,0,0,0.15)',
+        custom: '0px 1px 4px 0px rgba(0,0,0,0.1)',
+        dropDown: '0px 0px 10px 0px rgba(0,0,0,0.03)',
       },
       keyframes: {
         typing: {
@@ -97,12 +99,18 @@ export default {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-6px)' },
         },
+        blinkFade: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
+        },
       },
       animation: {
-        typing: 'typing 1.5s steps(16) alternate, blink .7s infinite',
+        typing: 'typing 1s steps(16) alternate, blink .4s infinite',
         fadeIn: 'fadeIn 0.3s ease-out forwards',
         modalIn: 'modalIn 0.3s ease-out forwards',
         float: 'float 1.5s ease-in-out infinite',
+
+        blinkFade: 'blinkFade 1s ease-in-out infinite',
       },
     },
 

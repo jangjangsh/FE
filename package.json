@@ -12,10 +12,12 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.5.10",
     "axios": "^1.8.4",
+    "framer-motion": "^12.11.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.1",
     "react-textarea-autosize": "^8.5.9",
+    "typewriter-effect": "^2.22.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

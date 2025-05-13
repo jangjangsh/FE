@@ -3,6 +3,7 @@ import {
   fetchChatSessions as fetchChatSessionsAPI,
   createChatSession as createChatSessionAPI,
   updateChatTitle as updateChatTitleAPI,
+  deleteChatSession as deleteChatSessionAPI,
 } from '../utils/chat'; // 위치는 상황에 따라 조정
 
 export const ChatContext = createContext();
@@ -96,6 +97,19 @@ export const ChatProvider = ({ children }) => {
     );
   };
 
+  // 채팅삭제
+  const deleteChatSession = async (sessionId) => {
+    const res = await deleteChatSessionAPI(sessionId);
+    if (res.success) {
+      setChatSessions((prev) => prev.filter((s) => s.sessionId !== sessionId));
+      if (currentSessionId === sessionId) {
+        setCurrentSessionId(null); // 삭제된 세션이면 선택 해제
+      }
+    } else {
+      alert(res.error);
+    }
+  };
+
   return (
     <ChatContext.Provider
       value={{
@@ -123,6 +137,7 @@ export const ChatProvider = ({ children }) => {
         setSidebarOpen,
         toggleBookmark,
         setChatSessions,
+        deleteChatSession,
       }}
     >
       {children}

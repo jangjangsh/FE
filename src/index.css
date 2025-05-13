@@ -73,7 +73,7 @@ body {
     background: linear-gradient(
       130deg,
       rgba(59, 104, 239, 1),
-      rgba(140, 82, 255, 0.6),
+      rgba(140, 82, 255, 0.5),
       rgba(59, 104, 239, 1)
     );
     background-size: 300% 200%;
@@ -115,5 +115,16 @@ body {
   }
   100% {
     background-position: 100% 50%;
+  }
+}
+@layer utilities {
+  .animate-blink {
+    animation: blink 0.8s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
   }
 }

@@ -9,7 +9,7 @@ const SearchChatTitle = ({ search, setSearch }) => {
   return (
     <div
       className={`
-      flex w-full h-[38px] px-[10px] py-[8px]
+      flex w-[220px]] h-[38px] px-[10px] py-[8px]
       rounded-[15px] gap-[12.2px]
       ${search ? 'bg-gray-stroke03' : 'hover:bg-gray-stroke03 focus-within:bg-gray-stroke03'}
       `}

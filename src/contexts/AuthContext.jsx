@@ -85,9 +85,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // 로그아웃
+  const logout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    setIsLoggedIn(false);
+    setUser(null);
+  };
+
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, user, errorMsg, loading, login, kakaoLogin, signup }}
+      value={{ isLoggedIn, user, errorMsg, loading, login, kakaoLogin, signup, logout }}
     >
       {children}
     </AuthContext.Provider>

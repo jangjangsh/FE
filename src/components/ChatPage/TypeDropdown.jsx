@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { useChat } from '../../contexts/ChatContext';
 import { IconCheckNoBgInactive } from '../../utils/icons';
 import { IconCheckNoBgActive } from '../../utils/icons';
+import TypeDropDownItem from './TypeDropdownItem';
+
 // 드롭다운 목록 (건성, 지성 등)
 const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
   const { skinTypes } = useChat();
@@ -32,70 +34,34 @@ const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
         shadow-[0_0_10px_rgba(0,0,0,0.05)]
         p-[6px] z-10"
       >
-        <li
+        <TypeDropDownItem
+          label="건성"
+          selected={selectedTypes.includes('DRY')}
           onClick={() => onClickTypes('DRY')}
-          className={`
-          flex gap-[10px] px-[10px] py-[6px] text-[14px] font-normal
-          ${selectedTypes.includes('DRY') ? 'text-gray-stroke70' : 'text-gray-stroke30'}
-           hover:bg-gray-stroke02 rounded-md
-          transition duration-300 cursor-pointer
-  `}
-        >
-          {selectedTypes.includes('DRY') ? (
-            <img className="w-[10px]" src={IconCheckNoBgActive} alt="" />
-          ) : (
-            <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
-          )}
-          건성
-        </li>
-        <li
+          iconActive={IconCheckNoBgActive}
+          iconInactive={IconCheckNoBgInactive}
+        />
+        <TypeDropDownItem
+          label="지성"
+          selected={selectedTypes.includes('OILY')}
           onClick={() => onClickTypes('OILY')}
-          className={`
-          flex gap-[10px] px-[10px] py-[6px] text-[14px] font-normal
-          ${selectedTypes.includes('OILY') ? 'text-gray-stroke70' : 'text-gray-stroke30'}
-          hover:bg-gray-stroke02 rounded-md
-          transition duration-300 cursor-pointer
-  `}
-        >
-          {selectedTypes.includes('OILY') ? (
-            <img className="w-[10px]" src={IconCheckNoBgActive} alt="" />
-          ) : (
-            <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
-          )}
-          지성
-        </li>
-        <li
+          iconActive={IconCheckNoBgActive}
+          iconInactive={IconCheckNoBgInactive}
+        />
+        <TypeDropDownItem
+          label="민감성"
+          selected={selectedTypes.includes('SENSITIVE')}
           onClick={() => onClickTypes('SENSITIVE')}
-          className={`
-          flex gap-[10px] px-[10px] py-[6px] text-[14px] font-normal
-          ${selectedTypes.includes('SENSITIVE') ? 'text-gray-stroke70' : 'text-gray-stroke30'}
-           hover:bg-gray-stroke02 rounded-md
-          transition duration-300 cursor-pointer
-  `}
-        >
-          {selectedTypes.includes('SENSITIVE') ? (
-            <img className="w-[10px]" src={IconCheckNoBgActive} alt="" />
-          ) : (
-            <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
-          )}
-          민감성
-        </li>
-        <li
+          iconActive={IconCheckNoBgActive}
+          iconInactive={IconCheckNoBgInactive}
+        />
+        <TypeDropDownItem
+          label="복합성"
+          selected={selectedTypes.includes('COMBINED')}
           onClick={() => onClickTypes('COMBINED')}
-          className={`
-          flex gap-[10px] px-[10px] py-[6px] text-[14px] font-normal
-          ${selectedTypes.includes('COMBINED') ? 'text-gray-stroke70' : 'text-gray-stroke30'}
-          hover:bg-gray-stroke02 rounded-md
-          transition duration-300 cursor-pointer
-  `}
-        >
-          {selectedTypes.includes('COMBINED') ? (
-            <img className="w-[10px]" src={IconCheckNoBgActive} alt="" />
-          ) : (
-            <img className="w-[10px]" src={IconCheckNoBgInactive} alt="" />
-          )}
-          복합성
-        </li>
+          iconActive={IconCheckNoBgActive}
+          iconInactive={IconCheckNoBgInactive}
+        />
       </ul>
     </div>
   );
