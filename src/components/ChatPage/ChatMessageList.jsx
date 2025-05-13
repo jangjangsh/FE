@@ -12,6 +12,12 @@ const ChatMessageList = ({ allChatMessages }) => {
     }
   }, [allChatMessages]);
 
+  const handleBotAnswerComplete = () => {
+    if (lastBotRef.current) {
+      lastBotRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   const renderMessages = () => {
     const rendered = [];
     let i = 0;
@@ -46,7 +52,10 @@ const ChatMessageList = ({ allChatMessages }) => {
               ref={i === lastBotIndex ? lastBotRef : null} // 마지막 봇 묶음에 ref 걸기
               className="my-6"
             >
-              <BotChatContainer botMessages={botMessages} />
+              <BotChatContainer
+                botMessages={botMessages}
+                onAnswerComplete={handleBotAnswerComplete}
+              />
             </div>
           );
           seenMessage.clear();

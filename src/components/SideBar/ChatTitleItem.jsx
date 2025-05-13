@@ -1,8 +1,9 @@
 import { useState, useEffect, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChatContext } from '../../contexts/ChatContext';
-import { IconStarG } from '../../utils/icons';
+
 import TextOrInput from '../TextOrInput';
+import BookMark from './BookMark';
 
 const ChatTitleItem = ({ session, isSelected }) => {
   const { updateChatTitle, setCurrentSessionId, setSidebarOpen } = useContext(ChatContext);
@@ -94,10 +95,7 @@ const ChatTitleItem = ({ session, isSelected }) => {
         />
       </div>
 
-      {/* 즐겨찾기 (선택 구현) */}
-      {/* {session.isBookmark && (
-        <img className="w-[16px] h-[16px] ml-[8px] shrink-0" src={IconStarG} alt="즐겨찾기" />
-      )} */}
+      <BookMark />
     </div>
   );
 };

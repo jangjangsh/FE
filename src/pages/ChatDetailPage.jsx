@@ -2,6 +2,7 @@ import Header from '../components/Header';
 import SideBar from '../components/SideBar/SideBar';
 import ChatSection from '../components/ChatPage/ChatSection';
 import ChatInputBox from '../components/ChatPage/ChatInputBox';
+import SessionSummary from '../components/Header/SessionSummary';
 import { useParams } from 'react-router-dom';
 import { useCallback, useState, useEffect } from 'react';
 import { getChatMessages } from '../utils/chat';
@@ -10,6 +11,7 @@ const ChatDetailPage = () => {
   const { sessionId } = useParams();
 
   const [allChatMessages, setAllChatMessages] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   // ✅ fetchMessagesAgain으로 넘겨줄 getBotChat은 useCallback으로 만들기
   const getBotChat = useCallback(async () => {
@@ -29,10 +31,18 @@ const ChatDetailPage = () => {
     }
   }, [sessionId, getBotChat]);
 
+  const onClick = () => {
+    setIsOpen(!isOpen); // 토글 열리고 닫힘
+    console.log(isOpen);
+  };
+
   return (
     <div className="relative h-screen overflow-hidden">
       {/* 헤더: 고정 */}
-      <Header />
+      <div>
+        <Header onClick={onClick} />
+        <div>{isOpen ? <SessionSummary sessionId={sessionId} onClick={onClick} /> : null}</div>
+      </div>
 
       {/* 본문 전체: 헤더 제외 + InputBox 제외 */}
       <div className="pt-[60px] pb-[90px] pl-1 h-[calc(100vh-60px)] flex overflow-hidden">

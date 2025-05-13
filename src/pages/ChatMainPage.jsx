@@ -1,15 +1,22 @@
 import Header from '../components/Header';
 import ChatInputBox from '../components/ChatPage/ChatInputBox';
 import SideBar from '../components/SideBar/SideBar';
+import { useState } from 'react';
 
 const ChatMainPage = () => {
+  const [isClick, setIsClick] = useState(true);
+
+  const isTypeSelected = () => {
+    setIsClick(false);
+  };
+
   return (
     <div className="flex flex-col h-screen w-screen items-center">
       <Header />
       <SideBar />
       {/* 시작 문구 */}
 
-      <div className="flex flex-col justify-center items-center h-full w-[740px] ">
+      <div className="flex flex-col justify-center items-center h-[90%] w-[740px] ">
         <div className="flex text-[32px] text-center ">
           <div className="text-[32px] mb-8 text-center">
             {/* 두 번째 줄: 스포이드로 추출하세요 */}
@@ -31,7 +38,7 @@ const ChatMainPage = () => {
         </div>
 
         {/* 메인 페이지는 sessionId 없기 때문에 Null */}
-        <ChatInputBox sessionId={null} />
+        <ChatInputBox sessionId={null} isTypeSelected={isTypeSelected} isClick={isClick} />
       </div>
     </div>
   );
