@@ -3,7 +3,7 @@ import { KakaoLoginL } from '../../utils/icons';
 const SocialLogin = () => {
   // .env에서 restapi 불러와 카카오 로그인 url 생성
   const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
-  const REDIRECT_URI = 'https://localhost:5173/login/kakao'; // 카카오에 등록된 redirect_uri
+  const REDIRECT_URI = 'https://sspoid.site/login/kakao'; // 카카오에 등록된 redirect_uri
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   const handleKakaoLogin = () => {
