@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import BotChatContainer from './BotChatContainer';
 import UserChat from './UserChat';
 
-const ChatMessageList = ({ allChatMessages }) => {
+const ChatMessageList = ({ currentSessionId, allChatMessages }) => {
   const lastBotRef = useRef(null);
   const seenMessage = new Set();
 
@@ -51,7 +51,7 @@ const ChatMessageList = ({ allChatMessages }) => {
               <BotChatContainer
                 botMessages={botMessages}
                 onAnswerComplete={handleBotAnswerComplete}
-                blockId={`bot-${i}`}
+                blockId={`bot-${currentSessionId}-${i}`} // 👈 이렇게 유일하게 만들어서 넘겨야 함
               />
             </div>
           );
