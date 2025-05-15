@@ -44,9 +44,7 @@ const SignUpForm = () => {
           onChange={setPassword}
           setIsPasswordValidAll={setIsPasswordValidAll}
         />
-        {errorMsg && (
-          <div className="text-rederror text-[14px] font-medium leading-[1.4]">{errorMsg}</div>
-        )}
+        {errorMsg && <div className="text-rederror text-[14px] leading-[1.4]">{errorMsg}</div>}
         <div className="mt-[28px] mb-[48px] w-full">
           <Button
             text="회원가입 완료"

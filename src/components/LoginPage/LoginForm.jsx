@@ -37,15 +37,15 @@ const LoginForm = () => {
         placeholder="아이디를 입력해주세요."
         onChange={(e) => setEmail(e.target.value)}
         className="w-full outline-none
-        px-[16px] py-[14px] tracking-[-0.025em]
+        px-[16px] py-[12px] tracking-[-0.025em]
         border border-gray-stroke08 rounded-t-[8px] border-b-transparent
         focus:border focus:border-main
-        placeholder-gray-stroke30 placeholder:font-medium"
+        placeholder-gray-stroke30"
       />
 
       {/* 비밀번호 */}
       <div
-        className="w-full flex items-center px-[16px] py-[14px] gap-[12px] tracking-[-0.025em]
+        className="w-full flex items-center px-[16px] py-[12px] gap-[12px] tracking-[-0.025em]
       border border-gray-stroke08 rounded-b-[8px]
       focus-within:border focus-within:border-main
       transition duration-200"
@@ -56,7 +56,7 @@ const LoginForm = () => {
           placeholder="비밀번호를 입력해주세요."
           onChange={(e) => setPassword(e.target.value)}
           className="w-full outline-none
-          placeholder-gray-stroke30 placeholder:font-medium
+          placeholder-gray-stroke30 
           "
         />
         <button type="button" onClick={() => setShowPassword(!showPassword)}>
@@ -76,7 +76,7 @@ const LoginForm = () => {
             alt="checkIcon"
           />
           <div
-            className={`text-[14px] font-medium leading-[1.4] tracking-[-0.025em] ${
+            className={`text-[14px] leading-[1.4] tracking-[-0.025em] ${
               autoLogin ? 'text-gray-600' : 'text-gray-stroke50'
             } group-hover:text-gray-600
             transition duration-150`}
@@ -88,9 +88,7 @@ const LoginForm = () => {
       </div>
 
       {/* 에러 메시지 */}
-      {errorMsg && (
-        <div className="text-rederror text-[14px] font-medium leading-[1.4]">{errorMsg}</div>
-      )}
+      {errorMsg && <div className="text-rederror text-[14px] leading-[1.4]">{errorMsg}</div>}
 
       {/* 로그인 버튼 */}
       <Button text="로그인" onClick={handleLoginSubmit} disabled={loading} isActive={isActive} />

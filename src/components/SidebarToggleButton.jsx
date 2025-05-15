@@ -8,7 +8,7 @@ const SidebarToggleButton = () => {
 
   return (
     <div onClick={() => setSidebarOpen(!isSidebarOpen)}>
-      <img className="w-[21px] h-[14px] cursor-pointer" src={IconMenu} alt="사이드바 버튼" />
+      <img className="w-[24px] cursor-pointer" src={IconMenu} alt="사이드바 버튼" />
     </div>
   );
 };

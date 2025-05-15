@@ -1,7 +1,7 @@
 const Button = ({ text, onClick, disabled, isActive }) => {
   return (
     <button
-      className={`relative w-full h-[50px] tracking-[-0.025em] rounded-[8px] text-white overflow-hidden  font-semibold
+      className={`relative w-full h-[50px] tracking-[-0.025em] rounded-[8px] text-white overflow-hidden  font-medium
         ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
         bg-login
       `}
@@ -10,7 +10,7 @@ const Button = ({ text, onClick, disabled, isActive }) => {
     >
       <span className="relative z-10">{text}</span>
       <div
-        className={`absolute inset-0 rounded-[8px] bg-gd transition-opacity duration-200 font-semibold
+        className={`absolute inset-0 rounded-[8px] bg-gd transition-opacity duration-200 font-medium
           ${isActive ? 'opacity-100' : 'opacity-0'}
         `}
       />

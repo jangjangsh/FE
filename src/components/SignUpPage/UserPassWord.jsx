@@ -44,7 +44,7 @@ const UserPassWord = ({ value, onChange, setIsPasswordValidAll }) => {
     <>
       {/* 비밀번호 입력 */}
       <div className="flex flex-col gap-[10px]">
-        <div className="text-[15px] font-bold text-gray">비밀번호</div>
+        <div className="text-[15px] font-semibold text-gray">비밀번호</div>
         <div
           className={`w-full flex items-center px-[16px] py-[14px] gap-[12px]
             border ${
@@ -72,7 +72,7 @@ const UserPassWord = ({ value, onChange, setIsPasswordValidAll }) => {
             onFocus={() => setIsPasswordFocused(true)}
             onBlur={() => setIsPasswordFocused(false)}
             placeholder="비밀번호를 입력해주세요."
-            className="w-full outline-none placeholder-gray-stroke30 placeholder:font-medium"
+            className="w-full outline-none placeholder-gray-stroke30"
           />
           <button type="button" onClick={() => setShowPassword(!showPassword)}>
             <img className="h-[11px]" src={IconEye} alt="eye" />
@@ -80,9 +80,9 @@ const UserPassWord = ({ value, onChange, setIsPasswordValidAll }) => {
         </div>
 
         {isPasswordFocused && (
-          <div className="flex flex-col gap-[4px] mt-[4px] text-[13px]">
+          <div className="flex flex-col font-medium gap-[4px] text-[13px]">
             <div
-              className={`flex items-center gap-[4px] ${
+              className={`flex items-center gap-[6px] ${
                 validateCondition1(value) ? 'text-main' : 'text-gray-stroke30'
               }`}
             >
@@ -94,7 +94,7 @@ const UserPassWord = ({ value, onChange, setIsPasswordValidAll }) => {
               <div>영문/숫자/특수문자 중 2가지 이상 포함</div>
             </div>
             <div
-              className={`flex items-center gap-[4px] ${
+              className={`flex items-center gap-[6px] ${
                 validateCondition2(value) ? 'text-main' : 'text-gray-stroke30'
               }`}
             >
@@ -111,7 +111,7 @@ const UserPassWord = ({ value, onChange, setIsPasswordValidAll }) => {
 
       {/* 비밀번호 확인 */}
       <div className="flex flex-col gap-[10px]">
-        <div className="text-[15px] font-bold text-gray">비밀번호 확인</div>
+        <div className="text-[15px] font-semibold text-gray">비밀번호 확인</div>
         <div
           className={`w-full flex items-center px-[16px] py-[14px] gap-[12px]
             border ${isPasswordMatch ? 'border-gray-stroke08' : 'border-rederror'}
@@ -124,14 +124,14 @@ const UserPassWord = ({ value, onChange, setIsPasswordValidAll }) => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="비밀번호를 재입력해주세요."
-            className="w-full outline-none placeholder-gray-stroke30 placeholder:font-medium"
+            className="w-full outline-none placeholder-gray-stroke30"
           />
           <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
             <img className="h-[11px]" src={IconEye} alt="eye" />
           </button>
         </div>
         {!isPasswordMatch && (
-          <div className="text-rederror text-[14px] font-medium leading-[1.4]">
+          <div className="text-rederror text-[13px] font-medium leading-[1.4]">
             비밀번호가 일치하지 않습니다. 다시 입력해주세요.
           </div>
         )}

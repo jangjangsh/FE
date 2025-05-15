@@ -47,17 +47,15 @@ const ChatMessageList = ({ allChatMessages }) => {
           lastBotIndex = i;
 
           rendered.push(
-            <div
-              key={`bot-${i}`}
-              ref={i === lastBotIndex ? lastBotRef : null} // 마지막 봇 묶음에 ref 걸기
-              className="my-6"
-            >
+            <div key={`bot-${i}`} ref={i === lastBotIndex ? lastBotRef : null} className="my-6">
               <BotChatContainer
                 botMessages={botMessages}
                 onAnswerComplete={handleBotAnswerComplete}
+                blockId={`bot-${i}`}
               />
             </div>
           );
+
           seenMessage.clear();
         }
 

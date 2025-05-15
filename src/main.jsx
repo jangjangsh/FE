@@ -14,7 +14,6 @@ import { AuthProvider } from './contexts/AuthContext';
 //     console.log('[MSW] ✅ MSW 실행됨');
 //   }
 // }
-// enableMocking().then(() => {}
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>

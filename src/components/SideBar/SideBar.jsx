@@ -55,7 +55,7 @@ const SideBar = () => {
         <div className="w-[220px]">
           {/* 메뉴 */}
           {/* 왼쪽 버튼 */}
-          <div className="flex items-center h-[60px] mb-[10px]">
+          <div className="flex items-center py-6 ml-1">
             <SidebarToggleButton />
           </div>
 

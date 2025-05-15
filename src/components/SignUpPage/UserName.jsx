@@ -14,7 +14,7 @@ const UserName = ({ value, onChange }) => {
     <>
       {/* 사용자명 */}
       <div className="flex flex-col gap-[10px]">
-        <div className="text-[15px] font-bold text-gray">사용자명</div>
+        <div className="text-[15px] font-semibold text-gray">사용자명</div>
         <input
           type="text"
           placeholder="한글, 영어, 숫자 포함 2~8글자"
@@ -25,7 +25,7 @@ const UserName = ({ value, onChange }) => {
               border ${isUserNameValid ? 'border-gray-stroke08' : 'border-rederror'}
               rounded-[8px]
               ${isUserNameValid ? 'focus-within:border-main' : 'focus-within:border-rederror'}
-              placeholder-gray-stroke30 placeholder:font-medium tracking-[-0.025em]`}
+              placeholder-gray-stroke30 tracking-[-0.025em]`}
         />
         {!isUserNameValid && (
           <div className="text-rederror text-[14px] font-medium leading-[1.4]">

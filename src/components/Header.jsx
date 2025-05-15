@@ -20,10 +20,10 @@ const Header = ({ onClick }) => {
   console.log(isLoggedIn);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-[64px] bg-white z-40">
+    <div className="fixed top-0 left-0 w-full h-[64px] px-6 bg-white z-40">
       <div className=" flex items-center justify-between h-full w-full">
         {/* 왼쪽 버튼 */}
-        <div className="px-[30px]">
+        <div className="">
           {isChatPage ? <SidebarToggleButton /> : <img className="w-12" src={IconLogo} alt="" />}
         </div>
         {/* 조건부렌더링 */}
@@ -44,7 +44,7 @@ const Header = ({ onClick }) => {
         </div>
         {/* 여기까지 */}
 
-        <div className="ml-auto pr-[26px]">{/* <HeaderProfile /> */}</div>
+        <div className="ml-auto">{/* <HeaderProfile /> */}</div>
       </div>
     </div>
   );
