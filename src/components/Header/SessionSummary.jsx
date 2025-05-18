@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { postChatSummary } from '../../utils/chat'; // ✅ 바뀐 함수 import
 import { IconCancel } from '../../utils/icons';
 import { IconSummaryBlue } from '../../utils/icons';
 
@@ -8,10 +8,10 @@ const SessionSummary = ({ onClick, sessionId }) => {
 
   const fetchSummary = async (sessionId) => {
     try {
-      const res = await axios.get(`/api/chat/sessions/${sessionId}/summary`);
-      setSummary(res.data.summary);
-      console.log('요약 내용:', res.data.summary);
-      return res.data.summary;
+      const res = await postChatSummary(sessionId); // ✅ GET → POST
+      setSummary(res.summarizedMessage); // ✅ res.data.summary → res.summarizedMessage
+      console.log('요약 내용:', res.summarizedMessage);
+      return res.summarizedMessage;
     } catch (error) {
       console.error('요약 요청 실패', error);
       return null;

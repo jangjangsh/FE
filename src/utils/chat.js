@@ -72,3 +72,15 @@ export const deleteChatSession = async (sessionId) => {
     return { success: false, error: message };
   }
 };
+
+// 요약 기능
+export const postChatSummary = async (sessionId) => {
+  try {
+    const { data } = await api.post(`/api/chat/sessions/${sessionId}/summary`);
+    console.log('✅ 백엔드 응답:', data);
+    return data;
+  } catch (error) {
+    console.error('API 호출 실패:', error);
+    throw error;
+  }
+};
