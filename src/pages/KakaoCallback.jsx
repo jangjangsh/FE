@@ -15,8 +15,12 @@ const KakaoCallback = () => {
     }
 
     kakaoLogin(code)
-      .then(() => {
-        nav('/chat'); // 로그인 성공 후 이동할 페이지
+      .then((res) => {
+        if (res?.success !== false) {
+          nav('/chat'); // 로그인 성공
+        } else {
+          throw new Error('로그인 실패');
+        }
       })
       .catch((err) => {
         console.error('카카오 로그인 실패:', err);

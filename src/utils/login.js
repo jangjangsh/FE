@@ -12,16 +12,13 @@ export const login = async (email, password) => {
 };
 
 // 간편로그인
+// ✅ kakaoLogin 함수 수정
 export const kakaoLogin = async (code) => {
   try {
     const { data } = await api.post('/api/login/kakao', { code });
 
-    // 토큰 없으면 실패로 간주
-    if (data.accessToken && data.refreshToken) {
-      return { success: true, data };
-    } else {
-      return { success: false, error: '토큰이 존재하지 않습니다.' };
-    }
+    // 응답 성공 여부만 보고 로그인 성공 판단
+    return { success: true, data };
   } catch (error) {
     const message = error.response?.data?.message || '카카오 로그인 중 오류 발생';
     return { success: false, error: message };

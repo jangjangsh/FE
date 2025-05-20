@@ -43,22 +43,22 @@ export const AuthProvider = ({ children }) => {
       const result = await kakaoLoginAPI(code);
 
       if (result.success) {
-        const { accessToken, refreshToken, kakao_account } = result.data;
+        const { kakao_account } = result.data;
 
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        setIsLoggedIn(true);
-
-        // 닉네임이나 이메일이 있으면 유저정보 저장
         const nickname = kakao_account?.profile?.nickname || '';
         const email = kakao_account?.email || '';
+
         setUser({ email, nickname });
+        setIsLoggedIn(true);
       } else {
         setErrorMsg(result.error);
       }
+
+      return result; // ✅ 이 줄 추가
     } catch (err) {
       console.error('카카오 로그인 실패', err);
       setErrorMsg('카카오 로그인 중 오류 발생');
+      return { success: false, error: '카카오 로그인 중 오류 발생' }; // ✅ 실패 응답도 리턴
     } finally {
       setLoading(false);
     }
