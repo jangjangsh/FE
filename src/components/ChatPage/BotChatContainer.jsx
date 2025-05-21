@@ -11,7 +11,10 @@ const SkinTypeLabel = {
 };
 
 const BotChatContainer = ({ botMessages, onAnswerComplete, blockId }) => {
-  const [activeType, setActiveType] = useState(botMessages[0]?.skinType || '');
+  const [activeType, setActiveType] = useState(() => {
+    const baseType = botMessages[0]?.skinType?.match(/^(DRY|OILY|SENSITIVE|COMBINATION)/)?.[0];
+    return baseType || '';
+  });
   const [activeIndex, setActiveIndex] = useState(0);
   const { isBotBlockRevealed, markBotBlockAsRevealed, currentSessionId } = useChat();
   const [showAlternate, setShowAlternate] = useState(false);
@@ -79,24 +82,26 @@ const BotChatContainer = ({ botMessages, onAnswerComplete, blockId }) => {
           {(() => {
             const seenSkinTypes = new Set();
             return botMessages.map((msg, idx) => {
-              if (seenSkinTypes.has(msg.skinType)) return null;
-              seenSkinTypes.add(msg.skinType);
+              const baseType = msg.skinType.match(/^(DRY|OILY|SENSITIVE|COMBINATION)/)?.[0];
+              if (!baseType || seenSkinTypes.has(baseType)) return null;
+              seenSkinTypes.add(baseType);
+
               return (
                 <button
-                  key={idx}
+                  key={baseType}
                   ref={(el) => (buttonRefs.current[idx] = el)}
-                  onClick={() => handleFilterSelect(msg.skinType, idx)}
+                  onClick={() => handleFilterSelect(baseType, idx)}
                   className={`
                     z-10 text-[14px] font-medium py-[7px] [width:calc((100%)/4)]
                     border-b-2 border-main-7
                     ${
-                      activeType === msg.skinType
+                      activeType === baseType
                         ? 'text-main font-semibold'
                         : 'text-main-buttonStroke hover:text-main-chatFilterHover hover:border-main-20 duration-200'
                     }
                   `}
                 >
-                  {SkinTypeLabel[msg.skinType]}
+                  {SkinTypeLabel[baseType] || baseType}
                 </button>
               );
             });
@@ -118,9 +123,13 @@ const BotChatContainer = ({ botMessages, onAnswerComplete, blockId }) => {
         <div className="flex flex-col w-full mb-6">
           <div className="bg-white font-normal text-gray-stroke70 max-w-[100%] whitespace-pre-line break-words leading-[1.8]">
             {botMessages
-              .filter((msg) => msg.skinType === activeType)
+              .filter((msg) => {
+                const baseType = msg.skinType.match(/^(DRY|OILY|SENSITIVE|COMBINATION)/)?.[0];
+                return baseType === activeType;
+              })
               .map((msg, idx) => {
-                const persona = personaProfiles[msg.skinType]?.[idx] || ''; // ✅ 이 줄 추가
+                const baseType = msg.skinType.match(/^(DRY|OILY|SENSITIVE|COMBINATION)/)?.[0];
+                const persona = personaProfiles[baseType]?.[idx] || '';
 
                 return (
                   <div className="h-full w-full py-6 group" key={idx}>
