@@ -34,7 +34,7 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
     const body = {
       message: input,
       skinTypes:
-        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINED'],
+        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
     };
 
     console.log('👉 전송 데이터:', body);

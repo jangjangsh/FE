@@ -57,8 +57,8 @@ const TypeDropDown = ({ selectedTypes, setSelectedTypes }) => {
         />
         <TypeDropDownItem
           label="복합성"
-          selected={selectedTypes.includes('COMBINED')}
-          onClick={() => onClickTypes('COMBINED')}
+          selected={selectedTypes.includes('COMBINATION')}
+          onClick={() => onClickTypes('COMBINATION')}
           iconActive={IconCheckNoBgActive}
           iconInactive={IconCheckNoBgInactive}
         />

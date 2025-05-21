@@ -6,9 +6,9 @@ const TypeFilterList = ({ selectedTypes, onDelete }) => {
     SENSITIVE: '민감성',
     DRY: '건성',
     OILY: '지성',
-    COMBINED: '복합성',
+    COMBINATION: '복합성',
   };
-  const typeOrder = ['DRY', 'OILY', 'SENSITIVE', 'COMBINED'];
+  const typeOrder = ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'];
   const sortedSelectedTypes = selectedTypes.sort(
     (a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b)
   );

@@ -7,7 +7,7 @@ const SkinTypeLabel = {
   DRY: '건성',
   OILY: '지성',
   SENSITIVE: '민감성',
-  COMBINED: '복합성',
+  COMBINATION: '복합성',
 };
 
 const BotChatContainer = ({ botMessages, onAnswerComplete, blockId }) => {
