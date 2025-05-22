@@ -21,6 +21,8 @@ export const ChatProvider = ({ children }) => {
     'COMBINATION', // ✅ 선택할 수 있는 전체 타입 목록
   ]);
   const [liveBotMessage, setLiveBotMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   const idRef = useRef(0);
 
   const handleSend = () => {
@@ -124,9 +126,11 @@ export const ChatProvider = ({ children }) => {
         setSessionMessages,
         handleSend, // 새로운 메세지 전송
         skinTypes, // 모든 피부 스킨 타입
+        setSkinTypes,
         liveBotMessage,
         setLiveBotMessage,
-
+        isLoading,
+        setIsLoading,
         // 미경
         chatSessions,
         currentSessionId,
