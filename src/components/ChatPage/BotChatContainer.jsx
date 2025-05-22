@@ -102,8 +102,8 @@ const BotChatContainer = ({ botMessages, onAnswerComplete }) => {
 
       {/* 메시지 표시 영역 */}
       {showAlternate && (
-        <div className="group flex flex-col w-full mb-6">
-          <div className="mt-[34px] bg-white font-normal text-gray-stroke70 max-w-[100%] whitespace-pre-line break-words leading-[1.8]">
+        <div className="group flex flex-col w-full my-6">
+          <div className="mt-3 bg-white font-normal text-gray-stroke70 max-w-[100%] whitespace-pre-line break-words leading-[1.8]">
             {botMessages
               .filter((msg) => {
                 const baseType = msg.skinType.match(/^(DRY|OILY|SENSITIVE|COMBINATION)/)?.[0];
@@ -114,25 +114,24 @@ const BotChatContainer = ({ botMessages, onAnswerComplete }) => {
                 const persona = personaProfiles[baseType]?.[idx] || '';
 
                 return (
-                  <div className="flex flex-col h-full w-full mt-2" key={idx}>
+                  <div className="flex flex-col h-full w-full" key={idx}>
                     {/* 페르소나 설명 */}
                     <div className="flex items-center justify-center w-full">
                       {/* 왼쪽 선 */}
-                      {/* <div className="flex-grow  h-[1px] bg-gradient-to-tr from-white to-main opacity-30" /> */}
-                      <div className="flex-grow  h-[1px] bg-main opacity-10" />
+                      {/* <div className="flex-grow h-[0.5px] bg-gradient-to-tr from-main-20 to-main opacity-40" /> */}
+                      <div className="flex-grow  h-[1px] bg-main opacity-20" />
 
                       {/* 텍스트 */}
-                      <span className="mx-4 text-[14px] text-main font-medium whitespace-nowrap">
+                      <span className="mx-6 text-[15px] text-main font-medium whitespace-nowrap">
                         {persona}
                       </span>
 
                       {/* 오른쪽 선 */}
-                      {/* <div className="flex-grow h-[1px] bg-gradient-to-tr to-white from-main opacity-30" /> */}
-
-                      <div className="flex-grow  h-[1px] bg-main opacity-10" />
+                      {/* <div className="flex-grow h-[0.5px] bg-gradient-to-tr to-main-20 from-main opacity-40" /> */}
+                      <div className="flex-grow h-[1px] bg-main opacity-20" />
                     </div>
                     {/* 봇 응답 메시지 */}
-                    <span className="block h-full w-full px-8 py-4 mt-1">{msg.message}</span>
+                    <span className="block h-full w-full text-[16px] py-6">{msg.message}</span>
                   </div>
                 );
               })}
