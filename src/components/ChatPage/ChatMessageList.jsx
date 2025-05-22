@@ -3,16 +3,21 @@ import { useChat } from '../../contexts/ChatContext';
 import BotChatContainer from './BotChatContainer';
 import UserChat from './UserChat';
 
-const ChatMessageList = ({ currentSessionId, allChatMessages }) => {
+const ChatMessageList = ({ currentSessionId }) => {
+  const lastUserRef = useRef(null);
   const lastBotRef = useRef(null);
-  const seenMessage = new Set();
-  const { liveBotMessage } = useChat();
+  const { sessionMessages } = useChat();
 
   useEffect(() => {
-    if (lastBotRef.current) {
+    const last = sessionMessages[sessionMessages.length - 1];
+    if (!last) return;
+
+    if (last.sender === 'USER' && lastUserRef.current) {
+      lastUserRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (last.sender === 'BOT' && lastBotRef.current) {
       lastBotRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, [allChatMessages]);
+  }, [sessionMessages]);
 
   const handleBotAnswerComplete = () => {
     if (lastBotRef.current) {
@@ -23,42 +28,45 @@ const ChatMessageList = ({ currentSessionId, allChatMessages }) => {
   const renderMessages = () => {
     const rendered = [];
     let i = 0;
-    let lastBotIndex = -1;
+    const seenMessages = new Set(); // ✅ 중복 메시지 필터용
 
-    while (i < allChatMessages.length) {
-      const msg = allChatMessages[i];
+    while (i < sessionMessages.length) {
+      const msg = sessionMessages[i];
 
       if (msg.sender === 'USER') {
-        if (!seenMessage.has(msg.message)) {
-          seenMessage.add(msg.message);
+        // ✅ 같은 내용의 메시지를 한 번만 렌더링
+        if (!seenMessages.has(msg.message)) {
+          seenMessages.add(msg.message);
+
           rendered.push(
-            <div key={`user-${i}`}>
+            <div key={`user-${msg.id}`} ref={lastUserRef}>
               <UserChat message={msg.message} />
             </div>
           );
         }
 
+        // 이어지는 BOT 메시지 묶기
         const botMessages = [];
         let j = i + 1;
-        while (j < allChatMessages.length && allChatMessages[j].sender === 'BOT') {
-          botMessages.push(allChatMessages[j]);
+        while (j < sessionMessages.length && sessionMessages[j].sender === 'BOT') {
+          botMessages.push(sessionMessages[j]);
           j++;
         }
 
         if (botMessages.length > 0) {
-          lastBotIndex = i;
-
           rendered.push(
-            <div key={`bot-${i}`} ref={i === lastBotIndex ? lastBotRef : null} className="my-6">
+            <div
+              key={`bot-${i}`}
+              ref={j - 1 === sessionMessages.length - 1 ? lastBotRef : null}
+              className="my-6"
+            >
               <BotChatContainer
                 botMessages={botMessages}
+                blockId={`bot-${currentSessionId}-${i}`}
                 onAnswerComplete={handleBotAnswerComplete}
-                blockId={`bot-${currentSessionId}-${i}`} // 👈 이렇게 유일하게 만들어서 넘겨야 함
               />
             </div>
           );
-
-          seenMessage.clear();
         }
 
         i = j;
@@ -66,21 +74,9 @@ const ChatMessageList = ({ currentSessionId, allChatMessages }) => {
         i++;
       }
     }
-    if (liveBotMessage) {
-      rendered.push(
-        <div className="my-6" key="live-bot-message">
-          <div className="flex justify-start">
-            <div className="bg-white border border-main-typeStroke font-normal text-gray-stroke70 px-[18px] py-[16px] rounded-b-[15px] w-fit max-w-[100%] whitespace-pre-line break-words">
-              {liveBotMessage}
-            </div>
-          </div>
-        </div>
-      );
-    }
 
     return rendered;
   };
-
   return <div className="flex flex-col w-full">{renderMessages()}</div>;
 };
 

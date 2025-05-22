@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import {
   fetchChatSessions as fetchChatSessionsAPI,
   createChatSession as createChatSessionAPI,
@@ -22,7 +22,7 @@ export const ChatProvider = ({ children }) => {
   ]);
   const [liveBotMessage, setLiveBotMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  // const idRef = useRef(0);
+  const userId = useRef(0);
 
   // const handleSend = () => {
   //   if (!input.trim()) return;
@@ -121,6 +121,7 @@ export const ChatProvider = ({ children }) => {
         setLiveBotMessage,
         isLoading,
         setIsLoading,
+        userId,
 
         // 미경
         chatSessions,

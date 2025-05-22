@@ -4,7 +4,6 @@ import SendButton from './SendButton';
 import TypeSelectorBox from './TypeSelectorBox';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { createChatSession, sendChatMessagesStream } from '../../utils/chat';
-import { useRef } from 'react';
 
 // 채팅 입력창 컨테이너
 const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }) => {
@@ -21,19 +20,19 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
     setChatSessions,
     setCurrentSessionId,
     setIsLoading,
+    userId,
   } = useChat();
 
   // dropdown 위로 열지 아래로 열지 판단
   const location = useLocation();
   const isDetailPage = location.pathname.includes('/chat/');
   const navigate = useNavigate();
-  let idRef = useRef(1);
 
   // 새로운 세션 생성 후 메세지 전송, 세션 이동
   const handleTestPost = async () => {
     if (!input.trim()) return;
     const userMessage = {
-      id: idRef.current++,
+      id: userId.current++,
       sender: 'USER',
       message: input,
       skinTypes:
@@ -42,13 +41,9 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
     setSessionMessages((prev) => [...prev, userMessage]);
     setIsLoading(true);
     // fetchMessagesAgain(); // ✅ 여기서 호출
-
+    console.log(userMessage);
     // user 메세지 전체 body
-    const body = {
-      message: input,
-      skinTypes:
-        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
-    };
+    const body = userMessage;
 
     console.log('👉 전송 데이터:', body);
 
@@ -66,7 +61,13 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
 
         // ✅ 스트리밍 전송 + 응답 저장
         sendChatMessagesStream(body, currentSessionId, (result) => {
-          setSessionMessages((prev) => [...prev, ...result]); // 👈 이게 append 역할
+          //key 값 정의
+          const botMessagesWithId = result.map((msg, index) => ({
+            ...msg,
+            id: `${Date.now()}-${index}`, // 또는 nanoid() 써도 됨
+          }));
+
+          setSessionMessages((prev) => [...prev, ...botMessagesWithId]); // 👈 이게 append 역할
           setIsLoading(false);
           fetchMessagesAgain(); // ✅ 여기서 호출
         });
