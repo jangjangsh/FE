@@ -6,7 +6,7 @@ import UserChat from './UserChat';
 const ChatMessageList = ({ currentSessionId }) => {
   const lastUserRef = useRef(null);
   const lastBotRef = useRef(null);
-  const { sessionMessages } = useChat();
+  const { sessionMessages, isLoading } = useChat(); // 👈 isLoading 추가
 
   useEffect(() => {
     const last = sessionMessages[sessionMessages.length - 1];
@@ -28,24 +28,37 @@ const ChatMessageList = ({ currentSessionId }) => {
   const renderMessages = () => {
     const rendered = [];
     let i = 0;
-    const seenMessages = new Set(); // ✅ 중복 메시지 필터용
+    const seenUserMessages = new Set();
 
     while (i < sessionMessages.length) {
       const msg = sessionMessages[i];
 
       if (msg.sender === 'USER') {
-        // ✅ 같은 내용의 메시지를 한 번만 렌더링
-        if (!seenMessages.has(msg.message)) {
-          seenMessages.add(msg.message);
+        const hasSeenSameMessage = seenUserMessages.has(msg.message);
 
-          rendered.push(
-            <div key={`user-${msg.id}`} ref={lastUserRef}>
-              <UserChat message={msg.message} />
-            </div>
-          );
+        if (!hasSeenSameMessage) {
+          const isLastUserMessage = (() => {
+            for (let k = i + 1; k < sessionMessages.length; k++) {
+              if (
+                sessionMessages[k].sender === 'USER' &&
+                sessionMessages[k].message === msg.message
+              ) {
+                return false;
+              }
+            }
+            return true;
+          })();
+
+          if (isLastUserMessage) {
+            rendered.push(
+              <div key={`user-${msg.id}`} ref={lastUserRef}>
+                <UserChat message={msg.message} />
+              </div>
+            );
+            seenUserMessages.add(msg.message);
+          }
         }
 
-        // 이어지는 BOT 메시지 묶기
         const botMessages = [];
         let j = i + 1;
         while (j < sessionMessages.length && sessionMessages[j].sender === 'BOT') {
@@ -75,8 +88,18 @@ const ChatMessageList = ({ currentSessionId }) => {
       }
     }
 
+    // ✅ 로딩 중이면 마지막에 안내 문구 추가
+    if (isLoading) {
+      rendered.push(
+        <span className="ml-2 text-16 font-medium bg-gradient-to-r from-main to-main-purple bg-clip-text text-transparent overflow-hidden timer-glass opacity-50">
+          SSPOID가 리뷰를 추출 중입니다...
+        </span>
+      );
+    }
+
     return rendered;
   };
+
   return <div className="flex flex-col w-full">{renderMessages()}</div>;
 };
 
