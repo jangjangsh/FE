@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { IconLogo } from '../../utils/icons';
-import { useChat } from '../../contexts/ChatContext';
+// import { useChat } from '../../contexts/ChatContext';
 import personaProfiles from '../../constants/personaProfiles';
 
 const SkinTypeLabel = {
@@ -11,7 +11,7 @@ const SkinTypeLabel = {
 };
 
 const BotChatContainer = ({ botMessages, onAnswerComplete }) => {
-  const { isLoading } = useChat();
+  // const { isLoading } = useChat();
   const [activeType, setActiveType] = useState(() => {
     const baseType = botMessages[0]?.skinType?.match(/^(DRY|OILY|SENSITIVE|COMBINATION)/)?.[0];
     return baseType || '';
@@ -51,7 +51,7 @@ const BotChatContainer = ({ botMessages, onAnswerComplete }) => {
       {/* 안내 문구 */}
       <div className="flex items-center py-4">
         <img className="w-7" src={IconLogo} alt="" />
-        {!isLoading && (
+        {botMessages.length > 0 && (
           <span className="ml-2 text-16 font-medium bg-gradient-to-r from-main to-main-purple bg-clip-text text-transparent">
             SSPOID 추출 결과는 다음과 같습니다.
           </span>

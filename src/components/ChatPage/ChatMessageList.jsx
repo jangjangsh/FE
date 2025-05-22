@@ -92,13 +92,11 @@ const ChatMessageList = ({ currentSessionId }) => {
     // ✅ 로딩 중이면 마지막에 안내 문구 추가
     if (isLoading) {
       rendered.push(
-        <div className="pl-1">
-          <div className="flex items-center py-4">
-            <img className="w-7" src={IconLogo} alt="" />
-            <span className="ml-2 text-16 font-medium bg-gradient-to-r from-main to-main-purple bg-clip-text text-transparent overflow-hidden timer-glass opacity-50">
-              SSPOID가 리뷰를 추출 중입니다...
-            </span>
-          </div>
+        <div className="flex items-center py-4 mt-4">
+          <img className="w-7" src={IconLogo} alt="" />
+          <span className="ml-2 text-16 font-medium bg-gradient-to-r from-main to-main-purple bg-clip-text text-transparent overflow-hidden timer-glass opacity-50">
+            SSPOID가 리뷰를 추출 중입니다...
+          </span>
         </div>
       );
     }

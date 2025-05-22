@@ -18,11 +18,15 @@ const ChatDetailPage = () => {
     try {
       const response = await getChatMessages(sessionId);
       console.log('서버 응답:', response);
-      setSessionMessages(response);
+
+      // 빈 배열이면 유지, 있으면 갱신
+      if (Array.isArray(response) && response.length > 0) {
+        setSessionMessages(response);
+      }
     } catch (error) {
       console.error('요청 실패', error);
     }
-  }, [sessionId]); // ← 의존성에 sessionId만 넣기!
+  }, [sessionId]);
 
   // ✅ useEffect 안에서는 이 getBotChat() 호출만 하면 돼
   useEffect(() => {
@@ -30,6 +34,13 @@ const ChatDetailPage = () => {
       getBotChat();
     }
   }, [sessionId, getBotChat]);
+
+  // useEffect(() => {
+  //   if (!currentSessionId) return;
+
+  //   setSessionMessages([]); // ✅ 새 세션일 땐 초기화 먼저!
+  //   getBotChat(currentSessionId); // 백엔드에서 메시지 가져오기
+  // }, [currentSessionId]);
 
   const onClick = () => {
     setIsOpen(!isOpen); // 토글 열리고 닫힘

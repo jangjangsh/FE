@@ -31,6 +31,7 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
   // 새로운 세션 생성 후 메세지 전송, 세션 이동
   const handleTestPost = async () => {
     if (!input.trim()) return;
+
     const userMessage = {
       id: userId.current++,
       sender: 'USER',
@@ -38,58 +39,55 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
       skinTypes:
         selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
     };
-    setSessionMessages((prev) => [...prev, userMessage]);
-    setIsLoading(true);
-    // fetchMessagesAgain(); // ✅ 여기서 호출
-    console.log(userMessage);
-    // user 메세지 전체 body
-    const body = userMessage;
 
-    console.log('👉 전송 데이터:', body);
+    setIsLoading(true); // ⬅️ 먼저 로딩 표시
+    setInput(''); // ⬅️ 입력창 비우기 우선
+
+    let currentSessionId = sessionId;
 
     try {
-      let currentSessionId = sessionId;
-      // 만약 현재 sessionId가 없으면,
       if (!currentSessionId) {
-        // 세션 생성
         const { newSession, updatedSessions } = await createChatSession();
-        // 세션 아이디 저장
         currentSessionId = newSession.sessionId;
         setChatSessions(updatedSessions);
         setCurrentSessionId(currentSessionId);
-        navigate(`/chat/${currentSessionId}`); // ✅ 세션 이동
 
-        // ✅ 스트리밍 전송 + 응답 저장
-        sendChatMessagesStream(body, currentSessionId, (result) => {
-          //key 값 정의
+        setSessionMessages([userMessage]); // ✅ 이거 먼저
+
+        setTimeout(() => {
+          navigate(`/chat/${currentSessionId}`); // ✅ 그 다음에 이동
+        }, 0);
+
+        sendChatMessagesStream(userMessage, currentSessionId, (result) => {
           const botMessagesWithId = result.map((msg, index) => ({
             ...msg,
-            id: `${Date.now()}-${index}`, // 또는 nanoid() 써도 됨
+            id: `${Date.now()}-${index}`,
           }));
-
-          setSessionMessages((prev) => [...prev, ...botMessagesWithId]); // 👈 이게 append 역할
+          setSessionMessages((prev) => [...prev, ...botMessagesWithId]);
           setIsLoading(false);
-          fetchMessagesAgain(); // ✅ 여기서 호출
+          fetchMessagesAgain?.();
         });
-
-        if (selectedTypes.length === 0) {
-          setSelectedTypes(skinTypes);
-        }
       } else {
-        sendChatMessagesStream(body, currentSessionId, (result) => {
-          setSessionMessages((prev) => [...prev, ...result]); // 👈 이게 append 역할
-          fetchMessagesAgain(); // 기존 세션은 다시 불러오기
-          setIsLoading(false);
-        });
+        // 기존 세션이면 유저 메시지 먼저 넣고 스트리밍
+        setSessionMessages((prev) => [...prev, userMessage]);
 
-        // fetchMessagesAgain(); // 기존 세션일 때만 즉시 다시 불러오기
+        sendChatMessagesStream(userMessage, currentSessionId, (result) => {
+          const botMessagesWithId = result.map((msg, index) => ({
+            ...msg,
+            id: `${Date.now()}-${index}`,
+          }));
+          setSessionMessages((prev) => [...prev, ...botMessagesWithId]);
+          setIsLoading(false);
+          fetchMessagesAgain?.();
+        });
       }
 
-      setInput('');
-
-      setInput(''); // 입력창 비우기
-    } catch (error) {
-      console.error('❌ 세션 생성 또는 메시지 전송 실패:', error);
+      if (selectedTypes.length === 0) {
+        setSelectedTypes(skinTypes);
+      }
+    } catch (err) {
+      console.error('❌ 세션 생성 또는 메시지 전송 실패:', err);
+      setIsLoading(false);
     }
   };
 
