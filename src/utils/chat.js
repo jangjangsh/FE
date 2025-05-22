@@ -51,7 +51,7 @@ export const sendChatMessages = async (sessionId, body) => {
 
 export const sendChatMessagesStream = async (body, sessionId, onStreamEnd) => {
   try {
-    const response = await fetch(`https://api.sspoid.site/api/chat/${sessionId}/messages`, {
+    const response = await fetch(`https://43.203.173.135/api/chat/${sessionId}/messages`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
