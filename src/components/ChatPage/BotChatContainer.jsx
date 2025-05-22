@@ -61,7 +61,7 @@ const BotChatContainer = ({ botMessages, onAnswerComplete, blockId }) => {
   };
 
   return (
-    <div className="pl-2 flex flex-col w-full">
+    <div className="pl-1 flex flex-col w-full">
       {/* 안내 문구 */}
       <div className="flex items-center py-4">
         <img className="w-7" src={IconLogo} alt="" />
@@ -120,8 +120,8 @@ const BotChatContainer = ({ botMessages, onAnswerComplete, blockId }) => {
 
       {/* 메시지 표시 영역 */}
       {showAlternate && (
-        <div className="flex flex-col w-full mb-6">
-          <div className="bg-white font-normal text-gray-stroke70 max-w-[100%] whitespace-pre-line break-words leading-[1.8]">
+        <div className="group flex flex-col w-full mb-6">
+          <div className="mt-[34px] bg-white font-normal text-gray-stroke70 max-w-[100%] whitespace-pre-line break-words leading-[1.8]">
             {botMessages
               .filter((msg) => {
                 const baseType = msg.skinType.match(/^(DRY|OILY|SENSITIVE|COMBINATION)/)?.[0];
@@ -132,17 +132,29 @@ const BotChatContainer = ({ botMessages, onAnswerComplete, blockId }) => {
                 const persona = personaProfiles[baseType]?.[idx] || '';
 
                 return (
-                  <div className="h-full w-full py-6 group" key={idx}>
+                  <div className="flex flex-col h-full w-full mt-3" key={idx}>
                     {/* 페르소나 설명 */}
-                    <div className="px-4 py-2 w-full text-main text-sm font-medium ">{persona}</div>
-                    {/* 봇 응답 메시지 */}
-                    <span className="block h-full w-full px-6">{msg.message}</span>
-                    <div className="relative top-6 w-full h-[1.5px] bg-main-20">
-                      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-main to-main-purple opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                    <div className="flex items-center justify-center w-full">
+                      {/* 왼쪽 선 */}
+                      <div className="flex-grow  h-[1px] bg-gradient-to-tr from-white to-main opacity-30" />
+
+                      {/* 텍스트 */}
+                      <span className="mx-4 text-[14px] text-main font-medium whitespace-nowrap">
+                        {persona}
+                      </span>
+
+                      {/* 오른쪽 선 */}
+                      <div className="flex-grow h-[1px] bg-gradient-to-tr to-white from-main opacity-30" />
                     </div>
+                    {/* 봇 응답 메시지 */}
+                    <span className="block h-full w-full px-8 py-9">{msg.message}</span>
                   </div>
                 );
               })}
+            {/* 메세지 끝났을 때 구분선 */}
+            <div className="relative top-2 w-full h-[2px] bg-main-20">
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-main to-main-purple opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            </div>
           </div>
         </div>
       )}
