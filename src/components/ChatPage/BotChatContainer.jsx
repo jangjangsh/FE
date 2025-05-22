@@ -132,11 +132,12 @@ const BotChatContainer = ({ botMessages, onAnswerComplete, blockId }) => {
                 const persona = personaProfiles[baseType]?.[idx] || '';
 
                 return (
-                  <div className="flex flex-col h-full w-full mt-3" key={idx}>
+                  <div className="flex flex-col h-full w-full mt-2" key={idx}>
                     {/* 페르소나 설명 */}
                     <div className="flex items-center justify-center w-full">
                       {/* 왼쪽 선 */}
                       <div className="flex-grow  h-[1px] bg-gradient-to-tr from-white to-main opacity-30" />
+                      {/* <div className="flex-grow  h-[1px] bg-main opacity-30" /> */}
 
                       {/* 텍스트 */}
                       <span className="mx-4 text-[14px] text-main font-medium whitespace-nowrap">
@@ -145,6 +146,7 @@ const BotChatContainer = ({ botMessages, onAnswerComplete, blockId }) => {
 
                       {/* 오른쪽 선 */}
                       <div className="flex-grow h-[1px] bg-gradient-to-tr to-white from-main opacity-30" />
+                      {/* <div className="flex-grow  h-[1px] bg-main opacity-30" /> */}
                     </div>
                     {/* 봇 응답 메시지 */}
                     <span className="block h-full w-full px-8 py-9">{msg.message}</span>
