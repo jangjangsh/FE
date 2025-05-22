@@ -49,33 +49,28 @@ export const sendChatMessages = async (sessionId, body) => {
   }
 };
 
-export const sendChatMessagesStream = async (sessionId, body, onBotChunk, onStreamEnd) => {
+export const sendChatMessagesStream = async (body, sessionId, onStreamEnd) => {
   try {
     const response = await fetch(`https://api.sspoid.site/api/chat/${sessionId}/messages`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
-
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
-
+    let result = '';
     while (true) {
       const { done, value } = await reader.read();
       if (done) {
-        console.log('✅ stream done'); // stream 끝남
+        console.log('✅ stream done');
         break;
       }
-
       const chunk = decoder.decode(value, { stream: true });
-
-      // ✅ 실시간 chunk를 바깥에서 처리하도록 넘김
-      if (onBotChunk) onBotChunk(chunk);
+      result += chunk;
+      // 나중에 지우기
+      console.log(chunk);
     }
-
-    if (onStreamEnd) onStreamEnd();
+    if (onStreamEnd) onStreamEnd(JSON.parse(result));
   } catch (err) {
     console.error('스트리밍 실패:', err);
   }

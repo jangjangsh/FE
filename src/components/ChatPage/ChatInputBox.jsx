@@ -16,10 +16,11 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
     isDropdownOpen,
     setIsDropdownOpen,
     sessionMessages,
+    setSessionMessages,
     skinTypes,
     setChatSessions,
     setCurrentSessionId,
-    setLiveBotMessage,
+    setIsLoading,
   } = useChat();
 
   // dropdown 위로 열지 아래로 열지 판단
@@ -46,48 +47,30 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
       if (!currentSessionId) {
         const { newSession, updatedSessions } = await createChatSession();
         currentSessionId = newSession.sessionId;
-        // ➔ 전역 세션 목록 업데이트
         setChatSessions(updatedSessions);
+        setCurrentSessionId(currentSessionId);
 
-        // ➔ 현재 선택된 세션 ID도 업데이트 (헤더용)
-        setCurrentSessionId(newSession.sessionId);
+        // ✅ 스트리밍 전송 + 응답 저장
+        sendChatMessagesStream(body, currentSessionId, (result) => {
+          setSessionMessages((prev) => [...prev, ...result]); // 👈 이게 append 역할
+          navigate(`/chat/${currentSessionId}`); // ✅ 세션 이동
+          setIsLoading(false);
+        });
 
-        // ✅ 먼저 메세지를 보내고
-        await sendChatMessagesStream(
-          currentSessionId,
-          body,
-          (chunk) => {
-            // ✅ 실시간 응답 조각 처리: chunk는 string
-            setLiveBotMessage((prev) => prev + chunk); // 이건 ChatContext나 local state로 만들어야 함
-          },
-          () => {
-            // ✅ 스트리밍 끝났을 때 처리
-            fetchMessagesAgain(); // 메시지 전체 다시 받아옴
-          }
-        );
         if (selectedTypes.length === 0) {
-          setSelectedTypes(skinTypes); // ✅ 여기서 전체 선택해주기
-          // ✅ 메세지 보내기가 성공하면 이동!
-          navigate(`/chat/${currentSessionId}`);
+          setSelectedTypes(skinTypes);
         }
-
-        // ❌ fetchMessagesAgain 여기선 하지 마.
       } else {
-        await sendChatMessagesStream(
-          currentSessionId,
-          body,
-          (chunk) => {
-            // ✅ 실시간 응답 조각 처리: chunk는 string
-            setLiveBotMessage((prev) => prev + chunk); // 이건 ChatContext나 local state로 만들어야 함
-          },
-          () => {
-            // ✅ 스트리밍 끝났을 때 처리
-            fetchMessagesAgain(); // 메시지 전체 다시 받아옴
-          }
-        );
+        sendChatMessagesStream(body, currentSessionId, (result) => {
+          setSessionMessages((prev) => [...prev, ...result]); // 👈 이게 append 역할
+          fetchMessagesAgain(); // 기존 세션은 다시 불러오기
+          setIsLoading(false);
+        });
+
         if (selectedTypes.length === 0) {
-          setSelectedTypes(skinTypes); // ✅ 여기서 전체 선택해주기
+          setSelectedTypes(skinTypes);
         }
+
         fetchMessagesAgain(); // 기존 세션일 때만 즉시 다시 불러오기
       }
 
