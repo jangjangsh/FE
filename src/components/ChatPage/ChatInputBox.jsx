@@ -2,9 +2,9 @@ import { useChat } from '../../contexts/ChatContext';
 import ChatTextInput from './ChatTextInput';
 import SendButton from './SendButton';
 import TypeSelectorBox from './TypeSelectorBox';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { createChatSession, sendChatMessagesStream } from '../../utils/chat';
-import { useNavigate } from 'react-router-dom';
+import { useRef } from 'react';
 
 // 채팅 입력창 컨테이너
 const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }) => {
@@ -21,17 +21,27 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
     setChatSessions,
     setCurrentSessionId,
     setIsLoading,
-    userMessage,
   } = useChat();
 
   // dropdown 위로 열지 아래로 열지 판단
   const location = useLocation();
   const isDetailPage = location.pathname.includes('/chat/');
   const navigate = useNavigate();
+  let idRef = useRef(1);
 
   // 새로운 세션 생성 후 메세지 전송, 세션 이동
   const handleTestPost = async () => {
     if (!input.trim()) return;
+    const userMessage = {
+      id: idRef.current++,
+      sender: 'USER',
+      message: input,
+      skinTypes:
+        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
+    };
+    setSessionMessages((prev) => [...prev, userMessage]);
+    setIsLoading(true);
+    // fetchMessagesAgain(); // ✅ 여기서 호출
 
     // user 메세지 전체 body
     const body = {
@@ -41,10 +51,6 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
     };
 
     console.log('👉 전송 데이터:', body);
-
-    // 유저 메세지 바로 보여주기
-    setSessionMessages((prev) => [...prev, userMessage]); // ✅ 무조건 먼저 보여줌
-    setIsLoading(true);
 
     try {
       let currentSessionId = sessionId;
@@ -62,6 +68,7 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
         sendChatMessagesStream(body, currentSessionId, (result) => {
           setSessionMessages((prev) => [...prev, ...result]); // 👈 이게 append 역할
           setIsLoading(false);
+          fetchMessagesAgain(); // ✅ 여기서 호출
         });
 
         if (selectedTypes.length === 0) {
@@ -74,7 +81,7 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
           setIsLoading(false);
         });
 
-        fetchMessagesAgain(); // 기존 세션일 때만 즉시 다시 불러오기
+        // fetchMessagesAgain(); // 기존 세션일 때만 즉시 다시 불러오기
       }
 
       setInput('');

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import {
   fetchChatSessions as fetchChatSessionsAPI,
   createChatSession as createChatSessionAPI,
@@ -22,14 +22,7 @@ export const ChatProvider = ({ children }) => {
   ]);
   const [liveBotMessage, setLiveBotMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const idRef = useRef(0);
-  const userMessage = {
-    id: idRef.current++,
-    sender: 'USER',
-    skinTypes:
-      selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'], // 기본값 설정
-    message: input,
-  };
+  // const idRef = useRef(0);
 
   // const handleSend = () => {
   //   if (!input.trim()) return;
@@ -128,7 +121,6 @@ export const ChatProvider = ({ children }) => {
         setLiveBotMessage,
         isLoading,
         setIsLoading,
-        userMessage,
 
         // 미경
         chatSessions,

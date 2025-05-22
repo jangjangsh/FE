@@ -6,19 +6,19 @@ import SessionSummary from '../components/Header/SessionSummary';
 import { useParams } from 'react-router-dom';
 import { useCallback, useState, useEffect } from 'react';
 import { getChatMessages } from '../utils/chat';
+import { useChat } from '../contexts/ChatContext';
 
 const ChatDetailPage = () => {
   const { sessionId } = useParams();
-
-  const [allChatMessages, setAllChatMessages] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const { sessionMessages, setSessionMessages } = useChat();
 
   // ✅ fetchMessagesAgain으로 넘겨줄 getBotChat은 useCallback으로 만들기
   const getBotChat = useCallback(async () => {
     try {
       const response = await getChatMessages(sessionId);
       console.log('서버 응답:', response);
-      setAllChatMessages(response);
+      setSessionMessages(response);
     } catch (error) {
       console.error('요청 실패', error);
     }
@@ -54,7 +54,7 @@ const ChatDetailPage = () => {
           <div className="w-[740px]">
             <ChatSection
               sessionId={sessionId}
-              allChatMessages={allChatMessages}
+              sessionMessages={sessionMessages}
               getBotChat={getBotChat}
             />
           </div>
