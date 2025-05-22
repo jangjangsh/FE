@@ -17,7 +17,7 @@ const BotChatContainer = ({ botMessages, onAnswerComplete }) => {
     return baseType || '';
   });
   const [activeIndex, setActiveIndex] = useState(0);
-  const [showAlternate, setShowAlternate] = useState(true);
+  const [showAlternate] = useState(true);
   const buttonRefs = useRef([]);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
 
