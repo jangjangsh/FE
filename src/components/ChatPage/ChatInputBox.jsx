@@ -21,6 +21,7 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
     setChatSessions,
     setCurrentSessionId,
     setIsLoading,
+    userMessage,
   } = useChat();
 
   // dropdown 위로 열지 아래로 열지 판단
@@ -41,19 +42,25 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
 
     console.log('👉 전송 데이터:', body);
 
+    // 유저 메세지 바로 보여주기
+    setSessionMessages((prev) => [...prev, userMessage]); // ✅ 무조건 먼저 보여줌
+    setIsLoading(true);
+
     try {
       let currentSessionId = sessionId;
       // 만약 현재 sessionId가 없으면,
       if (!currentSessionId) {
+        // 세션 생성
         const { newSession, updatedSessions } = await createChatSession();
+        // 세션 아이디 저장
         currentSessionId = newSession.sessionId;
         setChatSessions(updatedSessions);
         setCurrentSessionId(currentSessionId);
+        navigate(`/chat/${currentSessionId}`); // ✅ 세션 이동
 
         // ✅ 스트리밍 전송 + 응답 저장
         sendChatMessagesStream(body, currentSessionId, (result) => {
           setSessionMessages((prev) => [...prev, ...result]); // 👈 이게 append 역할
-          navigate(`/chat/${currentSessionId}`); // ✅ 세션 이동
           setIsLoading(false);
         });
 
@@ -66,10 +73,6 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
           fetchMessagesAgain(); // 기존 세션은 다시 불러오기
           setIsLoading(false);
         });
-
-        if (selectedTypes.length === 0) {
-          setSelectedTypes(skinTypes);
-        }
 
         fetchMessagesAgain(); // 기존 세션일 때만 즉시 다시 불러오기
       }
