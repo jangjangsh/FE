@@ -121,7 +121,7 @@ const BotChatContainer = ({ botMessages, onAnswerComplete, blockId }) => {
       {/* 메시지 표시 영역 */}
       {showAlternate && (
         <div className="group flex flex-col w-full mb-6">
-          <div className="mt-[34px] bg-white font-normal text-gray-stroke70 max-w-[100%] whitespace-pre-line break-words leading-[1.8]">
+          <div className="mt-[26px] bg-white font-normal text-gray-stroke70 max-w-[100%] whitespace-pre-line break-words leading-[1.8]">
             {botMessages
               .filter((msg) => {
                 const baseType = msg.skinType.match(/^(DRY|OILY|SENSITIVE|COMBINATION)/)?.[0];
@@ -150,7 +150,7 @@ const BotChatContainer = ({ botMessages, onAnswerComplete, blockId }) => {
                       <div className="flex-grow  h-[1px] bg-main opacity-10" />
                     </div>
                     {/* 봇 응답 메시지 */}
-                    <span className="block h-full w-full px-8 py-7 mt-1">{msg.message}</span>
+                    <span className="block h-full w-full px-6 py-6 mt-1">{msg.message}</span>
                   </div>
                 );
               })}
