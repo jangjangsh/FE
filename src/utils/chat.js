@@ -38,11 +38,24 @@ export const updateChatTitle = async (sessionId, newTitle) => {
 };
 
 // 3. 메시지 전송
+export const sendChatMessages = async (sessionId, body) => {
+  try {
+    const { data } = await api.post(`/api/chat/${sessionId}/messages`, body);
+    console.log('✅ 백엔드 응답:', data);
+    return data;
+  } catch (error) {
+    console.error('메시지 전송 실패:', error);
+    throw error;
+  }
+};
+
 export const sendChatMessagesStream = async (sessionId, body, onBotChunk, onStreamEnd) => {
   try {
-    const response = await fetch(`/api/chat/${sessionId}/messages`, {
+    const response = await fetch(`https://api.sspoid.site/api/chat/${sessionId}/messages`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(body),
     });
 
@@ -51,11 +64,14 @@ export const sendChatMessagesStream = async (sessionId, body, onBotChunk, onStre
 
     while (true) {
       const { done, value } = await reader.read();
-      if (done) break;
+      if (done) {
+        console.log('✅ stream done'); // stream 끝남
+        break;
+      }
 
       const chunk = decoder.decode(value, { stream: true });
 
-      // ✅ chunk 도착 시마다 실시간 렌더링 콜백
+      // ✅ 실시간 chunk를 바깥에서 처리하도록 넘김
       if (onBotChunk) onBotChunk(chunk);
     }
 
