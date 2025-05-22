@@ -20,6 +20,7 @@ export const ChatProvider = ({ children }) => {
     'SENSITIVE',
     'COMBINATION', // ✅ 선택할 수 있는 전체 타입 목록
   ]);
+  const [liveBotMessage, setLiveBotMessage] = useState('');
 
   const [revealedBotBlocks, setRevealedBotBlocks] = useState({});
   const idRef = useRef(0);
@@ -137,6 +138,8 @@ export const ChatProvider = ({ children }) => {
         revealedBotBlocks,
         markBotBlockAsRevealed,
         isBotBlockRevealed,
+        liveBotMessage,
+        setLiveBotMessage,
 
         // 미경
         chatSessions,

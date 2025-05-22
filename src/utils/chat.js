@@ -38,14 +38,30 @@ export const updateChatTitle = async (sessionId, newTitle) => {
 };
 
 // 3. 메시지 전송
-export const sendChatMessages = async (sessionId, body) => {
+export const sendChatMessagesStream = async (sessionId, body, onBotChunk, onStreamEnd) => {
   try {
-    const { data } = await api.post(`/api/chat/${sessionId}/messages`, body);
-    console.log('✅ 백엔드 응답:', data);
-    return data;
-  } catch (error) {
-    console.error('메시지 전송 실패:', error);
-    throw error;
+    const response = await fetch(`/api/chat/${sessionId}/messages`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value, { stream: true });
+
+      // ✅ chunk 도착 시마다 실시간 렌더링 콜백
+      if (onBotChunk) onBotChunk(chunk);
+    }
+
+    if (onStreamEnd) onStreamEnd();
+  } catch (err) {
+    console.error('스트리밍 실패:', err);
   }
 };
 

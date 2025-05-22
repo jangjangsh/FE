@@ -3,7 +3,7 @@ import ChatTextInput from './ChatTextInput';
 import SendButton from './SendButton';
 import TypeSelectorBox from './TypeSelectorBox';
 import { useLocation } from 'react-router-dom';
-import { createChatSession, sendChatMessages } from '../../utils/chat';
+import { createChatSession, sendChatMessagesStream } from '../../utils/chat';
 import { useNavigate } from 'react-router-dom';
 
 // 채팅 입력창 컨테이너
@@ -19,6 +19,7 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
     skinTypes,
     setChatSessions,
     setCurrentSessionId,
+    setLiveBotMessage,
   } = useChat();
 
   // dropdown 위로 열지 아래로 열지 판단
@@ -52,17 +53,38 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected, isClick }
         setCurrentSessionId(newSession.sessionId);
 
         // ✅ 먼저 메세지를 보내고
-        await sendChatMessages(currentSessionId, body);
+        await sendChatMessagesStream(
+          currentSessionId,
+          body,
+          (chunk) => {
+            // ✅ 실시간 응답 조각 처리: chunk는 string
+            setLiveBotMessage((prev) => prev + chunk); // 이건 ChatContext나 local state로 만들어야 함
+          },
+          () => {
+            // ✅ 스트리밍 끝났을 때 처리
+            fetchMessagesAgain(); // 메시지 전체 다시 받아옴
+          }
+        );
         if (selectedTypes.length === 0) {
           setSelectedTypes(skinTypes); // ✅ 여기서 전체 선택해주기
+          // ✅ 메세지 보내기가 성공하면 이동!
+          navigate(`/chat/${currentSessionId}`);
         }
-
-        // ✅ 메세지 보내기가 성공하면 이동!
-        navigate(`/chat/${currentSessionId}`);
 
         // ❌ fetchMessagesAgain 여기선 하지 마.
       } else {
-        await sendChatMessages(currentSessionId, body);
+        await sendChatMessagesStream(
+          currentSessionId,
+          body,
+          (chunk) => {
+            // ✅ 실시간 응답 조각 처리: chunk는 string
+            setLiveBotMessage((prev) => prev + chunk); // 이건 ChatContext나 local state로 만들어야 함
+          },
+          () => {
+            // ✅ 스트리밍 끝났을 때 처리
+            fetchMessagesAgain(); // 메시지 전체 다시 받아옴
+          }
+        );
         if (selectedTypes.length === 0) {
           setSelectedTypes(skinTypes); // ✅ 여기서 전체 선택해주기
         }

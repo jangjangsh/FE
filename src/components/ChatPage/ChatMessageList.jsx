@@ -1,10 +1,12 @@
 import { useRef, useEffect } from 'react';
+import { useChat } from '../../contexts/ChatContext';
 import BotChatContainer from './BotChatContainer';
 import UserChat from './UserChat';
 
 const ChatMessageList = ({ currentSessionId, allChatMessages }) => {
   const lastBotRef = useRef(null);
   const seenMessage = new Set();
+  const { liveBotMessage } = useChat();
 
   useEffect(() => {
     if (lastBotRef.current) {
@@ -63,6 +65,17 @@ const ChatMessageList = ({ currentSessionId, allChatMessages }) => {
       } else {
         i++;
       }
+    }
+    if (liveBotMessage) {
+      rendered.push(
+        <div className="my-6" key="live-bot-message">
+          <div className="flex justify-start">
+            <div className="bg-white border border-main-typeStroke font-normal text-gray-stroke70 px-[18px] py-[16px] rounded-b-[15px] w-fit max-w-[100%] whitespace-pre-line break-words">
+              {liveBotMessage}
+            </div>
+          </div>
+        </div>
+      );
     }
 
     return rendered;
