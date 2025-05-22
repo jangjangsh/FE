@@ -119,16 +119,16 @@ const BotChatContainer = ({ botMessages, onAnswerComplete }) => {
                     <div className="flex items-center justify-center w-full">
                       {/* 왼쪽 선 */}
                       {/* <div className="flex-grow h-[0.5px] bg-gradient-to-tr from-main-20 to-main opacity-40" /> */}
-                      <div className="flex-grow  h-[1px] bg-main opacity-20" />
+                      <div className="flex-grow  h-[1px] bg-main opacity-15" />
 
                       {/* 텍스트 */}
-                      <span className="mx-6 text-[15px] text-main font-medium whitespace-nowrap">
+                      <span className="mx-3 text-[15px] text-main font-medium whitespace-nowrap">
                         {persona}
                       </span>
 
                       {/* 오른쪽 선 */}
                       {/* <div className="flex-grow h-[0.5px] bg-gradient-to-tr to-main-20 from-main opacity-40" /> */}
-                      <div className="flex-grow h-[1px] bg-main opacity-20" />
+                      <div className="flex-grow h-[1px] bg-main opacity-15" />
                     </div>
                     {/* 봇 응답 메시지 */}
                     <span className="block h-full w-full text-[16px] py-6">{msg.message}</span>
