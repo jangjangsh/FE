@@ -38,7 +38,7 @@ const Profile = () => {
     <div className="relative flex" ref={dropdownRef}>
       <div
         onClick={isClick}
-        className="w-[38px] opacity-20 hover:opacity-30 duration-300 cursor-pointer"
+        className="w-10 opacity-20 hover:opacity-30 duration-300 cursor-pointer"
       >
         <img src={IconAccount} alt="profile" />
       </div>
