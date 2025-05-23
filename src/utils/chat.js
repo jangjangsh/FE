@@ -1,4 +1,5 @@
 import api from './api'; // axios 인스턴스
+import axios from 'axios';
 
 // 세션 목록 조회
 export const fetchChatSessions = async () => {
@@ -40,7 +41,10 @@ export const updateChatTitle = async (sessionId, newTitle) => {
 // 3. 메시지 전송
 export const sendChatMessages = async (sessionId, body) => {
   try {
-    const { data } = await api.post(`/api/chat/${sessionId}/messages`, body);
+    const { data } = await axios.post(
+      `http://43.203.173.135:8080/api/chat/${sessionId}/messages`,
+      body
+    );
     console.log('✅ 백엔드 응답:', data);
     return data;
   } catch (error) {
@@ -101,9 +105,15 @@ export const deleteChatSession = async (sessionId) => {
 };
 
 // 요약 기능
-export const postChatSummary = async (sessionId) => {
+export const getChatSummary = async (sessionId) => {
+  const accessToken = localStorage.getItem('accessToken'); // ✅ 로컬에서 토큰 가져오기
+
   try {
-    const { data } = await api.post(`/api/chat/sessions/${sessionId}/summary`);
+    const { data } = await api.get(`/api/chat/sessions/${sessionId}/summary`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     console.log('✅ 백엔드 응답:', data);
     return data;
   } catch (error) {

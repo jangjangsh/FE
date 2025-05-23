@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { postChatSummary } from '../../utils/chat'; // ✅ 바뀐 함수 import
+import { getChatSummary } from '../../utils/chat'; // ✅ 바뀐 함수 import
 import { IconCancel } from '../../utils/icons';
 import { IconSummaryBlue } from '../../utils/icons';
 
@@ -8,8 +8,8 @@ const SessionSummary = ({ onClick, sessionId }) => {
 
   const fetchSummary = async (sessionId) => {
     try {
-      const res = await postChatSummary(sessionId); // ✅ GET → POST
-      setSummary(res.summarizedMessage); // ✅ res.data.summary → res.summarizedMessage
+      const res = await getChatSummary(sessionId); // ✅ get 함수 사용
+      setSummary(res.summarizedMessage); // ✅ 응답 구조는 그대로 유지
       console.log('요약 내용:', res.summarizedMessage);
       return res.summarizedMessage;
     } catch (error) {
