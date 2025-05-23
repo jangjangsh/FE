@@ -103,14 +103,23 @@ export default {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0' },
         },
+        ellipsis: {
+          '0%, 20%': { content: '"."' },
+          '40%': { content: '".."' },
+          '60%': { content: '"..."' },
+          '80%, 100%': { content: '""' },
+        },
       },
       animation: {
         typing: 'typing 1s steps(16) alternate, blink .4s infinite',
         fadeIn: 'fadeIn 0.3s ease-out forwards',
         modalIn: 'modalIn 0.3s ease-out forwards',
         float: 'float 1.5s ease-in-out infinite',
-
+        ellipsis: 'ellipsis 1.2s steps(4) infinite',
         blinkFade: 'blinkFade 1s ease-in-out infinite',
+      },
+      extend: {
+        keyframes: {},
       },
     },
 

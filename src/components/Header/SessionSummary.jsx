@@ -2,19 +2,25 @@ import { useEffect, useState } from 'react';
 import { getChatSummary } from '../../utils/chat'; // ✅ 바뀐 함수 import
 import { IconCancel } from '../../utils/icons';
 import { IconSummaryBlue } from '../../utils/icons';
+import { useChat } from '../../contexts/ChatContext';
 
 const SessionSummary = ({ onClick, sessionId }) => {
   const [summary, setSummary] = useState('');
+  const { isLoading, setIsLoading } = useChat();
 
   const fetchSummary = async (sessionId) => {
+    setIsLoading(true);
     try {
       const res = await getChatSummary(sessionId); // ✅ get 함수 사용
       setSummary(res.summarizedMessage); // ✅ 응답 구조는 그대로 유지
       console.log('요약 내용:', res.summarizedMessage);
+      console.log('로딩중:', isLoading);
       return res.summarizedMessage;
     } catch (error) {
       console.error('요약 요청 실패', error);
       return null;
+    } finally {
+      setIsLoading(false); // 항상 마지막에 false
     }
   };
 
@@ -44,7 +50,14 @@ const SessionSummary = ({ onClick, sessionId }) => {
         </div>
         {/* 모달창 하단 (요약 내용 확인) */}
         <div className="overflow-y-auto px-9 mt-6 mr-6 h-[calc(512px-80px-24px-24px)] chat-scrollbar-custom whitespace-pre-line">
-          <span className="opacity-80 leading-[1.4]">{summary}</span>
+          {isLoading ? (
+            <span className="summary-glass opacity-40 leading-[1.4]">
+              현재 채팅방 내용을 요약 중입니다
+              <span className="font-normal leading-4 dot-animate"></span>
+            </span>
+          ) : (
+            <span className="opacity-80 leading-[1.4]">{summary}</span>
+          )}
         </div>
       </div>
     </div>

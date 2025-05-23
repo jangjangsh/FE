@@ -11,7 +11,6 @@ const SkinTypeLabel = {
 };
 
 const BotChatContainer = ({ botMessages, onAnswerComplete }) => {
-  // const { isLoading } = useChat();
   const [activeType, setActiveType] = useState(() => {
     const baseType = botMessages[0]?.skinType?.match(/^(DRY|OILY|SENSITIVE|COMBINATION)/)?.[0];
     return baseType || '';

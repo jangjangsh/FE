@@ -114,6 +114,38 @@ body {
       left: 100%;
     }
   }
+
+  .summary-glass {
+    position: relative; /* ✅ 부모 요소 기준 */
+    display: inline-block; /* span에서 필수 */
+    overflow: hidden; /* 넘치는 ::after 숨기기 */
+  }
+
+  .summary-glass::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%; /* ✅ 부모 span만큼만 적용 */
+    height: 100%;
+    background: linear-gradient(
+      130deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0)
+    );
+    animation: shine 5s infinite;
+    pointer-events: none;
+  }
+
+  @keyframes shine {
+    0% {
+      left: -100%;
+    }
+    100% {
+      left: 100%;
+    }
+  }
 }
 
 /* index.css에 추가 */
@@ -134,5 +166,26 @@ body {
     50% {
       opacity: 0;
     }
+  }
+  @keyframes ellipsis {
+    0% {
+      content: '';
+    }
+    33% {
+      content: '.';
+    }
+    66% {
+      content: '..';
+    }
+    100% {
+      content: '...';
+    }
+  }
+
+  .dot-animate::after {
+    content: '';
+    display: inline-block;
+    animation: ellipsis 1.2s steps(4, end) infinite;
+    white-space: pre;
   }
 }
