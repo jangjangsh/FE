@@ -9,6 +9,7 @@ export default {
       fontFamily: {
         pretendard: ['Pretendard'],
       },
+
       colors: {
         main: {
           DEFAULT: 'rgb(var(--color-main) / <alpha-value>)',
@@ -63,11 +64,16 @@ export default {
       backgroundImage: {
         // ✅ 배경용 gd 등록
         gd: 'linear-gradient(to right, rgb(var(--color-main)), rgb(139, 91, 254))',
+        bottomFade:
+          'linear-gradient(to top, rgba(59, 104, 239, 0.1) 0%, rgba(108, 47, 255, 0) 50%)',
+        // 하단 → 상단으로 퍼지며 66%쯤 사라짐
       },
       boxShadow: {
         modal: '0px 30px 80px 0px rgba(0,0,0,0.15)',
         custom: '0px 1px 4px 0px rgba(0,0,0,0.1)',
         dropDown: '0px 0px 10px 0px rgba(0,0,0,0.03)',
+        purpleGlow: '0px 4px 15px 0px rgba(108, 47, 255, 0.2)', // ✅ Drop shadow
+        grayGlow: '0px 4px 15px 0px rgba(0, 0, 0, 0.02)', // ✅ Drop shadow
       },
       keyframes: {
         typing: {

@@ -5,7 +5,7 @@ const IndexPage = () => {
   return (
     <>
       <Header />
-      <section className="flex w-screen h-screen justify-center items-center gap-16">
+      <section className="bg-bottomFade flex w-screen h-screen justify-center items-center gap-16">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col leading-[1.4] text-[48px] font-semibold">
             <span>
@@ -18,16 +18,17 @@ const IndexPage = () => {
           </div>
           {/* 소문구 */}
           <div>
-            <h3 className="text-[18px] font-medium opacity-80 mb-8">
+            <span className="text-[18px] font-medium opacity-80">
               지금 로그인하고, 타깃 페르소나의 리뷰를 직접 경험해보세요.
-            </h3>
-
-            {/* 로그인, 회원가입 버튼 */}
-            <button className="text-2xl font-bold mb-4 bg-main/100 text-white p-3 rounded">
-              로그인 버튼
+            </span>
+          </div>
+          {/* 로그인, 회원가입 버튼 */}
+          <div className="flex gap-4">
+            <button className="font-medium mb-4 shadow-purpleGlow bg-gd text-white p-3 rounded-[30px] w-[130px] h-[48px]">
+              로그인
             </button>
-            <button className="text-2xl font-bold mb-4 bg-main/100 text-white p-3 rounded">
-              회원가입 버튼
+            <button className="font-medium mb-4 bg-white shadow-grayGlow text-black p-3 border border-gray-stroke10  rounded-[30px] w-[130px] h-[48px]">
+              회원가입
             </button>
           </div>
         </div>
