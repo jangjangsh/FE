@@ -42,7 +42,7 @@ export const ChatProvider = ({ children }) => {
     const expandedTypes =
       selectedTypes.length > 0
         ? expandSkinTypes(selectedTypes)
-        : expandSkinTypes(['DRY', 'OILY', 'SENSITIVE', 'COMBINED']);
+        : expandSkinTypes(['DRY', 'OILY', 'SENSITIVE', 'COMBINATION']);
 
     const userMessage = {
       id: idRef.current++,

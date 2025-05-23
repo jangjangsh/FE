@@ -29,12 +29,16 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected = () => fa
   const handleTestPost = async () => {
     if (!input.trim()) return;
 
+    const cleanedSkinTypes = selectedTypes.filter(Boolean).map((s) => String(s).trim());
+
     const userMessage = {
       id: userId.current++,
       sender: 'USER',
       message: input,
       skinTypes:
-        selectedTypes.length > 0 ? selectedTypes : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
+        cleanedSkinTypes.length > 0
+          ? cleanedSkinTypes
+          : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
     };
 
     setIsLoading(true);
