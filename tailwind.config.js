@@ -64,6 +64,7 @@ export default {
       backgroundImage: {
         // ✅ 배경용 gd 등록
         gd: 'linear-gradient(to right, rgb(var(--color-main)), rgb(139, 91, 254))',
+        gdLight: 'linear-gradient(to right, rgba(59, 104, 239, 0.9), rgb(139, 91, 254,0.9))',
         bottomFade:
           'linear-gradient(to top, rgba(59, 104, 239, 0.1) 0%, rgba(108, 47, 255, 0) 50%)',
         // 하단 → 상단으로 퍼지며 66%쯤 사라짐
