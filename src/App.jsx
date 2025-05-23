@@ -6,7 +6,7 @@ import NotFound from './pages/Notfound';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import { ChatProvider } from './contexts/ChatContext';
-// import IndexPage from './pages/IndexPage';
+import IndexPage from './pages/IndexPage';
 
 import KakaoCallback from './pages/KakaoCallback';
 function App() {
@@ -14,7 +14,7 @@ function App() {
     <ChatProvider>
       <Routes>
         {/* 0. 메인 (대시보드 or 초기화면 - 챗봇 세션 목록) */}
-        <Route path="/" element={<ChatMainPage />} />
+        <Route path="/" element={<IndexPage />} />
 
         {/* 1. 로그인 */}
         <Route path="/login" element={<LoginPage />} />
