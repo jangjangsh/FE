@@ -122,18 +122,17 @@ export default {
         keyframes: {},
       },
     },
-
-    plugins: [
-      plugin(function ({ addUtilities }) {
-        // ✅ 텍스트용 text-gd 등록
-        addUtilities({
-          '.text-gd': {
-            background: 'linear-gradient(to right, rgb(var(--color-main)), rgb(139, 91, 254))',
-            '-webkit-background-clip': 'text',
-            '-webkit-text-fill-color': 'transparent',
-          },
-        });
-      }),
-    ],
   },
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      // ✅ 텍스트용 text-gd 등록
+      addUtilities({
+        '.text-gd': {
+          background: 'linear-gradient(to right, rgb(var(--color-main)), rgb(139, 91, 254))',
+          '-webkit-background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+        },
+      });
+    }),
+  ],
 };
