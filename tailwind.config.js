@@ -74,6 +74,7 @@ export default {
         dropDown: '0px 0px 10px 0px rgba(0,0,0,0.03)',
         purpleGlow: '0px 4px 15px 0px rgba(108, 47, 255, 0.2)', // ✅ Drop shadow
         grayGlow: '0px 4px 15px 0px rgba(0, 0, 0, 0.02)', // ✅ Drop shadow
+        img: '0px 10px 30px 0px rgba(59, 104, 239, 0.1)', // ✅ Drop shadow
       },
       keyframes: {
         typing: {
