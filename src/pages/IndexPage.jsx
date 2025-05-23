@@ -1,8 +1,18 @@
 import Header from '../components/Header';
 import { IconExImg1 } from '../utils/icons';
 import { IconExImg2 } from '../utils/icons';
+import { useNavigate } from 'react-router-dom';
 
 const IndexPage = () => {
+  const nav = useNavigate();
+
+  const clickLoginButton = () => {
+    nav(`/login`);
+  };
+  const clickSignUpButton = () => {
+    nav(`/signup`);
+  };
+
   return (
     <>
       <Header />
@@ -22,10 +32,17 @@ const IndexPage = () => {
               지금 로그인하고, 타깃 페르소나의 리뷰를 직접 경험해보세요.
             </div>
             <div className="text-[16px] flex gap-4">
-              <button className="font-medium mb-4 shadow-purpleGlow bg-gd text-white p-3 rounded-[30px] w-[130px] h-[48px]">
+              <button
+                onClick={clickLoginButton}
+                className="font-medium mb-4 shadow-purpleGlow bg-gd text-white p-3 rounded-[30px] w-[130px] h-[48px]
+                                hover:bg-gdLight"
+              >
                 로그인
               </button>
-              <button className="font-medium mb-4 bg-white shadow-grayGlow text-black p-3 border border-gray-stroke10  rounded-[30px] w-[130px] h-[48px]">
+              <button
+                onClick={clickSignUpButton}
+                className="font-medium mb-4 bg-white shadow-grayGlow text-black p-3 border border-gray-stroke10  rounded-[30px] w-[130px] h-[48px] hover:border-gray-stroke15 hover:shadow-grayGlowHover"
+              >
                 회원가입
               </button>
             </div>
