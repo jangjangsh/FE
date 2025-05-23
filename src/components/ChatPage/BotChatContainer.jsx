@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { IconLogo } from '../../utils/icons';
 // import { useChat } from '../../contexts/ChatContext';
 import personaProfiles from '../../constants/personaProfiles';
+import ReactMarkdown from 'react-markdown';
 
 const SkinTypeLabel = {
   DRY: '건성',
@@ -130,7 +131,10 @@ const BotChatContainer = ({ botMessages, onAnswerComplete }) => {
                       <div className="flex-grow h-[1px] bg-main opacity-15" />
                     </div>
                     {/* 봇 응답 메시지 */}
-                    <span className="block h-full w-full text-[16px] py-6">{msg.message}</span>
+                    <span className="block h-full w-full text-[16px] py-5">
+                      <ReactMarkdown>{msg.message}</ReactMarkdown>
+                    </span>
+                    {/* <span className="block h-full w-full text-[16px] py-6">{msg.message}</span> */}
                   </div>
                 );
               })}
