@@ -1,5 +1,4 @@
 import api from './api'; // axios 인스턴스
-import axios from 'axios';
 
 // 세션 목록 조회
 export const fetchChatSessions = async () => {
@@ -14,11 +13,17 @@ export const fetchChatSessions = async () => {
 
 // 세션 생성 (생성 후 목록 자동 새로고침)
 export const createChatSession = async () => {
+  const accessToken = localStorage.getItem('accessToken'); // ✅ 토큰 가져오기
   try {
-    const { data: newSession } = await api.post('/api/chat/sessions', {
-      title: '제목을 입력해주세요.',
-    });
-    // 생성 후 목록 새로고침
+    const { data: newSession } = await api.post(
+      '/api/chat/sessions',
+      {}, // ✅ 명세상 request body 없음
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`, // ✅ 헤더 추가
+        },
+      }
+    );
     const updatedSessions = await fetchChatSessions();
     return { newSession, updatedSessions };
   } catch (error) {
@@ -28,10 +33,18 @@ export const createChatSession = async () => {
 };
 
 // 제목 수정
-export const updateChatTitle = async (sessionId, newTitle) => {
+export const updateChatTitle = async (sessionId, newTitle, accessToken) => {
   try {
-    const { data } = await api.patch(`/api/chat/sessions/${sessionId}/title`, { title: newTitle });
-    return data;
+    const { data } = await api.patch(
+      `/api/chat/sessions/${sessionId}/title`,
+      { title: newTitle },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return data; // { sessionId, title, isBookmark } 형태
   } catch (error) {
     console.error('제목 수정 실패:', error);
     throw error;
@@ -39,12 +52,24 @@ export const updateChatTitle = async (sessionId, newTitle) => {
 };
 
 // 3. 메시지 전송
-export const sendChatMessages = async (sessionId, body) => {
+// chat.js
+export const sendChatMessages = async (body, sessionId) => {
+  const accessToken = localStorage.getItem('accessToken');
   try {
-    const { data } = await axios.post(
-      `http://43.203.173.135:8080/api/chat/${sessionId}/messages`,
-      body
-    );
+    const response = await fetch(`https://43.203.173.135/api/chat/${sessionId}/messages`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
     console.log('✅ 백엔드 응답:', data);
     return data;
   } catch (error) {
@@ -53,50 +78,32 @@ export const sendChatMessages = async (sessionId, body) => {
   }
 };
 
-export const sendChatMessagesStream = async (body, sessionId, onStreamEnd) => {
-  try {
-    const response = await fetch(`https://43.203.173.135/api/chat/${sessionId}/messages`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-    let result = '';
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) {
-        console.log('✅ stream done');
-        break;
-      }
-      const chunk = decoder.decode(value, { stream: true });
-      result += chunk;
-      // 나중에 지우기
-      console.log(chunk);
-    }
-    if (onStreamEnd) onStreamEnd(JSON.parse(result));
-  } catch (err) {
-    console.error('스트리밍 실패:', err);
-  }
-};
-
 // 4. 세션별 메세지 조회
 export const getChatMessages = async (sessionId) => {
+  const accessToken = localStorage.getItem('accessToken'); // 🔐 토큰 가져오기
+
   try {
-    const { data } = await api.get(`/api/chat/sessions/${sessionId}/messages`);
+    const { data } = await api.get(`/api/chat/sessions/${sessionId}/messages`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     console.log('✅ 백엔드 응답:', data);
     return data;
   } catch (error) {
-    // ✅ 에러 발생 시 콘솔에 에러 출력하고, 다시 에러 던지기
     console.error('API 호출 실패:', error);
     throw error;
   }
 };
 
 // 세션 삭제
-export const deleteChatSession = async (sessionId) => {
+export const deleteChatSession = async (sessionId, accessToken) => {
   try {
-    await api.delete(`/api/chat/sessions/${sessionId}`);
+    await api.delete(`/api/chat/sessions/${sessionId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     return { success: true };
   } catch (error) {
     const message = error.response?.data?.message || '세션 삭제 중 오류 발생';

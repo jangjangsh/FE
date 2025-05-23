@@ -1,21 +1,29 @@
 import { useState, useEffect, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChatContext } from '../../contexts/ChatContext';
+import { useAuth } from '../../contexts/AuthContext'; // ✅ 추가
 import TextOrInput from '../TextOrInput';
 import BookMark from './BookMark';
 import SessionDeleteBtn from './SessionDeleteBtn';
+import { deleteChatSession } from '../../utils/chat';
 
 const ChatTitleItem = ({ session, isSelected }) => {
-  const { updateChatTitle, setCurrentSessionId, setSidebarOpen, deleteChatSession } =
-    useContext(ChatContext);
+  const {
+    updateChatTitle,
+    setCurrentSessionId,
+    setSidebarOpen,
+    fetchChatSessions, // ✅ 세션 목록 다시 불러오기
+  } = useContext(ChatContext);
+
+  const { isLoggedIn } = useAuth(); // ✅ 로그인 여부 확인
+  const accessToken = localStorage.getItem('accessToken'); // ✅ 로컬에서 직접 꺼냄
+
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState(session.title);
-  const nav = useNavigate();
-
-  const clickTimeout = useRef(null); // ✅ 클릭 타이머 관리
-
-  // 채팅삭제
   const [showMenu, setShowMenu] = useState(false);
+
+  const nav = useNavigate();
+  const clickTimeout = useRef(null);
   const menuRef = useRef();
 
   useEffect(() => {
@@ -35,48 +43,41 @@ const ChatTitleItem = ({ session, isSelected }) => {
     }
   }, [isEditing, session.sessionId]);
 
-  // 타이틀 수정 후 저장
   const handleSave = async () => {
-    const trimmed = inputValue.trim(); //앞뒤 공백 제거
+    const trimmed = inputValue.trim();
     if (trimmed === '') return;
-
-    await updateChatTitle(session.sessionId, trimmed); // API 연동
+    await updateChatTitle(session.sessionId, trimmed);
     setIsEditing(false);
   };
 
-  // ✅ 세션 선택 (페이지 이동)
   const handleSelectSession = () => {
     setCurrentSessionId(session.sessionId);
     nav(`/chat/${session.sessionId}`);
     setSidebarOpen(false);
   };
 
-  // ✅ 클릭 처리: 클릭과 더블클릭 분리
   const handleClick = () => {
     if (clickTimeout.current) {
       clearTimeout(clickTimeout.current);
       clickTimeout.current = null;
     }
-
     clickTimeout.current = setTimeout(() => {
       if (!isEditing) {
         handleSelectSession();
       }
-    }, 200); // 200ms 안에 더블클릭 들어오면 아래에서 취소됨
+    }, 200);
   };
 
   const handleDoubleClick = () => {
     if (clickTimeout.current) {
-      clearTimeout(clickTimeout.current); // ✅ 단일 클릭 취소
+      clearTimeout(clickTimeout.current);
       clickTimeout.current = null;
     }
-    setIsEditing(true); // ✅ 제목 수정 시작
+    setIsEditing(true);
   };
 
-  // 채팅삭제
   const handleContextMenu = (e) => {
     e.preventDefault();
-    console.log('우클릭됨', session.sessionId); // ✅ 로그 찍어보기
     setShowMenu(true);
   };
 
@@ -90,14 +91,28 @@ const ChatTitleItem = ({ session, isSelected }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const handleDelete = async () => {
+    if (!isLoggedIn || !accessToken) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+    const result = await deleteChatSession(session.sessionId, accessToken);
+    if (result.success) {
+      fetchChatSessions(); // ✅ 세션 목록 다시 불러오기
+    } else {
+      alert(result.error);
+    }
+    setShowMenu(false);
+  };
+
   return (
     <div className="relative">
       <div
         className={`
-        flex items-center justify-between
-        px-[10px] py-[8px] rounded-[10px] text-gray/80
-        cursor-pointer gap-[12px]
-        ${isSelected ? 'bg-gray-stroke04' : 'hover:bg-gray-stroke02'}
+          flex items-center justify-between
+          px-[10px] py-[8px] rounded-[10px] text-gray/80
+          cursor-pointer gap-[12px]
+          ${isSelected ? 'bg-gray-stroke04' : 'hover:bg-gray-stroke02'}
         `}
         onClick={handleClick}
         onDoubleClick={handleDoubleClick}
@@ -121,15 +136,10 @@ const ChatTitleItem = ({ session, isSelected }) => {
 
         <BookMark session={session} />
       </div>
-      {/* 우클릭 메뉴 */}
+
       {showMenu && (
         <div ref={menuRef}>
-          <SessionDeleteBtn
-            onClick={() => {
-              deleteChatSession(session.sessionId);
-              setShowMenu(false);
-            }}
-          />
+          <SessionDeleteBtn onClick={handleDelete} />
         </div>
       )}
     </div>

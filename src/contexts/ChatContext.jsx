@@ -5,10 +5,14 @@ import {
   updateChatTitle as updateChatTitleAPI,
   deleteChatSession as deleteChatSessionAPI,
 } from '../utils/chat'; // 위치는 상황에 따라 조정
+import { useAuth } from './AuthContext'; // ✅ 추가
+import { sendChatMessages } from '../utils/chat';
 
 export const ChatContext = createContext();
-
 export const ChatProvider = ({ children }) => {
+  const { isLoggedIn } = useAuth(); // ❗ 필요 시 사용
+  const accessToken = localStorage.getItem('accessToken'); // ✅ 토큰 직접 가져옴
+
   // 서현
   const [sessionMessages, setSessionMessages] = useState([]); // 채팅방 별 메세지 (봇, 유저 구분)
   const [input, setInput] = useState('');
@@ -20,21 +24,59 @@ export const ChatProvider = ({ children }) => {
     'SENSITIVE',
     'COMBINATION', // ✅ 선택할 수 있는 전체 타입 목록
   ]);
-  const [liveBotMessage, setLiveBotMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const userId = useRef(0);
+  const [revealedBotBlocks, setRevealedBotBlocks] = useState({});
+  const idRef = useRef(0);
 
-  // const handleSend = () => {
-  //   if (!input.trim()) return;
+  const handleSend = async () => {
+    if (!input.trim()) return;
+    if (!currentSessionId) {
+      alert('세션이 없습니다.');
+      return;
+    }
 
-  //   // const sessionId = idRef.current; // 이미 만들어진 세션 ID가 있다고 가정
+    const expandSkinTypes = (types) =>
+      types.flatMap((type) => ['1', '2', '3'].map((suffix) => `${type}${suffix}`));
 
-  //   // 메시지 합쳐서 저장
-  //   // 세션 - 백한테 코드 받고, 봇 메세지를 이 sessionMessages에 추가해줄 것 -> 필터링하여 보여줌
-  //   setSessionMessages((prev) => [...prev, userMessage]);
-  //   // 입력 초기화
-  //   setInput('');
-  // };
+    const expandedTypes =
+      selectedTypes.length > 0
+        ? expandSkinTypes(selectedTypes)
+        : expandSkinTypes(['DRY', 'OILY', 'SENSITIVE', 'COMBINED']);
+
+    const userMessage = {
+      id: idRef.current++,
+      sender: 'USER',
+      skinTypes: expandedTypes,
+      message: input,
+    };
+
+    // 1. 유저 메시지 화면에 먼저 보여주기
+    setSessionMessages((prev) => [...prev, userMessage]);
+    setInput('');
+
+    try {
+      // 2. API 전송
+      const botResponses = await sendChatMessages(currentSessionId, {
+        message: input,
+        skinTypes: expandedTypes,
+      });
+
+      // 3. BOT 응답을 상태에 반영
+      setSessionMessages((prev) => [...prev, ...botResponses]);
+    } catch (err) {
+      alert('메시지 전송 실패');
+    }
+  };
+
+  const markBotBlockAsRevealed = (sessionId, blockId) => {
+    const key = `${sessionId}:${blockId}`;
+    setRevealedBotBlocks((prev) => ({ ...prev, [key]: true }));
+  };
+
+  const isBotBlockRevealed = (sessionId, blockId) => {
+    return !!revealedBotBlocks[`${sessionId}:${blockId}`];
+  };
 
   // 미경
   const [chatSessions, setChatSessions] = useState([]);
@@ -77,10 +119,15 @@ export const ChatProvider = ({ children }) => {
     return newSession.sessionId;
   };
 
+  // 제목 수정
   const updateChatTitle = async (sessionId, newTitle) => {
-    const updated = await updateChatTitleAPI(sessionId, newTitle);
+    const updated = await updateChatTitleAPI(sessionId, newTitle, accessToken);
     setChatSessions((prev) =>
-      prev.map((s) => (s.sessionId === sessionId ? { ...s, title: updated.title } : s))
+      prev.map((s) =>
+        s.sessionId === sessionId
+          ? { ...s, title: updated.title, isBookmark: updated.isBookmark }
+          : s
+      )
     );
   };
 
@@ -115,13 +162,16 @@ export const ChatProvider = ({ children }) => {
         setIsDropdownOpen,
         sessionMessages, // 객체에 채팅 메세지가 배열로 저장됨
         setSessionMessages,
+        handleSend, // 새로운 메세지 전송
         skinTypes, // 모든 피부 스킨 타입
         setSkinTypes,
-        liveBotMessage,
-        setLiveBotMessage,
+        revealedBotBlocks,
+        markBotBlockAsRevealed,
+        isBotBlockRevealed,
         isLoading,
         setIsLoading,
         userId,
+        isLoggedIn,
 
         // 미경
         chatSessions,
