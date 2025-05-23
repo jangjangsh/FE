@@ -7,7 +7,7 @@ const IndexPage = () => {
       <Header />
       <section className="bg-bottomFade flex w-screen h-screen justify-center items-center gap-16">
         <div className="flex flex-col gap-8">
-          <div className="flex flex-col leading-[1.4] text-[48px] font-semibold">
+          <div className="flex flex-col leading-[1.4] text-[48px] font-bold">
             <span>
               <span className="inline-block text-gd">실제 소비자</span>처럼,
             </span>
@@ -18,7 +18,7 @@ const IndexPage = () => {
           </div>
           {/* 소문구 */}
           <div>
-            <span className="text-[18px] font-medium opacity-80">
+            <span className="text-[18px] font-medium ">
               지금 로그인하고, 타깃 페르소나의 리뷰를 직접 경험해보세요.
             </span>
           </div>
