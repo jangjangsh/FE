@@ -64,7 +64,7 @@ const IndexPage = () => {
           <img
             src={IconExImg1}
             alt=""
-            className="absolute top-24 left-0 w-[450px] rounded-md z-10 shadow-img hover:-translate-y-1 hover:shadow-imgHover transition-all duration-500 "
+            className="absolute top-28 left-0 w-[450px] rounded-md z-10 shadow-img hover:-translate-y-1 hover:shadow-imgHover transition-all duration-500 "
           />
         </div>
       </section>
