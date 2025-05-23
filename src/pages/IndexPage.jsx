@@ -21,10 +21,16 @@ const IndexPage = () => {
           {/* 텍스트 */}
           <div className="flex flex-col text-[48px] font-bold leading-[1.4]">
             <div>
-              <span className="text-gd inline-block">실제 소비자</span>처럼,
+              <span className="mr-1 text-gd inline-block hover:-translate-y-1 transition-transform duration-300">
+                실제 소비자
+              </span>
+              처럼,
             </div>
             <div>
-              <span className="text-gd inline-block">페르소나</span>의 시선으로 말하는
+              <span className="mr-1 text-gd inline-block hover:-translate-y-1 transition-transform duration-300">
+                페르소나
+              </span>
+              의 시선으로 말하는
             </div>
             <div>AI 서비스.</div>
 
@@ -53,12 +59,12 @@ const IndexPage = () => {
           <img
             src={IconExImg2}
             alt=""
-            className="absolute top-0 left-[100px] w-[450px] rounded-md z-0 shadow-img"
+            className="absolute top-0 left-[100px] w-[450px] rounded-md z-0 shadow-img hover:-translate-y-1 hover:shadow-imgHover transition-all duration-500 "
           />
           <img
             src={IconExImg1}
             alt=""
-            className="absolute top-24 left-0 w-[450px] rounded-md z-10 shadow-img"
+            className="absolute top-24 left-0 w-[450px] rounded-md z-10 shadow-img hover:-translate-y-1 hover:shadow-imgHover transition-all duration-500 "
           />
         </div>
       </section>

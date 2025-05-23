@@ -77,6 +77,7 @@ export default {
         grayGlow: '0px 4px 15px 0px rgba(0, 0, 0, 0.02)', // ✅ Drop shadow
         grayGlowHover: '0px 4px 15px 0px rgba(0, 0, 0, 0.04)', // ✅ Drop shadow
         img: '0px 10px 30px 0px rgba(59, 104, 239, 0.1)', // ✅ Drop shadow
+        imgHover: '0px 10px 30px 0px rgba(59, 104, 239, 0.2)', // ✅ Drop shadow
       },
       keyframes: {
         typing: {
