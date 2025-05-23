@@ -2,8 +2,13 @@ import api from './api'; // axios 인스턴스
 
 // 세션 목록 조회
 export const fetchChatSessions = async () => {
+  const accessToken = localStorage.getItem('accessToken'); // ✅ 토큰 가져오기
   try {
-    const { data } = await api.get('/api/chat/sessions');
+    const { data } = await api.get('/api/chat/sessions', {
+      headers: {
+        Authorization: `Bearer ${accessToken}`, // ✅ 헤더 추가
+      },
+    });
     return data;
   } catch (error) {
     console.error('세션 목록 불러오기 실패:', error);
