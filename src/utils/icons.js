@@ -28,7 +28,8 @@ import IconLogo from '../assets/icon-logo.svg';
 import IconUser from '../assets/icon-user.svg';
 import IconTail from '../assets/icon-tail.svg';
 import IconAccount from '../assets/icon-account.svg';
-
+import IconExImg1 from '../assets/icon-ex-index1.svg';
+import IconExImg2 from '../assets/icon-ex-index2.svg';
 import IconProfile from '../assets/icon-profile.svg';
 import Logo from '../assets/logo-SSPOID.svg';
 import SSPOID from '../assets/logo.svg';
@@ -67,6 +68,8 @@ export {
   IconTail,
   IconProfile,
   IconAccount,
+  IconExImg1,
+  IconExImg2,
   Logo,
   SSPOID,
   KakaoLogin,
