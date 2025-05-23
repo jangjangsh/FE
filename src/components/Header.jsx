@@ -31,8 +31,8 @@ const Header = ({ onClick }) => {
           {isLoginPage && <img className="w-10" src={IconLogo} alt="" />}
           {isIndexPage && (
             <div className="flex gap-1">
-              <img className="w-[39px]" src={IconLogo} alt="" />
-              <img className="w-[95%]" src={Logo} alt="" />
+              <img className="w-7" src={IconLogo} alt="" />
+              <img className="w-[70%]" src={Logo} alt="" />
             </div>
           )}
         </div>
