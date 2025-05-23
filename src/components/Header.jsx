@@ -16,7 +16,7 @@ const Header = ({ onClick }) => {
   const isLoginPage = location.pathname.startsWith('/login');
 
   // 추후에 로그인 정보 저장할 것
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn } = useAuth(); // ✅ 로그인 여부 확인
   console.log(isLoggedIn);
 
   return (
