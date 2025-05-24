@@ -7,8 +7,14 @@ import { signup as signupAPI } from '../utils/signUp';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    const token = localStorage.getItem('accessToken');
+    return !!token;
+  });
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
   const [errorMsg, setErrorMsg] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -21,6 +27,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('refreshToken', refreshToken);
       setIsLoggedIn(true);
       setUser({ email, nickname });
+      localStorage.setItem('user', JSON.stringify({ email, nickname })); // ✅ 추가
       setErrorMsg('');
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -49,6 +56,7 @@ export const AuthProvider = ({ children }) => {
         const email = kakao_account?.email || '';
 
         setUser({ email, nickname });
+        localStorage.setItem('user', JSON.stringify({ email, nickname })); // ✅ 추가
         setIsLoggedIn(true);
       } else {
         setErrorMsg(result.error);
@@ -75,6 +83,7 @@ export const AuthProvider = ({ children }) => {
         const { accessToken, refreshToken } = result.data;
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('refreshToken', refreshToken);
+        localStorage.removeItem('user'); // ✅ 이것도 추가
         return { success: true };
       } else {
         setErrorMsg(result.error);
