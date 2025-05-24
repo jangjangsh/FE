@@ -119,6 +119,10 @@ export default {
           '60%': { content: '"..."' },
           '80%, 100%': { content: '""' },
         },
+        fadeSlideIn: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         typing: 'typing 1s steps(16) alternate, blink .4s infinite',
@@ -127,6 +131,7 @@ export default {
         float: 'float 1.5s ease-in-out infinite',
         ellipsis: 'ellipsis 1.2s steps(4) infinite',
         blinkFade: 'blinkFade 1s ease-in-out infinite',
+        fadeSlideIn: 'fadeSlideIn 1s ease-out forwards',
       },
       extend: {
         keyframes: {},

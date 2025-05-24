@@ -19,38 +19,40 @@ const IndexPage = () => {
       <section className="bg-bottomFade flex w-screen h-screen justify-center items-center gap-16">
         <div className="flex items-center justify-center">
           {/* 텍스트 */}
-          <div className="flex flex-col text-[48px] font-bold leading-[1.4]">
-            <div>
-              <span className="mr-1 text-gd inline-block hover:-translate-y-1 transition-transform duration-300">
-                실제 소비자
-              </span>
-              처럼,
-            </div>
-            <div>
-              <span className="mr-1 text-gd inline-block hover:-translate-y-1 transition-transform duration-300">
-                페르소나
-              </span>
-              의 시선으로 말하는
-            </div>
-            <div>AI 서비스.</div>
+          <div className="animate-fadeSlideIn">
+            <div className="flex flex-col text-[48px] font-bold leading-[1.4]">
+              <div>
+                <span className="mr-1 text-gd inline-block hover:-translate-y-1 transition-transform duration-300">
+                  실제 소비자
+                </span>
+                처럼,
+              </div>
+              <div>
+                <span className="mr-1 text-gd inline-block hover:-translate-y-1 transition-transform duration-300">
+                  페르소나
+                </span>
+                의 시선으로 말하는
+              </div>
+              <div>AI 서비스.</div>
 
-            <div className="text-[18px] font-medium my-8">
-              지금 로그인하고, 타깃 페르소나의 리뷰를 직접 경험해보세요.
-            </div>
-            <div className="text-[16px] flex gap-4">
-              <button
-                onClick={clickLoginButton}
-                className="font-medium mb-4 shadow-purpleGlow bg-gd text-white p-3 rounded-[30px] w-[130px] h-[48px]
+              <div className="text-[18px] font-medium my-8">
+                지금 로그인하고, 타깃 페르소나의 리뷰를 직접 경험해보세요.
+              </div>
+              <div className="text-[16px] flex gap-4">
+                <button
+                  onClick={clickLoginButton}
+                  className="font-medium mb-4 shadow-purpleGlow bg-gd text-white p-3 rounded-[30px] w-[130px] h-[48px]
                                 hover:bg-gdLight"
-              >
-                로그인
-              </button>
-              <button
-                onClick={clickSignUpButton}
-                className="font-medium mb-4 bg-white shadow-grayGlow text-black p-3 border border-gray-stroke10  rounded-[30px] w-[130px] h-[48px] hover:border-gray-stroke15 hover:shadow-grayGlowHover"
-              >
-                회원가입
-              </button>
+                >
+                  로그인
+                </button>
+                <button
+                  onClick={clickSignUpButton}
+                  className="font-medium mb-4 bg-white shadow-grayGlow text-black p-3 border border-gray-stroke10  rounded-[30px] w-[130px] h-[48px] hover:border-gray-stroke15 hover:shadow-grayGlowHover"
+                >
+                  회원가입
+                </button>
+              </div>
             </div>
           </div>
         </div>
