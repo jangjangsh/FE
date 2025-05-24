@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const [accountClick, setAccountClick] = useState(false);
-  const { logout } = useAuth();
+  const { logout, user } = useAuth(); // ✅ user 가져오기
   const nav = useNavigate();
   const dropdownRef = useRef(null);
 
@@ -36,13 +36,18 @@ const Profile = () => {
 
   return (
     <div className="relative flex" ref={dropdownRef}>
-      <div
-        onClick={isClick}
-        className="w-10 opacity-20 hover:opacity-30 duration-300 cursor-pointer"
-      >
-        <img src={IconAccount} alt="profile" />
+      <div className="flex gap-1 cursor-pointer items-center group" onClick={isClick}>
+        <div className="w-[38px] opacity-20 group-hover:opacity-30 duration-300">
+          <img src={IconAccount} alt="profile" />
+        </div>
+        {/* ✅ 닉네임 표시 */}
+        {user?.nickname && (
+          <div className="text-[14px] text-gray/80 font-medium group-hover:underline">
+            {user.nickname}
+          </div>
+        )}
       </div>
-
+      <div className="flex text-[14px] text-gray/80 items-center ml-1">님</div>
       <div className="absolute p-[5px] w-fit right-0 top-full mt-2 z-50 rounded-[10px] border border-gray-stroke03 shadow-dropDown">
         {accountClick && (
           <DropDownItem

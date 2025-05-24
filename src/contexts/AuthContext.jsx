@@ -7,10 +7,7 @@ import { signup as signupAPI } from '../utils/signUp';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    const token = localStorage.getItem('accessToken');
-    return !!token;
-  });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
   const [loading, setLoading] = useState(false);
@@ -19,11 +16,11 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     setLoading(true);
     try {
-      const { accessToken, refreshToken } = await loginAPI(email, password);
+      const { accessToken, refreshToken, nickname } = await loginAPI(email, password);
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       setIsLoggedIn(true);
-      setUser({ email });
+      setUser({ email, nickname });
       setErrorMsg('');
     } catch (error) {
       if (error.response && error.response.status === 401) {
