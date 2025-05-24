@@ -37,7 +37,7 @@ const Profile = () => {
   return (
     <div className="relative flex" ref={dropdownRef}>
       <div className="flex gap-1 cursor-pointer items-center group" onClick={isClick}>
-        <div className="w-[38px] opacity-20 group-hover:opacity-30 duration-300">
+        <div className="w-[38px] opacity-20 duration-300">
           <img src={IconAccount} alt="profile" />
         </div>
         {/* ✅ 닉네임 표시 */}
