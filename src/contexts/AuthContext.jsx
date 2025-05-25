@@ -11,10 +11,11 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('accessToken');
     return !!token;
   });
-  const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem('user');
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
+  // const [user, setUser] = useState(() => {
+  //   const storedUser = localStorage.getItem('user');
+  //   return storedUser ? JSON.parse(storedUser) : null;
+  // });
+  const [user, setUser] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [loading, setLoading] = useState(false);
 
