@@ -28,6 +28,10 @@ export const ChatProvider = ({ children }) => {
   const userId = useRef(0);
   const [revealedBotBlocks, setRevealedBotBlocks] = useState({});
   const idRef = useRef(0);
+  // 메세지 내용 초기화
+  const resetSessionMessages = () => {
+    setSessionMessages([]);
+  };
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -172,6 +176,7 @@ export const ChatProvider = ({ children }) => {
         setIsLoading,
         userId,
         isLoggedIn,
+        resetSessionMessages,
 
         // 미경
         chatSessions,
