@@ -3,11 +3,12 @@ import NewChatButton from './NewChatButton';
 import SearchChatTitle from './SearchChatTitle';
 import ChatList from './ChatList';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { ChatContext } from '../../contexts/ChatContext';
+import { ChatContext, useChat } from '../../contexts/ChatContext';
 
 const SideBar = () => {
   const { isSidebarOpen, setSidebarOpen, currentSessionId, chatSessions } = useContext(ChatContext);
   const sidebarRef = useRef(null);
+  const { fetchChatSessions } = useChat();
 
   const [search, setSearch] = useState(''); // 검색어 상태 추가
 
@@ -28,6 +29,9 @@ const SideBar = () => {
 
     if (isSidebarOpen) {
       window.addEventListener('mousedown', handleClickOutside);
+      if (chatSessions.length === 0) {
+        fetchChatSessions();
+      }
     }
 
     return () => {
