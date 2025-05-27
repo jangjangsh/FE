@@ -11,7 +11,7 @@ import { useChat } from '../contexts/ChatContext';
 const ChatDetailPage = () => {
   const { sessionId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
-  const { sessionMessages, setSessionMessages } = useChat();
+  const { sessionMessages, setSessionMessages, fetchMessages } = useChat();
 
   // ✅ fetchMessagesAgain으로 넘겨줄 getBotChat은 useCallback으로 만들기
   const getBotChat = useCallback(async () => {
@@ -31,7 +31,8 @@ const ChatDetailPage = () => {
   // ✅ useEffect 안에서는 이 getBotChat() 호출만 하면 돼
   useEffect(() => {
     if (sessionId) {
-      getBotChat();
+      setSessionMessages([]); // ✅ 1단계: 초기화
+      getBotChat(); // ✅ 2단계: 새 메시지 불러오기
     }
   }, [sessionId, getBotChat]);
 
