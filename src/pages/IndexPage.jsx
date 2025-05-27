@@ -1,9 +1,12 @@
 import Header from '../components/Header';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import { IconExImg1 } from '../utils/icons';
 import { IconExImg2 } from '../utils/icons';
-import { useNavigate } from 'react-router-dom';
 
 const IndexPage = () => {
+  const { user } = useAuth(); // ✅ 로그인 상태 확인
   const nav = useNavigate();
 
   const clickLoginButton = () => {
@@ -12,6 +15,12 @@ const IndexPage = () => {
   const clickSignUpButton = () => {
     nav(`/signup`);
   };
+
+  useEffect(() => {
+    if (user) {
+      nav('/chat'); // ✅ 로그인 돼 있으면 자동 이동
+    }
+  }, [user, nav]);
 
   return (
     <>
