@@ -7,7 +7,7 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import { ChatProvider } from './contexts/ChatContext';
 import IndexPage from './pages/IndexPage';
-
+import ProtectedRoute from './components/ProtectedRoute';
 import KakaoCallback from './pages/KakaoCallback';
 function App() {
   return (
@@ -24,10 +24,22 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
 
         {/* 3. 챗봇 */}
-        <Route path="/chat">
-          <Route index element={<ChatMainPage />} />
-          <Route path=":sessionId" element={<ChatDetailPage />} />
-        </Route>
+        <Route
+          path="/chat"
+          element={
+            <ProtectedRoute>
+              <ChatMainPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/chat/:sessionId"
+          element={
+            <ProtectedRoute>
+              <ChatDetailPage />
+            </ProtectedRoute>
+          }
+        />
 
         {/* 4. 마이페이지 */}
         <Route path="/mypage" element={<MyPage />} />

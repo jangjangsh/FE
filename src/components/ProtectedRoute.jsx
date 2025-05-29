@@ -1,14 +1,11 @@
+// 예시: ProtectedRoute.jsx
+import { useAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext'; // 인증 context에서 user 가져오기
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth();
+  const { isLoggedIn } = useAuth();
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return children;
+  return isLoggedIn ? children : <Navigate to="/login" replace />;
 };
 
 export default ProtectedRoute;
