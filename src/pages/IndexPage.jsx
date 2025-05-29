@@ -17,8 +17,8 @@ const IndexPage = () => {
   };
 
   useEffect(() => {
-    if (user) {
-      nav('/chat'); // ✅ 로그인 돼 있으면 자동 이동
+    if (user !== null && user !== undefined) {
+      nav('/chat');
     }
   }, [user, nav]);
 
