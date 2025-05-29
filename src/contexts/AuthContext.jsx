@@ -29,6 +29,9 @@ export const AuthProvider = ({ children }) => {
       setIsLoggedIn(true);
       setUser({ email, nickname });
       localStorage.setItem('user', JSON.stringify({ email, nickname })); // ✅ 추가
+      console.log('✅ 로그인 성공');
+      console.log('accessToken:', accessToken);
+      console.log('refreshToken:', refreshToken);
       setErrorMsg('');
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -101,6 +104,9 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('refreshToken');
     setIsLoggedIn(false);
     setUser(null);
+    console.log('✅ 로그아웃 완료. 토큰 제거됨.');
+    console.log('accessToken:', localStorage.getItem('accessToken'));
+    console.log('refreshToken:', localStorage.getItem('refreshToken'));
   };
 
   return (

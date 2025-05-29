@@ -4,12 +4,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../Button';
 import { useAuth } from '../../contexts/AuthContext'; // ✅ AuthContext 사용
+import { useChat } from '../../contexts/ChatContext';
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [autoLogin, setAutoLogin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { fetchChatSessions } = useChat();
 
   const { login, errorMsg, loading } = useAuth(); // ✅ context에서 함수와 상태 가져오기
   const navigate = useNavigate();
@@ -21,6 +23,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       await login(email, password); // context 함수 사용
+      await fetchChatSessions(); // 🔥 여기서 한 번만 불러옴
       navigate('/chat'); // 로그인 성공 시 이동
     } catch (err) {
       console.error(err);
