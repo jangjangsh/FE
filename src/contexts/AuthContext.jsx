@@ -47,35 +47,39 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // 카카오 간편로그인 함수
   const kakaoLogin = async (code) => {
     setLoading(true);
     try {
       const result = await kakaoLoginAPI(code);
 
       if (result.success) {
-        const { kakao_account } = result.data;
+        const { accessToken, refreshToken, kakao_account } = result;
 
+        // ✅ 토큰 저장
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+
+        // ✅ 유저 정보 저장
         const nickname = kakao_account?.profile?.nickname || '';
         const email = kakao_account?.email || '';
 
         setUser({ email, nickname });
-        localStorage.setItem('user', JSON.stringify({ email, nickname })); // ✅ 추가
+        localStorage.setItem('user', JSON.stringify({ email, nickname }));
+
         setIsLoggedIn(true);
       } else {
         setErrorMsg(result.error);
       }
 
-      return result; // ✅ 이 줄 추가
+      return result;
     } catch (err) {
       console.error('카카오 로그인 실패', err);
       setErrorMsg('카카오 로그인 중 오류 발생');
-      return { success: false, error: '카카오 로그인 중 오류 발생' }; // ✅ 실패 응답도 리턴
+      return { success: false, error: '카카오 로그인 중 오류 발생' };
     } finally {
       setLoading(false);
     }
   };
-
   // 회원가입 함수
   const signup = async (nickname, email, password) => {
     setLoading(true);

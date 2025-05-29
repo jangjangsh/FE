@@ -1,11 +1,12 @@
 // KakaoCallback.jsx
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const KakaoCallback = () => {
   const { kakaoLogin } = useAuth();
   const nav = useNavigate();
+  const [isRequesting, setIsRequesting] = useState(false); // ✅ 중복 요청 방지 상태
 
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
@@ -14,10 +15,13 @@ const KakaoCallback = () => {
       return;
     }
 
+    if (isRequesting) return; // ✅ 중복 방지
+    setIsRequesting(true);
+
     kakaoLogin(code)
       .then((res) => {
         if (res?.success !== false) {
-          nav('/chat'); // 로그인 성공
+          nav('/chat'); // ✅ 로그인 성공 시
         } else {
           throw new Error('로그인 실패');
         }
@@ -26,6 +30,9 @@ const KakaoCallback = () => {
         console.error('카카오 로그인 실패:', err);
         alert('로그인에 실패했습니다.');
         nav('/login');
+      })
+      .finally(() => {
+        setIsRequesting(false); // ✅ 항상 요청 해제
       });
   }, []);
 
