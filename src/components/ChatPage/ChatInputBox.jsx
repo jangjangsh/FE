@@ -4,6 +4,7 @@ import SendButton from './SendButton';
 import TypeSelectorBox from './TypeSelectorBox';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { createChatSession, sendChatMessages } from '../../utils/chat';
+import { getChatMessages } from '../../utils/chat';
 
 const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected = () => false, isClick }) => {
   const {
@@ -20,6 +21,7 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected = () => fa
     setCurrentSessionId,
     setIsLoading,
     userId,
+    setPendingUserMessage,
   } = useChat();
 
   const location = useLocation();
@@ -41,6 +43,7 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected = () => fa
           : ['DRY', 'OILY', 'SENSITIVE', 'COMBINATION'],
     };
 
+    setPendingUserMessage(userMessage);
     setIsLoading(true);
     setInput('');
 
@@ -53,38 +56,31 @@ const ChatInputBox = ({ sessionId, fetchMessagesAgain, isTypeSelected = () => fa
 
         setChatSessions(updatedSessions);
         setCurrentSessionId(currentSessionId);
-        setSessionMessages([userMessage]);
+        setSessionMessages([userMessage]); // ✅ 무조건 먼저 유저 메시지 보여주기
 
         setTimeout(() => {
           navigate(`/chat/${currentSessionId}`);
-        }, 0);
+        }, 10);
 
-        const result = await sendChatMessages(userMessage, currentSessionId);
-        const botMessagesWithId = result.map((msg, index) => ({
-          ...msg,
-          id: `${Date.now()}-${index}`,
-        }));
-        setSessionMessages((prev) => [...prev, ...botMessagesWithId]);
-        setIsLoading(false);
-        fetchMessagesAgain?.();
+        await sendChatMessages(userMessage, currentSessionId);
+        const updatedMessages = await getChatMessages(currentSessionId);
+        setSessionMessages(updatedMessages);
       } else {
-        setSessionMessages((prev) => [...prev, userMessage]);
+        setSessionMessages((prev) => [...prev, userMessage]); // ✅ 무조건 유저 메시지 먼저 추가
 
-        const result = await sendChatMessages(userMessage, currentSessionId);
-        const botMessagesWithId = result.map((msg, index) => ({
-          ...msg,
-          id: `${Date.now()}-${index}`,
-        }));
-        setSessionMessages((prev) => [...prev, ...botMessagesWithId]);
-        setIsLoading(false);
-        fetchMessagesAgain?.();
+        await sendChatMessages(userMessage, currentSessionId);
+        const updatedMessages = await getChatMessages(currentSessionId);
+        setSessionMessages(updatedMessages);
       }
+
+      fetchMessagesAgain?.();
 
       if (selectedTypes.length === 0) {
         setSelectedTypes(skinTypes);
       }
     } catch (err) {
       console.error('❌ 세션 생성 또는 메시지 전송 실패:', err);
+    } finally {
       setIsLoading(false);
     }
   };

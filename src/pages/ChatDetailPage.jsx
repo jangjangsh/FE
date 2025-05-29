@@ -11,7 +11,8 @@ import { useChat } from '../contexts/ChatContext';
 const ChatDetailPage = () => {
   const { sessionId } = useParams();
   const [isOpen, setIsOpen] = useState(false);
-  const { sessionMessages, setSessionMessages, fetchMessages } = useChat();
+  const { sessionMessages, setSessionMessages, pendingUserMessage, setPendingUserMessage } =
+    useChat();
 
   // ✅ fetchMessagesAgain으로 넘겨줄 getBotChat은 useCallback으로 만들기
   const getBotChat = useCallback(async () => {
@@ -28,12 +29,17 @@ const ChatDetailPage = () => {
     }
   }, [sessionId]);
 
-  // ✅ useEffect 안에서는 이 getBotChat() 호출만 하면 돼
   useEffect(() => {
-    if (sessionId) {
-      setSessionMessages([]); // ✅ 1단계: 초기화
-      getBotChat(); // ✅ 2단계: 새 메시지 불러오기
+    if (!sessionId) return;
+
+    // ✅ 1단계: 전역에 저장된 유저 메시지가 있으면 먼저 화면에 표시
+    if (pendingUserMessage) {
+      setSessionMessages([pendingUserMessage]);
+      setPendingUserMessage(null); // 한번 보여주고 초기화
     }
+
+    // ✅ 2단계: 서버에서 메시지 다시 받아오기
+    getBotChat();
   }, [sessionId, getBotChat]);
 
   // useEffect(() => {
