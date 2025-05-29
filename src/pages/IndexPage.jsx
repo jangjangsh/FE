@@ -6,7 +6,7 @@ import { IconExImg1 } from '../utils/icons';
 import { IconExImg2 } from '../utils/icons';
 
 const IndexPage = () => {
-  const { user } = useAuth(); // ✅ 로그인 상태 확인
+  // const { user } = useAuth(); // ✅ 로그인 상태 확인
   const nav = useNavigate();
 
   const clickLoginButton = () => {
@@ -17,10 +17,11 @@ const IndexPage = () => {
   };
 
   useEffect(() => {
-    if (user !== null && user !== undefined) {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
       nav('/chat');
     }
-  }, [user, nav]);
+  }, [nav]);
 
   return (
     <>
