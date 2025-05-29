@@ -10,8 +10,12 @@ const KakaoCallback = () => {
 
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
+    console.log('[useEffect] 카카오 코드:', code);
+    console.log('[useEffect] isRequesting:', isRequesting);
+
     if (!code) {
       alert('로그인 코드가 없습니다.');
+
       return;
     }
 
