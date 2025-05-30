@@ -60,8 +60,9 @@ export const updateChatTitle = async (sessionId, newTitle, accessToken) => {
 // chat.js
 export const sendChatMessages = async (body, sessionId) => {
   const accessToken = localStorage.getItem('accessToken');
+
   try {
-    const response = await fetch(`https://43.203.173.135/api/chat/${sessionId}/messages`, {
+    const response = await fetch(`http://43.203.173.135:8080/api/chat/${sessionId}/messages`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -70,16 +71,23 @@ export const sendChatMessages = async (body, sessionId) => {
       body: JSON.stringify(body),
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let result = '';
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        console.log('✅ stream done');
+        break;
+      }
+      const chunk = decoder.decode(value, { stream: true });
+      result += chunk;
+      console.log(chunk);
     }
 
-    const data = await response.json();
-    console.log('✅ 백엔드 응답:', data);
-    return data;
-  } catch (error) {
-    console.error('메시지 전송 실패:', error);
-    throw error;
+    return JSON.parse(result);
+  } catch (err) {
+    console.error('스트리밍 실패:', err);
   }
 };
 

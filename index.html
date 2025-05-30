@@ -17,6 +17,17 @@
     <meta property="og:image" content="/thumbnail.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SSPOID</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+    default-src 'self';
+    style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline';
+    font-src https://cdn.jsdelivr.net;
+    img-src 'self' data: https:;
+    script-src 'self';
+    connect-src 'self' https://api.sspoid.site http://localhost:5173;
+  "
+    />
   </head>
   <body>
     <div id="root"></div>
