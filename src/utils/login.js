@@ -17,14 +17,8 @@ export const kakaoLogin = async (code) => {
   try {
     const { data } = await api.post('/api/login/kakao', { code });
 
-    const { accessToken, refreshToken, kakao_account } = data;
-
-    return {
-      success: true,
-      accessToken, // ✅ 따로 꺼내서 반환
-      refreshToken,
-      kakao_account,
-    };
+    // 응답 성공 여부만 보고 로그인 성공 판단
+    return { success: true, data };
   } catch (error) {
     const message = error.response?.data?.message || '카카오 로그인 중 오류 발생';
     return { success: false, error: message };
